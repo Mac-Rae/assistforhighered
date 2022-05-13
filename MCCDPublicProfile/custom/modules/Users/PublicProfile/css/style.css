@@ -1,0 +1,112 @@
+
+.footer {
+    /*position: absolute;*/
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background: #002b5c;
+}
+.topBar{
+    background: #002b5c;
+}
+.topBar h2{
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 25px;
+}
+.card-header{
+    background: #002b5c;
+    color: white;
+    font-weight: bold;
+}
+.card-title{
+    font-weight: bold;
+    color: #002b5c;
+}
+.btn-primary{
+    background-color: #74aa50;
+    border-color: #74aa50;
+    margin: 0 0 20px 0;
+}
+.social img{
+    width: 10%;
+}
+.institution-header{
+    font-weight: bold;
+    color: #002b5c;
+    text-align: center;
+}
+.slot-booked{
+    text-decoration: line-through;
+    background-color: grey;
+    width:100%;
+    display: block;
+}
+.slot-free{
+    background-color: green;
+    width:100%;
+    display: block;
+}
+.meeting_slots_form table{
+    background-color: lightgrey;
+}
+.meeting_slots_form table button{
+    width: 100%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+.meeting_slots_form table th{
+    text-align: center;
+}
+.meeting_slots_form table td{
+    text-align: center;
+}
+.user-photo{
+    max-width: 100%;
+    margin: 0 0 10px 0;
+    border-radius: 50%;
+    border: solid 1px #C0C0C0;
+}
+div.card{
+    margin: 0 0 10px 0;
+}
+.meeting_booking_table{
+    margin-left:auto;
+    margin-right:auto;
+}
+.booking_block_buttons button{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.bg-success{
+    background-color:#74AA50!important
+}
+.btn-success{
+    background-color:#74AA50;
+    border-color:#74AA50
+}
+.btn-primary:hover{
+    background-color:#517638;
+    border-color: #517638;
+}
+.btn-outline-primary{
+    color: #74aa50;
+    border-color: #74aa50;
+}
+.btn-outline-primary:hover{
+    background-color:#517638;
+    border-color: #517638;
+}
+.btn-outline-primary:focus{
+     background-color:#517638;
+     border-color: #517638;
+    box-shadow: none;
+ }
+.btn:disabled{
+    background-color: grey;
+}
+.required{
+    color: red;
+}
