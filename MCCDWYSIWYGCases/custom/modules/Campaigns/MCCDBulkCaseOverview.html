@@ -1,0 +1,101 @@
+
+
+TODO: Add more fields to the case details
+    <div id='wiz_stage' style="display:block;">
+        <form  id="wizform" name="wizform" method="POST" action="index.php" enctype="multipart/form-data">
+            <input type="hidden" name="module" value="Campaigns">
+            <input type="hidden" id="record" name="record" value="{$MRKT_ID}">
+            <input type="hidden" name="campaign_id" value="{$CAMPAIGN_ID}">
+            <input type="hidden" id='action' name="action">
+            <input type="hidden" id="return_module" name="return_module" value="{$RETURN_MODULE}">
+            <input type="hidden" id="return_id" name="return_id" value="{$RETURN_ID}">
+            <input type="hidden" id="return_action" name="return_action" value="{$RETURN_ACTION}">
+            <input type="hidden" id="direct_step" name="direct_step" value='4'>
+            <input type="hidden" id="wiz_total_steps" name="totalsteps" value="3">
+            <input type="hidden" id="wiz_current_step" name="currentstep" value='0'>
+            <input type="hidden" id="wiz_back" name="wiz_back" value='none'>
+            <input type="hidden" id="wiz_next" name="wiz_next" value='2'>
+            <input type="hidden" id="direction" name="wiz_direction" value='exit'>
+            <input type="hidden" id="show_wizard_summary" name="show_wizard_summary" value='0'>
+            <input type="hidden" id="sendMarketingEmailTest" name="sendMarketingEmailTest" value="0">
+            <input type="hidden" id="sendMarketingEmailSchedule" name="sendMarketingEmailSchedule" value="0">
+
+            {$WIZMENU}
+
+            <table class='other view' cellspacing="1">
+                <tr>
+                    <td  rowspan='2' width='100%' style="padding: 0;">
+                        <div id="wiz_message"></div>
+                        {$msg}
+                        <div id=wizard class="wizard-unique-elem">
+                            <div id='step3' data="summary-page" class="template-panel step3">
+                                <div class="template-panel-container panel-toolbar ">
+                                    <div class="template-container-full">
+                                        <h4 class="header-4" style="border-bottom: solid 1px #eee;padding-bottom: 8px">{$MOD.LBL_BULKCASE_OVERVIEW}</h4>
+                                        <div class="clear">&nbsp;</div>
+                                        <div style="margin-bottom: 16px;">
+                                            {if $WARNING_MESSAGE}
+                                            <div id='target_message' class="target_messege"><font color='red'><b>{$WARNING_MESSAGE}</b></font></div>
+                                            {else}
+                                            <div id='target_message' class="target_messege"><b>{$MOD.LBL_BULKCASE_CHECKED}</b></div>
+                                            {/if}
+                                            <br class="emptyRow">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="template-panel-container panel-toolbar ">
+                                    <div class="template-container-full">
+                                        <div class="button-group">
+                                            <input type="hidden" name="wiz_home_next_step" value="1" />
+
+                                            <a class="btn btn-primary btn-sm" style="border-radius: 0px;" href="javascript:;" onclick="createBulkCases(this, '{$CAMPAIGN_ID}');">
+                                            <span class="suitepicon suitepicon-action-schedule"></span> {$MOD.LBL_MCCD_BULK_CREATE_CASES_EXECUTE}
+                                            </a>
+                                        </div>
+                                        <div class="button-group-separator"></div>
+                                        <div class="button-group">
+                                            <a class="btn btn-primary btn-sm" href="index.php?module=Campaigns&action=DetailView&record={$CAMPAIGN_ID}" style="border-radius: 0px;">{$MOD.LBL_TODETAIL_BUTTON_TITLE}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    {sugar_getscript file="custom/modules/Campaigns/wizard.js"}
+    {$WIZ_JAVASCRIPT}
+    {$DIV_JAVASCRIPT}
+    {$JAVASCRIPT}
+    <script language="javascript">
+        {literal}
+        function createBulkCases(){
+            if(!confirm('{/literal}{$MOD.LBL_MCCD_BULK_CREATE_CASES_EXECUTE_CONFIRM}{literal}')){
+                return false;
+            }
+            var form = $('#wizform');
+            form.append($('<input type="hidden" name="entryPoint" value="MCCDExecuteBulkCases">'));
+            form.find("[name=action]").remove();
+            form.find("[name=module]").remove();
+            form.submit();
+            return false;
+        }
+        $(document).ready(
+            function(){
+                $('.nav-steps').click(function(e){
+                    document.location = $(e.target).closest("li").data("navUrl");
+                });
+                $('#nav_step4').addClass("selected");
+            });
+
+        {/literal}
+
+    </script>
+
+<link rel="stylesheet" type="text/css" href="modules/EmailTemplates/EmailTemplate.css">
+
