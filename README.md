@@ -17,7 +17,7 @@
   </a>
 
   <p align="center">
-    Academic & Student Success Integrated Support Technology.
+    Academic & Student Success Integrated Support Technology
     <br />
     <br />
     <a href="#"><strong>Explore the Docs »</strong></a>
