@@ -189,4 +189,4 @@ We also want to extend a special think you to the Postsecondary Success team at 
 [license-url]: https://github.com/joelicatajr/assistforhighered/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/joelicatajr
-[product-screenshot]: images/screenshot.png
+[ASSIST Dashboard Screen Shot]: images/assist-screenshot.png
