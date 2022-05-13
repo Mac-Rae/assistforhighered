@@ -16,10 +16,9 @@
     <img src="images/logo.png" alt="Logo" width="324" height="100">
   </a>
 
-  <h3 align="center">ASSIST For Higher Education</h3>
-
   <p align="center">
-    Academic & Student Success Integrated Support Technology (ASSIST).
+    Academic & Student Success Integrated Support Technology.
+    <br />
     <br />
     <a href="#"><strong>Explore the Docs »</strong></a>
     <br />
