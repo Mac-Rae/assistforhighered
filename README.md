@@ -13,7 +13,7 @@
 <br />
 <div align="center">
   <a href="https://assistforhighered.org/">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="324" height="100">
   </a>
 
   <h3 align="center">ASSIST For Higher Education</h3>
