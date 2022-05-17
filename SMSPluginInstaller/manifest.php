@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'MCCD SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '8',
+    'version' => '9',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -41,6 +41,18 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/Extension/application/Ext/LogicHooks/SA_SMS.php',
             'to' => 'custom/Extension/application/Ext/LogicHooks/SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOW_Actions/Ext/Actions/SA_SMS.php',
+            'to' => 'custom/Extension/modules/AOW_Actions/Ext/Actions/SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOW_Actions/Ext/Language/en_us.SA_SMS.php',
+            'to' => 'custom/Extension/modules/AOW_Actions/Ext/Language/en_us.SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOW_WorkFlow/Ext/Language/en_us.SA_SMS.php',
+            'to' => 'custom/Extension/modules/AOW_WorkFlow/Ext/Language/en_us.SA_SMS.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Administration/SA_SMS.php',
@@ -8835,6 +8847,14 @@ $installdefs = [
             'to' => 'custom/lib/SA_SMS/Twilio/autoload.php',
             ],
         [
+            'from' => '<basepath>/custom/modules/AOW_Actions/actions/actionSendSMS.php',
+            'to' => 'custom/modules/AOW_Actions/actions/actionSendSMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOW_Actions/actions/actionSendSMS.tpl',
+            'to' => 'custom/modules/AOW_Actions/actions/actionSendSMS.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/modules/Administration/SA_SMS.php',
             'to' => 'custom/modules/Administration/SA_SMS.php',
             ],
@@ -8965,5 +8985,5 @@ $installdefs = [
         ],
     'language' => [
         ],
-    'id' => '1651488995',
+    'id' => '1652707904',
     ];
