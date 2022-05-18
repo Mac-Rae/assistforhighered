@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'MCCD RDS Contact Sync',
     'published_date' => '2021-09-06 14:17:33',
     'type' => 'module',
-    'version' => '36',
+    'version' => '37',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
