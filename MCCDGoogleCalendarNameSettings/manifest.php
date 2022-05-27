@@ -18,10 +18,10 @@ $manifest = [
     'description' => 'Allows configuring the calendar name for the google sync',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Google Calendar Name',
+    'name' => 'ASSIST Google Calendar Name',
     'published_date' => '2021-09-16 13:15:00',
     'type' => 'module',
-    'version' => '1',
+    'version' => '2',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [

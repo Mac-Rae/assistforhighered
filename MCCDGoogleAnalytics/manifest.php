@@ -18,10 +18,10 @@ $manifest = [
     'description' => 'Google Analytics for ASSIST',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Assist Google analytics',
+    'name' => 'ASSIST Google analytics',
     'published_date' => '2021-11-01 14:28:49',
     'type' => 'module',
-    'version' => '3',
+    'version' => '4',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
