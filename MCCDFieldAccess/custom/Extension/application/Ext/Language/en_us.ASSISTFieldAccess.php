@@ -2,7 +2,7 @@
 $app_list_strings['moduleList']['SA_FieldAccess'] = 'Field Access';
 $app_list_strings['moduleListSingular']['SA_FieldAccess'] = 'Field Access';
 
-$app_list_strings['mccd_field_access_action_options'] = [
+$app_list_strings['assist_field_access_action_options'] = [
     "" => "Not Set",
     "All" => "All",
     "Group" => "Group",

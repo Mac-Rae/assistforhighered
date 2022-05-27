@@ -40,15 +40,15 @@
 
 *}
 
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 <input type="hidden" id="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}_multiselect"
 name="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}_multiselect" value="true">
 {multienum_to_array string={{sugarvar key='value' string=true}} default={{sugarvar key='default' string=true}} assign="values"}
-<select {if $mccd_field_restricted}disabled="disabled"{/if} id="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}"
+<select {if $assist_field_restricted}disabled="disabled"{/if} id="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}"
 name="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}[]"
 multiple="true" size='{{$displayParams.size|default:6}}' style="width:150" title='{{$vardef.help}}' tabindex="{{$tabindex}}" {{$displayParams.field}}
 {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}

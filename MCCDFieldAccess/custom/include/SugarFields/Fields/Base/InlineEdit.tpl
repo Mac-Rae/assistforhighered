@@ -40,10 +40,10 @@
 
 *}
 {{assign var=fieldName value=$vardef.name}}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
-<input type='text' name='{{$fieldName}}' value='{{$parentFieldArray->$fieldName}}' onblur='InlineEditor.save()' {if $mccd_field_restricted}disabled="disabled"{/if} size='40'>
+<input type='text' name='{{$fieldName}}' value='{{$parentFieldArray->$fieldName}}' onblur='InlineEditor.save()' {if $assist_field_restricted}disabled="disabled"{/if} size='40'>
 {/if}

@@ -44,13 +44,13 @@
 {else}
 {assign var="value" value={{sugarvar key='value' string=true}} }
 {/if}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 <input type='text' name='{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}' 
 id='{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}' size='{{$displayParams.size|default:30}}' {{if isset($displayParams.maxlength)}}maxlength='{{$displayParams.maxlength}}'{{elseif isset($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} value='{sugar_number_format var=$value}' title='{{$vardef.help}}' tabindex='{{$tabindex}}'
 {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}} {{$displayParams.field}}
-       {if $mccd_field_restricted}disabled="disabled"{/if}>
+       {if $assist_field_restricted}disabled="disabled"{/if}>
 {/if}

@@ -1,10 +1,11 @@
 {*
+/**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2019 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -35,55 +36,39 @@
  * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
- *
- * This file was contributed by Urdhva tech private limited <contact@urdhva-tech.com>
- *}
-<link rel="stylesheet" type="text/css" href="include/SugarFields/Fields/Wysiwyg/css/wysiwyg-editview.css" />
-{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+ */
+
+*}
 {assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
 {if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
-{if empty({{sugarvar key='value' string=true}})}
-    {assign var="value" value={{sugarvar key='default_value' string=true}} }
-{else}
-    {assign var="value" value={{sugarvar key='value' string=true}} }
+<span class="sugar_field" id="{{if empty($displayParams.idName)}}{{sugarvar key='name'}}{{else}}{{$displayParams.idName}}{{/if}}">
+<a href="index.php?entryPoint=download&id={$fields.{{$vardef.fileId}}.value}&type={{$vardef.linkModule}}" class="tabDetailViewDFLink" target='_blank'>{{sugarvar key='value'}}</a>
+&nbsp;
+
+{if $fields.show_preview.value !== false}
+	<a href="index.php?preview=yes&
+		entryPoint=download&
+		id={$fields.{{$vardef.fileId}}.value}&
+		type={{$vardef.linkModule}}" 
+		class="tabDetailViewDFLink" 
+		target='_blank' 
+		style="border-bottom: 0px;">
+		<i class="glyphicon glyphicon-eye-open"></i>
+	</a>
 {/if}
+</span>
 
-{{if $displayParams.maxlength}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            maxlength="{{$displayParams.maxlength}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
-{{else}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
+{{if isset($vardef) && isset($vardef.allowEapm) && $vardef.allowEapm}}
+{if isset($fields.{{$vardef.docType}}) && !empty($fields.{{$vardef.docType}}.value) && $fields.{{$vardef.docType}}.value != 'SugarCRM' && !empty($fields.{{$vardef.docUrl}}.value) }
+{capture name=imageNameCapture assign=imageName}
+{$fields.{{$vardef.docType}}.value}_image_inline.png
+{/capture}
+<a href="{$fields.{{$vardef.docUrl}}.value}" class="tabDetailViewDFLink" target="_blank">{sugar_getimage name=$imageName alt=$imageName other_attributes='border="0" '}</a>
+{/if}
 {{/if}}
-
-<br />
+{{if !empty($displayParams.enableConnectors)}}
+	{{sugarvar_connector view='DetailView'}}
+{{/if}}
 {/if}

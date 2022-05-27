@@ -45,11 +45,11 @@ if (!defined('sugarEntry') || !sugarEntry) {
     $removeFile = "upload://{$_REQUEST[$field . '_record_id'] }_" . $field;
     $bean = BeanFactory::getBean($_REQUEST['module'], $_REQUEST[$field . "_record_id"]);
 
-if(!empty($bean->field_defs[$field]['mccd_field_restricted'])){
+if(!empty($bean->field_defs[$field]['assist_field_restricted'])){
     echo "false";
     return;
 }
-if(!empty($bean->field_defs[$field]['mccd_field_hidden'])){
+if(!empty($bean->field_defs[$field]['assist_field_hidden'])){
     echo "false";
     return;
 }

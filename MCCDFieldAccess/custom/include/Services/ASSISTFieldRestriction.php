@@ -1,5 +1,5 @@
 <?php
-class MCCDFieldRestriction{
+class ASSISTFieldRestriction{
 
     public function checkChanges(SugarBean $bean){
         global $current_user;
@@ -7,7 +7,7 @@ class MCCDFieldRestriction{
             return;
         }
         foreach($bean->field_defs as $name => $def){
-            if(empty($def['mccd_field_restricted']) && empty($def['mccd_field_hidden'])){
+            if(empty($def['assist_field_restricted']) && empty($def['assist_field_hidden'])){
                 continue;
             }
             $bean->$name = $bean->fetched_row[$name];
@@ -63,9 +63,9 @@ EOF;
 
 
         foreach($bean->field_defs as $key => $def){
-            $bean->field_defs[$key]['mccd_field_restricted'] = true;
+            $bean->field_defs[$key]['assist_field_restricted'] = true;
             if(empty($accessList[$key])){
-                $bean->field_defs[$key]['mccd_field_restricted'] = false;
+                $bean->field_defs[$key]['assist_field_restricted'] = false;
             }else{
                 $access = false;
                 $accessList[$key] = array_unique($accessList[$key]);
@@ -92,17 +92,17 @@ EOF;
                     }
                 }
 
-                $bean->field_defs[$key]['mccd_field_restricted'] = !$access;
+                $bean->field_defs[$key]['assist_field_restricted'] = !$access;
                 if(!$access && $key == 'currency_id'){
-                    $bean->field_defs[$key]['function']['name'] = 'getCurrencyDropDownMCCDCustom';
+                    $bean->field_defs[$key]['function']['name'] = 'getCurrencyDropDownASSISTCustom';
                 }
             }
         }
 
         foreach($bean->field_defs as $key => $def){
-            $bean->field_defs[$key]['mccd_field_hidden'] = true;
+            $bean->field_defs[$key]['assist_field_hidden'] = true;
             if(empty($viewList[$key])){
-                $bean->field_defs[$key]['mccd_field_hidden'] = false;
+                $bean->field_defs[$key]['assist_field_hidden'] = false;
             }else{
                 $access = false;
                 $viewList[$key] = array_unique($viewList[$key]);
@@ -129,9 +129,9 @@ EOF;
                     }
                 }
 
-                $bean->field_defs[$key]['mccd_field_hidden'] = !$access;
+                $bean->field_defs[$key]['assist_field_hidden'] = !$access;
                 if(!$access && $key == 'currency_id'){
-                    $bean->field_defs[$key]['function']['name'] = 'getCurrencyDropDownMCCDCustom';
+                    $bean->field_defs[$key]['function']['name'] = 'getCurrencyDropDownASSISTCustom';
                 }
             }
         }
@@ -140,8 +140,8 @@ EOF;
             if(empty($def['id_name'])){
                 continue;
             }
-            $bean->field_defs[$key]['mccd_field_restricted'] = $bean->field_defs[$def['id_name']]['mccd_field_restricted'];
-            $bean->field_defs[$key]['mccd_field_hidden'] = $bean->field_defs[$def['id_name']]['mccd_field_hidden'];
+            $bean->field_defs[$key]['assist_field_restricted'] = $bean->field_defs[$def['id_name']]['assist_field_restricted'];
+            $bean->field_defs[$key]['assist_field_hidden'] = $bean->field_defs[$def['id_name']]['assist_field_hidden'];
         }
     }
 }

@@ -39,14 +39,14 @@
  */
 
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 <select name='parent_type' tabindex="{{$tabindex}}" id='parent_type' title='{{$vardef.help}}'  {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
 onchange='document.{$form_name}.{{sugarvar key='name'}}.value="";document.{$form_name}.parent_id.value=""; changeParentQS("{{sugarvar key='name'}}"); checkParentType(document.{$form_name}.parent_type.value, document.{$form_name}.btn_{{sugarvar key='name'}});'
-{if $mccd_field_restricted}disabled="disabled"{/if}
+{if $assist_field_restricted}disabled="disabled"{/if}
 >
 {html_options options={{sugarvar key='options' string=true}} selected=$fields.parent_type.value sortoptions=true}
 </select>
@@ -60,12 +60,12 @@ onchange='document.{$form_name}.{{sugarvar key='name'}}.value="";document.{$form
 	{assign var="keepParent" value = 1}
 {/if}
 <input type="text" name="{{sugarvar key='name'}}" id="{{sugarvar key='name'}}" class="sqsEnabled" tabindex="{{$tabindex}}"
-    size="{{$displayParams.size}}" {if $keepParent}value="{{sugarvar key='value'}}"{/if} autocomplete="off" {if $mccd_field_restricted}disabled="disabled"{/if}><input type="hidden" name="{{sugarvar memberName='vardef.id_name' key='name'}}" id="{{sugarvar memberName='vardef.id_name' key='name'}}"
+    size="{{$displayParams.size}}" {if $keepParent}value="{{sugarvar key='value'}}"{/if} autocomplete="off" {if $assist_field_restricted}disabled="disabled"{/if}><input type="hidden" name="{{sugarvar memberName='vardef.id_name' key='name'}}" id="{{sugarvar memberName='vardef.id_name' key='name'}}"
 {if $keepParent}value="{{sugarvar memberName='vardef.id_name' key='value'}}"{/if}>
 <span class="id-ff multiple">
-<button {if $mccd_field_restricted}disabled="disabled"{/if} type="button" name="btn_{{sugarvar key='name'}}" id="btn_{{sugarvar key='name'}}" tabindex="{{$tabindex}}"
+<button {if $assist_field_restricted}disabled="disabled"{/if} type="button" name="btn_{{sugarvar key='name'}}" id="btn_{{sugarvar key='name'}}" tabindex="{{$tabindex}}"
 title="{sugar_translate label="{{$displayParams.accessKeySelectTitle}}"}" class="button firstChild" value="{sugar_translate label="{{$displayParams.accessKeySelectLabel}}"}"
-onclick='open_popup(document.{$form_name}.parent_type.value, 600, 400, "", true, false, {{$displayParams.popupData}}, "single", true);' {{if isset($displayParams.javascript.btn)}}{{$displayParams.javascript.btn}}{{/if}}><span class="suitepicon suitepicon-action-select"></span></button>{{if empty($displayParams.selectOnly)}}<button {if $mccd_field_restricted}disabled="disabled"{/if} type="button" name="btn_clr_{{sugarvar key='name'}}" id="btn_clr_{{sugarvar key='name'}}" tabindex="{{$tabindex}}" title="{sugar_translate label="{{$displayParams.accessKeyClearTitle}}"}" class="button lastChild" onclick="this.form.{{sugarvar key='name'}}.value = ''; this.form.{{sugarvar memberName='vardef.id_name' key='name'}}.value = '';" value="{sugar_translate label="{{$displayParams.accessKeyClearLabel}}"}" {{if isset($displayParams.javascript.btn_clear)}}{{$displayParams.javascript.btn_clear}}{{/if}}><span class="suitepicon suitepicon-action-clear"></span></button>
+onclick='open_popup(document.{$form_name}.parent_type.value, 600, 400, "", true, false, {{$displayParams.popupData}}, "single", true);' {{if isset($displayParams.javascript.btn)}}{{$displayParams.javascript.btn}}{{/if}}><span class="suitepicon suitepicon-action-select"></span></button>{{if empty($displayParams.selectOnly)}}<button {if $assist_field_restricted}disabled="disabled"{/if} type="button" name="btn_clr_{{sugarvar key='name'}}" id="btn_clr_{{sugarvar key='name'}}" tabindex="{{$tabindex}}" title="{sugar_translate label="{{$displayParams.accessKeyClearTitle}}"}" class="button lastChild" onclick="this.form.{{sugarvar key='name'}}.value = ''; this.form.{{sugarvar memberName='vardef.id_name' key='name'}}.value = '';" value="{sugar_translate label="{{$displayParams.accessKeyClearLabel}}"}" {{if isset($displayParams.javascript.btn_clear)}}{{$displayParams.javascript.btn_clear}}{{/if}}><span class="suitepicon suitepicon-action-clear"></span></button>
 </span>
 {{/if}}
 

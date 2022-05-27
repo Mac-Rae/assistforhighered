@@ -42,9 +42,9 @@
 {{if !empty($displayParams.idName)}}
     {{assign var=idname value=$displayParams.idName}}
 {{/if}}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {{assign var=flag_field value=$vardef.name|cat:_flag}}
@@ -52,10 +52,10 @@
 <tr valign="middle">
 <td nowrap class="dateTimeComboColumn">
 <input autocomplete="off" type="text" id="{{$idname}}_date" class="datetimecombo_date" value="{$fields[{{sugarvar key='name' stringFormat=true}}].value}" size="11" maxlength="10" title='{{$vardef.help}}' tabindex="{{$tabindex}}" onblur="combo_{{$idname}}.update();" onchange="combo_{{$idname}}.update(); {{if isset($displayParams.updateCallback)}}{{$displayParams.updateCallback}}{{/if}}"   {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
-{if $mccd_field_restricted}disabled="disabled"{/if}
+{if $assist_field_restricted}disabled="disabled"{/if}
 >
 	<button type="button" id="{{$idname}}_trigger" class="btn btn-danger" onclick="return false;"
-	{if $mccd_field_restricted}disabled="disabled"{/if}
+	{if $assist_field_restricted}disabled="disabled"{/if}
 	><span class="suitepicon suitepicon-module-calendar"  alt="{$APP.LBL_ENTER_DATE}"></span></button>
 {{if empty($displayParams.splitDateTime)}}
 </td>
@@ -103,7 +103,7 @@ var combo_{{$idname}} = new Datetimecombo("{$fields[{{sugarvar key='name' string
 text = combo_{{$idname}}.html('{{$displayParams.updateCallback}}');
 document.getElementById('{{$idname}}_time_section').innerHTML = text;
 {literal}
-if("{/literal}{$mccd_field_restricted}{literal}"){
+if("{/literal}{$assist_field_restricted}{literal}"){
     $('#{/literal}{{$idname}}{literal}_time_section select').attr("disabled","disabled");
 }
 {/literal}

@@ -2,13 +2,13 @@
 <table>
     <tr>
         <th>
-            {$MOD.LBL_MCCDFIELDACCESS_FIELD}
+            {$MOD.LBL_ASSISTFIELDACCESS_FIELD}
         </th>
         <th>
-            {$MOD.LBL_MCCDFIELDACCESS_EDIT}
+            {$MOD.LBL_ASSISTFIELDACCESS_EDIT}
         </th>
         <th>
-            {$MOD.LBL_MCCDFIELDACCESS_VIEW}
+            {$MOD.LBL_ASSISTFIELDACCESS_VIEW}
         </th>
     </tr>
 {foreach from=$fields item=field}
@@ -17,13 +17,13 @@
             {$field.actual_label}
         </td>
         <td>
-            <select name="{$field.name}_role_edit" class="mccd_field_role_edit">
-                {$field.mccd_field_access_options_edit}
+            <select name="{$field.name}_role_edit" class="assist_field_role_edit">
+                {$field.assist_field_access_options_edit}
             </select>
         </td>
         <td>
-            <select name="{$field.name}_role_view" class="mccd_field_role_view">
-                {$field.mccd_field_access_options_view}
+            <select name="{$field.name}_role_view" class="assist_field_role_view">
+                {$field.assist_field_access_options_view}
             </select>
         </td>
     </tr>

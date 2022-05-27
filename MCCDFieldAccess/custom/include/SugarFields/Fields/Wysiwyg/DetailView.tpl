@@ -38,52 +38,14 @@
  *
  * This file was contributed by Urdhva tech private limited <contact@urdhva-tech.com>
  *}
-<link rel="stylesheet" type="text/css" href="include/SugarFields/Fields/Wysiwyg/css/wysiwyg-editview.css" />
-{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
 {assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
 {if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
-{if empty({{sugarvar key='value' string=true}})}
-    {assign var="value" value={{sugarvar key='default_value' string=true}} }
-{else}
-    {assign var="value" value={{sugarvar key='value' string=true}} }
-{/if}
-
-{{if $displayParams.maxlength}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            maxlength="{{$displayParams.maxlength}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
-{{else}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
-{{/if}}
-
-<br />
+<iframe
+    id="{{sugarvar key='name'}}"
+    name="{{sugarvar key='name'}}"
+    srcdoc="{{sugarvar key='value'}}"
+    style="width:100%;height:500px"
+></iframe>
 {/if}

@@ -48,22 +48,22 @@
 {{if !empty($displayParams.idName)}}
     {{assign var=idname value=$displayParams.idName}}
 {{/if}}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {{if !$vardef.gen}}
 	{if !empty({{sugarvar key='value' string=true}})}
 	<input type='text' name='{{$idname}}' id='{{$idname}}' size='{{$displayParams.size|default:30}}' 
 	   {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} value='{{sugarvar key='value'}}' title='{{$vardef.help}}' tabindex='{{$tabindex}}'	{{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
-	   {if $mccd_field_restricted}disabled="disabled"{/if}
+	   {if $assist_field_restricted}disabled="disabled"{/if}
 	   >
 	{else}
 	<input type='text' name='{{$idname}}' id='{{$idname}}' size='{{$displayParams.size|default:30}}' 
 	   {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} 
 	   {if $displayView=='advanced_search'||$displayView=='basic_search'}value=''{else}value='http://'{/if} title='{{$vardef.help}}' tabindex='{{$tabindex}}'	{{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
-	   {if $mccd_field_restricted}disabled="disabled"{/if}
+	   {if $assist_field_restricted}disabled="disabled"{/if}
 	   >
 	{/if}
 {{/if}}

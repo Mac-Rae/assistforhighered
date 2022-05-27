@@ -1,10 +1,11 @@
 {*
+/**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2019 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -35,55 +36,33 @@
  * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
- *
- * This file was contributed by Urdhva tech private limited <contact@urdhva-tech.com>
- *}
-<link rel="stylesheet" type="text/css" href="include/SugarFields/Fields/Wysiwyg/css/wysiwyg-editview.css" />
-{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+ */
+
+
+*}
+{*
+    check to see if 'date_formatted_value' has been added to the vardefs, and use it if it has, otherwise use the normal sugarvar function
+*}
 {assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
 {if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
-{if empty({{sugarvar key='value' string=true}})}
-    {assign var="value" value={{sugarvar key='default_value' string=true}} }
+{if !empty($vardef.date_formatted_value) }
+    {assign var="value" value={$vardef.date_formatted_value} }
 {else}
-    {assign var="value" value={{sugarvar key='value' string=true}} }
+    {if strlen({{sugarvar key='value' string=true}}) <= 0}
+        {assign var="value" value={{sugarvar key='default_value' string=true}} }
+    {else}
+        {assign var="value" value={{sugarvar key='value' string=true}} }
+    {/if}
 {/if}
 
-{{if $displayParams.maxlength}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            maxlength="{{$displayParams.maxlength}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
-{{else}}
-    {literal}
-        {{$tiny}}
-    {/literal}
-    <div class="wysiwyg">
-        <textarea
-            id="{{sugarvar key='name'}}"
-            name="{{sugarvar key='name'}}"
-            rows="{{$displayParams.rows|default:4}}"
-            cols="{{$displayParams.cols|default:60}}"
-            title='{{$vardef.help}}'
-            tabindex="{{$tabindex}}"
-            {{$displayParams.field}}
-            {if $assist_field_restricted}disabled="disabled"{/if}
-        >{$value}</textarea>
-    </div>
-{{/if}}
 
-<br />
+
+<span class="sugar_field" id="{{sugarvar key='name'}}">{$value}</span>
+{{if !empty($displayParams.enableConnectors)}}
+{if !empty($value)}
+{{sugarvar_connector view='DetailView'}}
+{/if}
+{{/if}}
 {/if}

@@ -39,13 +39,13 @@
  */
 
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
-<input {if $mccd_field_restricted}disabled="disabled"{/if} type="hidden" id="{{sugarvar key='name'}}_multiselect" name="{{sugarvar key='name'}}_multiselect" value="true">
-<select {if $mccd_field_restricted}disabled="disabled"{/if} id="{{sugarvar key='name'}}" name="{{sugarvar key='name'}}[]" multiple="true" size="6" style="width:150" tabindex="{{$tabindex}}">
+<input {if $assist_field_restricted}disabled="disabled"{/if} type="hidden" id="{{sugarvar key='name'}}_multiselect" name="{{sugarvar key='name'}}_multiselect" value="true">
+<select {if $assist_field_restricted}disabled="disabled"{/if} id="{{sugarvar key='name'}}" name="{{sugarvar key='name'}}[]" multiple="true" size="6" style="width:150" tabindex="{{$tabindex}}">
 {{sugarvar key='value'}}
 </select>
 {/if}

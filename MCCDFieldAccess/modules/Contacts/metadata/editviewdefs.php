@@ -93,7 +93,7 @@ array(
           0 =>
           array(
             'name' => 'first_name',
-            'customCode' => '{if $fields.salutation.mccd_field_hidden}{html_options name="salutation" id="salutation" options=$fields.salutation.options disabled=$fields.salutation.mccd_field_restricted selected=$fields.salutation.value}&nbsp;{/if}@@FIELD@@',
+            'customCode' => '{if $fields.salutation.assist_field_hidden}{html_options name="salutation" id="salutation" options=$fields.salutation.options disabled=$fields.salutation.assist_field_restricted selected=$fields.salutation.value}&nbsp;{/if}@@FIELD@@',
           ),
           1 =>
           array(

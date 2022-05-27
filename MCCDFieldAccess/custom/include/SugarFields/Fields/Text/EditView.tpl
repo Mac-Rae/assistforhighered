@@ -50,9 +50,9 @@
 {{if !empty($displayParams.idName)}}
     {{assign var=idname value=$displayParams.idName}}
 {{/if}}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 <textarea  id='{{$idname}}' name='{{$idname}}'
@@ -60,7 +60,7 @@ rows="{{if !empty($displayParams.rows)}}{{$displayParams.rows}}{{elseif !empty($
 cols="{{if !empty($displayParams.cols)}}{{$displayParams.cols}}{{elseif !empty($vardef.cols)}}{{$vardef.cols}}{{else}}{{60}}{{/if}}"
 title='{{$vardef.help}}' tabindex="{{$tabindex}}" {{$displayParams.field}}
 {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
-{if $mccd_field_restricted}disabled="disabled"{/if}
+{if $assist_field_restricted}disabled="disabled"{/if}
 >{$value}</textarea>
 
 

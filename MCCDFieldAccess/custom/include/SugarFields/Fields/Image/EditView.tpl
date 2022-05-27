@@ -38,9 +38,9 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {{if isset($vardef.allowEapm) && $vardef.allowEapm}}
@@ -104,13 +104,13 @@
     {/if}
     {{/if}}
     {if !$noChange}
-        <input {if $mccd_field_restricted}disabled="disabled"{/if} type='button' class='button' id='remove_button' value='{$APP.LBL_REMOVE}' onclick='SUGAR.field.file.deleteAttachment("{{$idName}}","{{$vardef.docType}}",this);'>
+        <input {if $assist_field_restricted}disabled="disabled"{/if} type='button' class='button' id='remove_button' value='{$APP.LBL_REMOVE}' onclick='SUGAR.field.file.deleteAttachment("{{$idName}}","{{$vardef.docType}}",this);'>
     {/if}
 </span>
 {if !$noChange}
 <span id="{{$idName}}_new" style="display:{if $showRemove}none;{/if}">
 <input type="hidden" name="{{$idName}}_escaped">
-<input {if $mccd_field_restricted}disabled="disabled"{/if} id="{{$idName}}_file" name="{{$idName}}_file"
+<input {if $assist_field_restricted}disabled="disabled"{/if} id="{{$idName}}_file" name="{{$idName}}_file"
        type="file" title='{{$vardef.help}}' size="{{$displayParams.size|default:30}}"
         {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}}
         {{if !empty($vardef.len)}}
@@ -141,10 +141,10 @@
 
     {{if empty($displayParams.hideButtons) }}
     <span class="id-ff multiple">
-<button {if $mccd_field_restricted}disabled="disabled"{/if} type="button" name="{{$idName}}_remoteSelectBtn" id="{{$idName}}_remoteSelectBtn" tabindex="{{$tabindex}}" title="{sugar_translate label="{{$displayParams.accessKeySelectTitle}}"}" class="button firstChild" value="{sugar_translate label="{{$displayParams.accessKeySelectLabel}}"}"
+<button {if $assist_field_restricted}disabled="disabled"{/if} type="button" name="{{$idName}}_remoteSelectBtn" id="{{$idName}}_remoteSelectBtn" tabindex="{{$tabindex}}" title="{sugar_translate label="{{$displayParams.accessKeySelectTitle}}"}" class="button firstChild" value="{sugar_translate label="{{$displayParams.accessKeySelectLabel}}"}"
 onclick="SUGAR.field.file.openPopup('{{$idName}}'); return false;">
 <span class="suitepicon suitepicon-action-select"></span></button>
-<button {if $mccd_field_restricted}disabled="disabled"{/if} type="button" name="{{$idName}}_remoteClearBtn" id="{{$idName}}_remoteClearBtn" tabindex="{{$tabindex}}" title="{$APP.LBL_CLEAR_BUTTON_TITLE}" class="button lastChild" value="{$APP.LBL_CLEAR_BUTTON_LABEL}" onclick="SUGAR.field.file.clearRemote('{{$idName}}'); return false;">
+<button {if $assist_field_restricted}disabled="disabled"{/if} type="button" name="{{$idName}}_remoteClearBtn" id="{{$idName}}_remoteClearBtn" tabindex="{{$tabindex}}" title="{$APP.LBL_CLEAR_BUTTON_TITLE}" class="button lastChild" value="{$APP.LBL_CLEAR_BUTTON_LABEL}" onclick="SUGAR.field.file.clearRemote('{{$idName}}'); return false;">
 <span class="suitepicon suitepicon-action-clear"></span>
 </button>
 </span>

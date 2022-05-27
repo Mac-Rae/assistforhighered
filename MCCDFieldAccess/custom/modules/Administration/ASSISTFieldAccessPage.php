@@ -3,8 +3,8 @@ global $current_user,$app_list_strings;
 if (!is_admin($current_user)) {
     sugar_die('Unauthorized access to Administration.');
 }
-$module = $_REQUEST['mccd_module'];
-$role = $_REQUEST['mccd_role'];
+$module = $_REQUEST['assist_module'];
+$role = $_REQUEST['assist_role'];
 
 $fields = [];
 $bean = BeanFactory::newBean($module);
@@ -39,10 +39,10 @@ foreach($bean->field_defs as $field => $def){
         continue;
     }
     $def['actual_label'] = translate($def['vname'],$module);
-    $mccdFieldAccess = BeanFactory::newBean('SA_FieldAccess');
-    $mccdFieldAccess->retrieve_by_string_fields(['access_role' => $role,'access_field' => $field, 'access_module' => $module]);
-    $def['mccd_field_access_options_edit'] = get_select_options_with_id($app_list_strings['mccd_field_access_action_options'],$mccdFieldAccess->access_type);
-    $def['mccd_field_access_options_view'] = get_select_options_with_id($app_list_strings['mccd_field_access_action_options'],$mccdFieldAccess->view_type);
+    $assistFieldAccess = BeanFactory::newBean('SA_FieldAccess');
+    $assistFieldAccess->retrieve_by_string_fields(['access_role' => $role,'access_field' => $field, 'access_module' => $module]);
+    $def['assist_field_access_options_edit'] = get_select_options_with_id($app_list_strings['assist_field_access_action_options'],$assistFieldAccess->access_type);
+    $def['assist_field_access_options_view'] = get_select_options_with_id($app_list_strings['assist_field_access_action_options'],$assistFieldAccess->view_type);
 
     $fields[] = $def;
 }
@@ -51,4 +51,4 @@ uasort($fields,function($a,$b){
 });
 $sugar_smarty = new Sugar_Smarty();
 $sugar_smarty->assign('fields', $fields);
-$sugar_smarty->display('custom/modules/Administration/MCCDFieldAccessPage.tpl');
+$sugar_smarty->display('custom/modules/Administration/ASSISTFieldAccessPage.tpl');

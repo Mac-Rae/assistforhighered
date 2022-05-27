@@ -39,18 +39,18 @@
  */
 
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {if !empty($displayParams.maxlength)}
 <textarea id="{$prefix}{$name}" name="{$prefix}{$name}" maxlength="{$displayParams.maxlength}" cols="{$displayParams.cols|default:60}" rows="{$displayParams.rows|default:4}" tabindex="{$tabindex}"
-          {if $mccd_field_restricted}disabled="disabled"{/if}
+          {if $assist_field_restricted}disabled="disabled"{/if}
 >{$value}</textarea>
 {else}
 <textarea id="{$prefix}{$name}" name="{$prefix}{$name}" cols="{$displayParams.cols|default:60}" rows="{$displayParams.rows|default:4}" tabindex="{$tabindex}"
-          {if $mccd_field_restricted}disabled="disabled"{/if}
+          {if $assist_field_restricted}disabled="disabled"{/if}
 >{$value}</textarea>
 {/if}
 {/if}

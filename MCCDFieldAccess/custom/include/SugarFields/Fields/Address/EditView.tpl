@@ -56,20 +56,20 @@
                 {/if}
             </td>
             <td width="*">
-                {if $fields.{{$street}}.mccd_field_hidden}
+                {if $fields.{{$street}}.assist_field_hidden}
                 {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
                 {else}
                 {{if $displayParams.maxlength}}
                 <textarea id="{{$street}}" name="{{$street}}" title='{{$vardef.help}}' maxlength="{{$displayParams.maxlength}}"
                           rows="{{$displayParams.rows|default:4}}" cols="{{$displayParams.cols|default:60}}"
                           tabindex="{{$tabindex}}"
-                          {if $fields.{{$street}}.mccd_field_restricted}disabled="disabled"{/if}
+                          {if $fields.{{$street}}.assist_field_restricted}disabled="disabled"{/if}
                 >{$fields.{{$street}}.value}</textarea>
                 {{else}}
                 <textarea id="{{$street}}" name="{{$street}}" title='{{$vardef.help}}' rows="{{$displayParams.rows|default:4}}"
                           cols="{{$displayParams.cols|default:60}}"
                           tabindex="{{$tabindex}}"
-                          {if $fields.{{$street}}.mccd_field_restricted}disabled="disabled"{/if}
+                          {if $fields.{{$street}}.assist_field_restricted}disabled="disabled"{/if}
                 >{$fields.{{$street}}.value}</textarea>
                 {{/if}}
                 {/if}
@@ -86,13 +86,13 @@
                 {/if}
             </td>
             <td>
-                {if $fields.{{$city}}.mccd_field_hidden}
+                {if $fields.{{$city}}.assist_field_hidden}
                 {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
                 {else}
                 <input type="text" name="{{$city}}" id="{{$city}}" title='{$fields.{{$city}}.help}' size="{{$displayParams.size|default:30}}"
                        {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} value='{$fields.{{$city}}.value}'
                        tabindex="{{$tabindex}}"
-                       {if $fields.{{$city}}.mccd_field_restricted}disabled="disabled"{/if}
+                       {if $fields.{{$city}}.assist_field_restricted}disabled="disabled"{/if}
                 >
                 {/if}
             </td>
@@ -107,13 +107,13 @@
                 {/if}
             </td>
             <td>
-                {if $fields.{{$state}}.mccd_field_hidden}
+                {if $fields.{{$state}}.assist_field_hidden}
                 {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
                 {else}
                 <input type="text" name="{{$state}}" id="{{$state}}" title='{$fields.{{$state}}.help}' size="{{$displayParams.size|default:30}}"
                        {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} value='{$fields.{{$state}}.value}'
                        tabindex="{{$tabindex}}"
-                       {if $fields.{{$state}}.mccd_field_restricted}disabled="disabled"{/if}
+                       {if $fields.{{$state}}.assist_field_restricted}disabled="disabled"{/if}
                 >
                 {/if}
             </td>
@@ -130,13 +130,13 @@
                 {/if}
             </td>
             <td>
-                {if $fields.{{$postalcode}}.mccd_field_hidden}
+                {if $fields.{{$postalcode}}.assist_field_hidden}
                 {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
                 {else}
                 <input type="text" name="{{$postalcode}}" id="{{$postalcode}}" size="{{$displayParams.size|default:30}}"
                        {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}}
                        value='{$fields.{{$postalcode}}.value}' tabindex="{{$tabindex}}"
-                       {if $fields.{{$postalcode}}.mccd_field_restricted}disabled="disabled"{/if}>
+                       {if $fields.{{$postalcode}}.assist_field_restricted}disabled="disabled"{/if}>
                 {/if}
             </td>
         </tr>
@@ -152,13 +152,13 @@
                 {/if}
             </td>
             <td>
-                {if $fields.{{$country}}.mccd_field_hidden}
+                {if $fields.{{$country}}.assist_field_hidden}
                 {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
                 {else}
                 <input type="text" name="{{$country}}" id="{{$country}}" title='{$fields.{{$country}}.help}' size="{{$displayParams.size|default:30}}"
                        {{if !empty($vardef.len)}}maxlength='{{$vardef.len}}'{{/if}} value='{$fields.{{$country}}.value}'
                        tabindex="{{$tabindex}}"
-                       {if $fields.{{$country}}.mccd_field_restricted}disabled="disabled"{/if}>
+                       {if $fields.{{$country}}.assist_field_restricted}disabled="disabled"{/if}>
                 {/if}
             </td>
         </tr>

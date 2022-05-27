@@ -39,9 +39,9 @@
  */
 
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {{if isset($vardef.allowEapm) && $vardef.allowEapm}}
@@ -93,13 +93,13 @@
 {/if}
 {{/if}}
 {if !$noChange}
-<input {if $mccd_field_restricted}disabled="disabled"{/if} type='button' class='button' id='remove_button' value='{$APP.LBL_REMOVE}' onclick='SUGAR.field.file.deleteAttachment("{{$idName}}","{{$vardef.docType}}",this);'>
+<input {if $assist_field_restricted}disabled="disabled"{/if} type='button' class='button' id='remove_button' value='{$APP.LBL_REMOVE}' onclick='SUGAR.field.file.deleteAttachment("{{$idName}}","{{$vardef.docType}}",this);'>
 {/if}
 </span>
 {if !$noChange}
 <span id="{{$idName}}_new" style="display:{if $showRemove}none;{/if}">
 <input type="hidden" name="{{$idName}}_escaped">
-<input {if $mccd_field_restricted}disabled="disabled"{/if} id="{{$idName}}_file" name="{{$idName}}_file"
+<input {if $assist_field_restricted}disabled="disabled"{/if} id="{{$idName}}_file" name="{{$idName}}_file"
 type="file" title='{{$vardef.help}}' size="{{$displayParams.size|default:30}}"
 {{if !empty($displayParams.accesskey)}} accesskey='{{$displayParams.accesskey}}' {{/if}} 
 {{if !empty($vardef.len)}}
