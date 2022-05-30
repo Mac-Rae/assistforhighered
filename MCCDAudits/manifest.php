@@ -18,10 +18,10 @@ $manifest = [
     'description' => 'Adds an Audit module to the CRM that tracks various actions.',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Auditer Package',
+    'name' => 'ASSIST Auditer Package',
     'published_date' => '2021-02-17 14:20:59',
     'type' => 'module',
-    'version' => '2',
+    'version' => '3',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
