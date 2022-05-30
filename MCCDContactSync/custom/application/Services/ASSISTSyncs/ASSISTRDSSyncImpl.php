@@ -1,15 +1,15 @@
 <?php
-require_once 'custom/application/Services/MCCDSyncs/MCCDSyncInterface.php';
-require_once 'custom/include/MCCD/MCCDRDSClient.php';
-class MCCDRDSSyncImpl implements MCCDSyncInterace
+require_once 'custom/application/Services/ASSISTSyncs/ASSISTSyncInterface.php';
+require_once 'custom/include/ASSIST/ASSISTRDSClient.php';
+class ASSISTRDSSyncImpl implements ASSISTSyncInterace
 {
     /**
-     * @var MCCDRDSClient
+     * @var ASSISTRDSClient
      */
     private $client;
 
     public function __construct(){
-        $this->client = new MCCDRDSClient();
+        $this->client = new ASSISTRDSClient();
     }
 
     public function getFields($table){

@@ -1,5 +1,5 @@
 <?php
-require_once 'custom/modules/Schedulers/Services/MCCDRDSSyncService.php';
+require_once 'custom/modules/Schedulers/Services/ASSISTRDSSyncService.php';
 global $current_user, $sugar_config,$mod_strings,$app_strings,$app_list_strings,$db;
 if (!is_admin($current_user)) {
     sugar_die('Unauthorized access to Administration.');
@@ -33,12 +33,12 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'upload') {
     foreach($contact->field_defs as $def){
         $fieldOptions[$def['name']] = trim(translate($def['vname'],"Contacts"),":");
     }
-    $sugar_smarty->assign('default_mapping',$sugar_config['mccd_athena']['field_mapping']);
+    $sugar_smarty->assign('default_mapping',$sugar_config['assist_athena']['field_mapping']);
     $sugar_smarty->assign('field_options',$fieldOptions);
-    $bulkTypes = get_select_options_with_id($app_list_strings['mccd_rds_sync_bulk_types'],'');
+    $bulkTypes = get_select_options_with_id($app_list_strings['assist_rds_sync_bulk_types'],'');
     $sugar_smarty->assign('bulkTypes',$bulkTypes);
 }elseif (isset($_REQUEST['do']) && $_REQUEST['do'] === 'process') {
-    $service = new MCCDRDSSyncService();
+    $service = new ASSISTRDSSyncService();
     $fh = fopen("upload://athenaupload/".$current_user->id.".csv",'r');
     $header = fgetcsv($fh);
 
@@ -54,7 +54,7 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'upload') {
         $db->query("UPDATE contacts SET deleted = 1;");
     }elseif($type == 'addUpdateDelete'){
         $db->query("DROP TABLE IF EXISTS sale_details;");
-        $db->query("CREATE TEMPORARY TABLE mccd_bulk_import(emplid INT);");
+        $db->query("CREATE TEMPORARY TABLE assist_bulk_import(emplid INT);");
     }
     $tmp = array_flip($mapping);
     $idField = $tmp['emplid'];
@@ -65,7 +65,7 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'upload') {
             $mappedRow[$header[$k]] = $v;
         }
         if($type == 'addUpdateDelete'){
-            $db->query("INSERT INTO mccd_bulk_import (emplid) VALUES (".$db->quote($mappedRow[$idField]).")");
+            $db->query("INSERT INTO assist_bulk_import (emplid) VALUES (".$db->quote($mappedRow[$idField]).")");
         }
 
         $suc = $service->addOrUpdateContact($mappedRow,$mapping);
@@ -76,8 +76,8 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'upload') {
         }
     }
     if($type == 'addUpdateDelete'){
-        $db->query("UPDATE contacts SET deleted = 1 WHERE emplid IS NULL OR emplid NOT IN (SELECT emplid FROM mccd_bulk_import);");
-        $db->query("DROP TABLE mccd_bulk_import;");
+        $db->query("UPDATE contacts SET deleted = 1 WHERE emplid IS NULL OR emplid NOT IN (SELECT emplid FROM assist_bulk_import);");
+        $db->query("DROP TABLE assist_bulk_import;");
     }
     SugarApplication::appendSuccessMessage(sprintf($mod_strings['LBL_ATHENACONFIG_UPLOAD_MESSAGE'],$processed,$failed));
     SugarApplication::redirect('index.php?module=Administration&action=AthenaBulkImport&success=true');

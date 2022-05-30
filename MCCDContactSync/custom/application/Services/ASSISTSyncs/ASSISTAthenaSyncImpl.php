@@ -1,15 +1,15 @@
 <?php
-require_once 'custom/application/Services/MCCDSyncs/MCCDSyncInterface.php';
-require_once 'custom/include/MCCD/MCCDAthenaClient.php';
-class MCCDAthenaSyncImpl implements MCCDSyncInterace
+require_once 'custom/application/Services/ASSISTSyncs/ASSISTSyncInterface.php';
+require_once 'custom/include/ASSIST/ASSISTAthenaClient.php';
+class ASSISTAthenaSyncImpl implements ASSISTSyncInterace
 {
     /**
-     * @var MCCDAthenaClient
+     * @var ASSISTAthenaClient
      */
     private $client;
 
     public function __construct(){
-        $this->client = new MCCDAthenaClient();
+        $this->client = new ASSISTAthenaClient();
     }
 
     public function getFields($table){

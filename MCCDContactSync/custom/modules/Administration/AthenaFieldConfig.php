@@ -6,35 +6,42 @@ if (!is_admin($current_user)) {
 
 if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
     $cfg = new Configurator();
-    $cfg->allow_undefined[] = 'mccd_athena';
-    unset($cfg->config['mccd_athena']['field_mapping']);
+    $cfg->allow_undefined[] = 'assist_athena';
+    unset($cfg->config['assist_athena']['field_mapping']);
     foreach($_REQUEST as $field => $val){
         if(substr($field,0,strlen("mapping_table_name_")) != "mapping_table_name_"){
             continue;
         }
         $index = substr($field,strlen("mapping_table_name_"));
-        foreach($_REQUEST['mccd_athena_athena_fields'][$index] as $key => $athenaField) {
-            $cfg->config['mccd_athena']['field_mapping'][$val]['mapping'][$athenaField] = $_REQUEST['mccd_athena_crm_fields'][$index][$key];
+        foreach($_REQUEST['assist_athena_athena_fields'][$index] as $key => $athenaField) {
+            $cfg->config['assist_athena']['field_mapping'][$val]['mapping'][$athenaField] = $_REQUEST['assist_athena_crm_fields'][$index][$key];
+        }
+        foreach($_REQUEST['assist_rel_fields'][$index] as $key => $relField) {
+            $cfg->config['assist_athena']['field_mapping'][$val]['mapping_rel'][$relField] =
+                [
+                    'main' => $_REQUEST['assist_athena_main_fields'][$index][$key],
+                    'secondary' => $_REQUEST['assist_athena_secondary_fields'][$index][$key],
+                ];
         }
         if(!empty($_REQUEST['mapping_module_'.$index])) {
-            $cfg->config['mccd_athena']['field_mapping'][$val]['module'] = $_REQUEST['mapping_module_'.$index];
+            $cfg->config['assist_athena']['field_mapping'][$val]['module'] = $_REQUEST['mapping_module_'.$index];
         }
         if(!empty($_REQUEST['mapping_last_updated_field_'.$index])) {
-            $cfg->config['mccd_athena']['field_mapping'][$val]['last_updated_field'] = $_REQUEST['mapping_last_updated_field_'.$index];
+            $cfg->config['assist_athena']['field_mapping'][$val]['last_updated_field'] = $_REQUEST['mapping_last_updated_field_'.$index];
         }
         if(!empty($_REQUEST['mapping_id_field_'.$index])) {
-            $cfg->config['mccd_athena']['field_mapping'][$val]['id_field'] = $_REQUEST['mapping_id_field_'.$index];
+            $cfg->config['assist_athena']['field_mapping'][$val]['id_field'] = $_REQUEST['mapping_id_field_'.$index];
         }
 
-        if(isset($_REQUEST['mccd_athena']['last_id'][$index])){
-            $cfg->config['mccd_athena']['last_run_info'][$val]['last_run_id'] = $_REQUEST['mccd_athena']['last_id'][$index];
+        if(isset($_REQUEST['assist_athena']['last_id'][$index])){
+            $cfg->config['assist_athena']['last_run_info'][$val]['last_run_id'] = $_REQUEST['assist_athena']['last_id'][$index];
         }
-        if(isset($_REQUEST['mccd_athena']['last_run'][$index])){
-            $cfg->config['mccd_athena']['last_run_info'][$val]['last_run'] = $_REQUEST['mccd_athena']['last_run'][$index];
+        if(isset($_REQUEST['assist_athena']['last_run'][$index])){
+            $cfg->config['assist_athena']['last_run_info'][$val]['last_run'] = $_REQUEST['assist_athena']['last_run'][$index];
         }
 
     }
-    $cfg->addKeyToIgnoreOverride("mccd_athena",$cfg->config['mccd_athena']);
+    $cfg->addKeyToIgnoreOverride("assist_athena",$cfg->config['assist_athena']);
     $cfg->handleOverride();
     $cfg->clearCache();
     SugarApplication::redirect('index.php?module=Administration&action=index');

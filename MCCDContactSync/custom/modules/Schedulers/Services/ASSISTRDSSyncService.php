@@ -1,10 +1,10 @@
 <?php
 
-require_once 'custom/application/Services/MCCDSyncs/MCCDRDSSyncImpl.php';
-require_once 'custom/application/Services/MCCDSyncs/MCCDAthenaSyncImpl.php';
-require_once 'custom/application/Services/MCCDSyncs/MCCDMySQLSyncImpl.php';
+require_once 'custom/application/Services/ASSISTSyncs/ASSISTRDSSyncImpl.php';
+require_once 'custom/application/Services/ASSISTSyncs/ASSISTAthenaSyncImpl.php';
+require_once 'custom/application/Services/ASSISTSyncs/ASSISTMySQLSyncImpl.php';
 
-class MCCDRDSSyncService
+class ASSISTRDSSyncService
 {
 
     private $recordCount = 0;
@@ -16,17 +16,17 @@ class MCCDRDSSyncService
 
     private function getSyncClient(){
         global $sugar_config;
-        if(empty($sugar_config['mccd_athena']['sync_type'])){
+        if(empty($sugar_config['assist_athena']['sync_type'])){
             throw new Exception("Error: Empty Sync Type in config");
         }
-        if($sugar_config['mccd_athena']['sync_type'] == 'RDS'){
-            return new MCCDRDSSyncImpl();
-        }elseif($sugar_config['mccd_athena']['sync_type'] == 'Athena'){
-            return new MCCDAthenaSyncImpl();
-        }elseif($sugar_config['mccd_athena']['sync_type'] == 'DB'){
-            return new MCCDMySQLSyncImpl();
+        if($sugar_config['assist_athena']['sync_type'] == 'RDS'){
+            return new ASSISTRDSSyncImpl();
+        }elseif($sugar_config['assist_athena']['sync_type'] == 'Athena'){
+            return new ASSISTAthenaSyncImpl();
+        }elseif($sugar_config['assist_athena']['sync_type'] == 'DB'){
+            return new ASSISTMySQLSyncImpl();
         }else{
-            throw new Exception("Unknown Sync Type in config [".$sugar_config['mccd_athena']['sync_type']);
+            throw new Exception("Unknown Sync Type in config [".$sugar_config['assist_athena']['sync_type']);
         }
     }
 
@@ -37,6 +37,7 @@ class MCCDRDSSyncService
             $ret = [];
             foreach($mapping as $table => $mappingInfo){
                 $tableMapping = $mappingInfo['mapping'];
+                $relMapping = $mappingInfo['mapping_rel'];
                 $mappingModule = $mappingInfo['module'];
                 $mappingLastUpdated = $mappingInfo['last_updated_field'];
                 $mappingId = $mappingInfo['id_field'];
@@ -55,31 +56,50 @@ class MCCDRDSSyncService
                 }
 
                 if(empty($mappingModule)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_NO_MAPPING_MODULE'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_NO_MAPPING_MODULE'];
                 }
                 if(empty($mappingLastUpdated)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_NO_LAST_UPDATED'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_NO_LAST_UPDATED'];
                 }
                 if(empty($mappingId)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_NO_ID'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_NO_ID'];
                 }
                 if(!array_key_exists($mappingLastUpdated,$row)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_LAST_UPDATED_DOESNT_EXIST'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_LAST_UPDATED_DOESNT_EXIST'];
                 }
                 if(!array_key_exists($mappingId,$row)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_ID_DOESNT_EXIST'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_ID_DOESNT_EXIST'];
                 }
                 if(!array_key_exists($mappingId,$tableMapping)){
-                    $ret[] = $table.": ".$app_strings['LBL_MCCD_RDS_SYNC_MAPPING_ID_HAS_NO_MAPPED_FIELD'];
+                    $ret[] = $table.": ".$app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_ID_HAS_NO_MAPPED_FIELD'];
                 }
                 $recordBean = BeanFactory::getBean($mappingModule);
 
                 foreach($tableMapping as $rdsField => $crmField){
                     if(empty($recordBean->field_defs[$crmField])){
-                        $ret[] = $table.": ".sprintf($app_strings['LBL_MCCD_RDS_SYNC_MAPPING_NO_CRM_FIELD'],$crmField);
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_NO_CRM_FIELD'],$crmField);
                     }
                     if(!array_key_exists($rdsField,$row)){
-                        $ret[] = $table.": ".sprintf($app_strings['LBL_MCCD_RDS_SYNC_MAPPING_NO_RDS_FIELD'],$rdsField);
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_NO_RDS_FIELD'],$rdsField);
+                    }
+                }
+                foreach($relMapping as $link => $def){
+                    if(empty($recordBean->field_defs[$link]) || $recordBean->field_defs[$link]['type'] != 'link'){
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_REL_FIELD_NOT_FOUND'],$link);
+                        continue;
+                    }
+                    $recordBean->load_relationship($link);
+                    if(empty($recordBean->$link)){
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_REL_FIELD_NOT_FOUND'],$link);
+                        continue;
+                    }
+
+                    if(empty($recordBean->field_defs[$def['main']])){
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_REL_FIELD_NO_MAIN'],$def['main']);
+                    }
+                    $relBean = BeanFactory::getBean($recordBean->$link->getRelatedModuleName());
+                    if(empty($relBean->field_defs[$def['secondary']])){
+                        $ret[] = $table.": ".sprintf($app_strings['LBL_ASSIST_RDS_SYNC_MAPPING_REL_FIELD_NO_MATCHED'],$def['secondary']);
                     }
                 }
             }
@@ -91,7 +111,6 @@ class MCCDRDSSyncService
     }
 
     public function syncRecord($id){
-        //TODO: Add linking to relationships
         $contact = BeanFactory::getBean('Contacts',$id);
         if(empty($contact->id)){
             return [
@@ -130,7 +149,7 @@ class MCCDRDSSyncService
                 ];
             }
             foreach ($results as $row) {
-                $this->addOrUpdateRecord('Contacts', $row,$mappingInfo,true);
+                $this->addOrUpdateRecord('Contacts', $row,$mappingInfo);
             }
         }
         return [
@@ -140,7 +159,7 @@ class MCCDRDSSyncService
     public function getLastHistoricId(){
         global $sugar_config;
         $default = 0;
-        return !empty($sugar_config['mccd_athena']['last_historic_id']) ? $sugar_config['mccd_athena']['last_historic_id'] : $default;
+        return !empty($sugar_config['assist_athena']['last_historic_id']) ? $sugar_config['assist_athena']['last_historic_id'] : $default;
     }
 
     /**
@@ -149,7 +168,7 @@ class MCCDRDSSyncService
     public function getLastHistoricRunDate(){
         global $sugar_config, $timedate;
         $default = "2010-01-01 00:00:00";
-        $lastRunConfig = !empty($sugar_config['mccd_athena']['last_historic_run']) ? $sugar_config['mccd_athena']['last_historic_run'] : $default;
+        $lastRunConfig = !empty($sugar_config['assist_athena']['last_historic_run']) ? $sugar_config['assist_athena']['last_historic_run'] : $default;
         return $this->getConfigDate($lastRunConfig,$default);
     }
 
@@ -170,11 +189,11 @@ class MCCDRDSSyncService
         global $sugar_config;
         $info = [];
         $defaultDate = "2010-01-01 00:00:00";
-        $lastRun = !empty($sugar_config['mccd_athena']['last_run_info'][$table]['last_run']) ? $sugar_config['mccd_athena']['last_run_info'][$table]['last_run'] : $defaultDate;
+        $lastRun = !empty($sugar_config['assist_athena']['last_run_info'][$table]['last_run']) ? $sugar_config['assist_athena']['last_run_info'][$table]['last_run'] : $defaultDate;
         $info['last_run'] = $this->getConfigDate($lastRun, $defaultDate);
 
         $defaultId = 0;
-        $info['last_run_id'] = !empty($sugar_config['mccd_athena']['last_run_info'][$table]['last_run_id']) ? $sugar_config['mccd_athena']['last_run_info'][$table]['last_run_id'] : $defaultId;
+        $info['last_run_id'] = !empty($sugar_config['assist_athena']['last_run_info'][$table]['last_run_id']) ? $sugar_config['assist_athena']['last_run_info'][$table]['last_run_id'] : $defaultId;
         return $info;
     }
 
@@ -197,17 +216,50 @@ class MCCDRDSSyncService
      */
     private function getMapping(){
         global $sugar_config;
-        if(empty($sugar_config['mccd_athena']['field_mapping'])){
+        if(empty($sugar_config['assist_athena']['field_mapping'])){
             return [];
         }
-        return $sugar_config['mccd_athena']['field_mapping'];
+        return $sugar_config['assist_athena']['field_mapping'];
     }
     /**
      * @return array
      */
     private function getSQLMapping(){
         global $sugar_config;
-        return !empty($sugar_config['mccd_athena']['historic_field_mapping']) ? $sugar_config['mccd_athena']['historic_field_mapping'] : [];
+        return !empty($sugar_config['assist_athena']['historic_field_mapping']) ? $sugar_config['assist_athena']['historic_field_mapping'] : [];
+    }
+    /**
+     * @return array
+     */
+    private function getSQLMappingRel(){
+        global $sugar_config;
+        return !empty($sugar_config['assist_athena']['historic_field_mapping_rel']) ? $sugar_config['assist_athena']['historic_field_mapping_rel'] : [];
+    }
+
+    private function getRelationshipDef(SugarBean $bean, $linkName){
+        global $dictionary;
+        if(empty($bean->$linkName)){
+            $bean->load_relationship($linkName);
+            if(empty($bean->$linkName)){
+                return false;
+            }
+        }
+        $relName = $bean->field_defs[$linkName]['relationship'];
+        if(empty($relName)){
+            return false;
+        }
+        if(!empty($dictionary[$bean->object_name]['relationships'][$relName])){
+            return $dictionary[$bean->object_name]['relationships'][$relName];
+        }
+        $relBean = BeanFactory::getBean($bean->$linkName->getRelatedModuleName());
+        if(!empty($dictionary[$relBean->object_name]['relationships'][$relName])){
+            return $dictionary[$relBean->object_name]['relationships'][$relName];
+        }
+
+        if(!empty($dictionary[$relName]['relationships'][$relName])){
+            return $dictionary[$relName]['relationships'][$relName];
+        }
+        return false;
     }
 
 
@@ -215,14 +267,12 @@ class MCCDRDSSyncService
      * @param $row
      * @return bool
      */
-    public function addOrUpdateRecordSQL($row, SugarBean $recordBean, $key, $mapping = false){
+    public function addOrUpdateRecordSQL($row, SugarBean $recordBean, $key, $mappingInfo){
         global $db;
         $fieldDefs = $recordBean->field_defs;
         $targetTable = $recordBean->table_name;
-
-        if(!$mapping) {
-            $mapping = $this->getSQLMapping();
-        }
+        $mapping = $mappingInfo['mapping'];
+        $mappingRel = $mappingInfo['mapping_rel'];
         if(empty($mapping[$key])){
             $this->error("Invalid Mapping - No Mapping Key");
             return false;
@@ -319,16 +369,81 @@ class MCCDRDSSyncService
                 }
             }
         }
-        if($emplId && in_array($recordBean->module_name,["Contacts","SA_Enrollments","SA_Programs"])){
-            $emplId = $db->quote($emplId);
-            $enrolUpdate = <<<EOF
-UPDATE sa_enrollments e SET e.contacts_id = (SELECT c.id FROM contacts c WHERE c.emplid = $emplId AND c.deleted = 0) WHERE e.emplid = $emplId AND e.deleted = 0;
+        foreach ($mappingRel as $link => $relInfo){
+
+            $loaded = $recordBean->load_relationship($link);
+            if(!$loaded){
+                continue;
+            }
+            $main = $relInfo['main'];
+            $secondary = $relInfo['secondary'];
+            $relRecords = $this->findRelRecords($recordBean->$link->getRelatedModuleName(),$secondary, $fields[$main]);
+
+            if($relRecords){
+                $relRecords = array_unique($relRecords);
+                $relDef = $this->getRelationshipDef($recordBean, $link);
+                if(!$relDef){
+                    $GLOBALS['log']->fatal("Sync: Failed to load relationship for $link");
+                    continue;
+                }
+                $quotedId = $db->quoted($id);
+                switch($relDef['relationship_type']){
+                    case 'many-to-many':
+                        $middleTable = $db->quoteIdentifier($relDef['join_table']);
+                        if($recordBean->$link->getSide() == 'LHS'){
+                            $mainId = $db->quoteIdentifier($relDef['join_key_lhs']);
+                            $sideId = $db->quoteIdentifier($relDef['join_key_rhs']);
+                        }else{
+                            $mainId = $db->quoteIdentifier($relDef['join_key_rhs']);
+                            $sideId = $db->quoteIdentifier($relDef['join_key_lhs']);
+                        }
+
+                        $query = <<<EOF
+SELECT $sideId AS id FROM $middleTable WHERE deleted = 0 AND $mainId = $quotedId;
 EOF;
-            $db->query($enrolUpdate,true);
-            $programUpdate = <<<EOF
-UPDATE sa_programs p SET p.contacts_id = (SELECT c.id FROM contacts c WHERE c.emplid = $emplId AND c.deleted = 0) WHERE p.emplid = $emplId AND p.deleted = 0;
-EOF;
-            $db->query($programUpdate,true);
+                        $res = $db->query($query);
+                        while($row = $db->fetchByAssoc($res)){
+                            $key = array_search($row['id'], $relRecords);
+                            if ($key !== false) {
+                                unset($relRecords[$key]);
+                            }
+                        }
+                        if($relRecords) {
+                            $query = "INSERT INTO $middleTable (id,date_modified,deleted,$mainId,$sideId) VALUES ";
+                            $queryParts = [];
+                            foreach ($relRecords as $relId) {
+                                $quotedRelId = $db->quoted($relId);
+                                $queryParts[] = " (UUID(),UTC_TIMESTAMP(),0,$quotedId,$quotedRelId)";
+                            }
+                            $query .= implode(",",$queryParts);
+                            $query .= ";";
+                            $db->query($query);
+                        }
+
+                        break;
+                    case 'one-to-many':
+                        $targetTable = $db->quoteIdentifier($relDef['rhs_table']);
+                        $targetField = $db->quoteIdentifier($relDef['rhs_key']);
+                        if($recordBean->$link->getSide() == 'LHS') {
+                            $targetId = $quotedId;
+                            $idMatches = [];
+                            foreach($relRecords as $relId){
+                                $idMatches[] = $db->quoted($relId);
+                            }
+                            $idMatches = implode(",",$idMatches);
+                        }else{
+                            $targetId = $db->quoted($relRecords[0]);
+                            $idMatches = $quotedId;
+                        }
+                        $query = "UPDATE $targetTable SET $targetField = $targetId WHERE id IN ($idMatches) AND deleted = 0";
+                        $db->query($query);
+                        break;
+                    default:
+                        $GLOBALS['log']->fatal("Sync: Unhandled relationship type ".$relDef['relationship_type']." for $link");
+                        break;
+
+                }
+            }
         }
         return true;
     }
@@ -337,7 +452,7 @@ EOF;
      * @param $row
      * @return bool
      */
-    public function addOrUpdateRecord($module, $row, $mappingInfo, $forceEmplRel = false){
+    public function addOrUpdateRecord($module, $row, $mappingInfo){
         global $timedate, $db;
         $mapping = $mappingInfo['mapping'];
         $key = !empty($mappingInfo['id_field']) ? $mappingInfo['id_field'] : 'EMPLID';
@@ -388,19 +503,40 @@ EOF;
             }
             $record->email_addresses_non_primary = $emails;
         }
-        if($emplId && empty($records->contacts_id) && in_array($record->module_name,['SA_Enrollments','SA_Programs'])){
-            $matchingId = $db->fetchOne("SELECT id FROM contacts WHERE emplid = ".$db->quoted($emplId));
-            if($matchingId){
-                $record->contacts_id = $matchingId['id'];
+        $record->save();
+
+        if(empty($mappingInfo['mapping_rel'])){
+            return true;
+        }
+        $relMapping = $mappingInfo['mapping_rel'];
+
+        foreach ($relMapping as $link => $relInfo){
+            $loaded = $record->load_relationship($link);
+            if(!$loaded){
+                continue;
+            }
+            $main = $relInfo['main'];
+            $secondary = $relInfo['secondary'];
+            $relRecords = $this->findRelRecords($record->$link->getRelatedModuleName(),$secondary, $record->$main);
+            if($relRecords){
+                echo "Linking {$record->id} to ".implode($relRecords)."\n";
+                $record->$link->add($relRecords);
             }
         }
-        $isNew = empty($record->id);
-        $record->save();
-        if($emplId && ($isNew || $forceEmplRel) && $record->module_name == 'Contacts'){
-            $this->relateByEmplId($record,'sa_programs', 'sa_programs');
-            $this->relateByEmplId($record,'sa_enrollments', 'sa_enrollments');
-        }
         return true;
+    }
+
+    private function findRelRecords($module, $field, $value){
+        global $db;
+        $bean = BeanFactory::getBean($module);
+        $where = $bean->get_where([$field=>$value]);
+        $sql = "SELECT id FROM ".$bean->getTableName()." ".$where;
+        $res = $db->query($sql);
+        $ids = [];
+        while($row = $db->fetchByAssoc($res)){
+            $ids[] = $row['id'];
+        }
+        return $ids;
     }
     
     private function relateByEmplId($record, $table, $relationship){
@@ -436,7 +572,7 @@ EOF;
         $start = microtime(true);
         $this->log("Starting Historic Athena Sync");
 
-        $limit = !empty($sugar_config['mccd_athena']['per_run_limit']) ? $sugar_config['mccd_athena']['per_run_limit'] : 5000;
+        $limit = !empty($sugar_config['assist_athena']['per_run_limit']) ? $sugar_config['assist_athena']['per_run_limit'] : 5000;
         $lastRunDate = $this->getLastHistoricRunDate();
         $runLog = BeanFactory::getBean('SA_AthenaSyncLogs');
         $historicSyncDisplayTime = $timedate->getNow()->format("d/m/Y h:i A");
@@ -444,7 +580,7 @@ EOF;
         $runLog->records_processed = 0;
         $runLog->unique_records_processed = 0;
         $runLog->description = "";
-        if(empty($sugar_config['mccd_athena']['historic_table'])){
+        if(empty($sugar_config['assist_athena']['historic_table'])){
             $runLog->name = "Historic Athena Sync Error [$historicSyncDisplayTime]";
             $runLog->description = "No table defined for historic sync. Please set the config variable.";
             $runLog->save();
@@ -452,19 +588,21 @@ EOF;
         }
         $loops = 0;
 
-        $historicModule = !empty($sugar_config['mccd_athena']['historic_module']) ? $sugar_config['mccd_athena']['historic_module'] : "Contacts";
-        $lastUpdateField = !empty($sugar_config['mccd_athena']['historic_updated_field']) ? $sugar_config['mccd_athena']['historic_updated_field'] : "LAST_UPDATED";
+        $historicModule = !empty($sugar_config['assist_athena']['historic_module']) ? $sugar_config['assist_athena']['historic_module'] : "Contacts";
+        $lastUpdateField = !empty($sugar_config['assist_athena']['historic_updated_field']) ? $sugar_config['assist_athena']['historic_updated_field'] : "LAST_UPDATED";
 
         $recordBean = BeanFactory::newBean($historicModule);
-        $historicTable = $this->cleanTableName($sugar_config['mccd_athena']['historic_table']);
-        $key = $sugar_config['mccd_athena']['historic_id_field'];
+        $historicTable = $this->cleanTableName($sugar_config['assist_athena']['historic_table']);
+        $key = $sugar_config['assist_athena']['historic_id_field'];
         $mapping = $this->getSQLMapping();
+        $mappingRel = $this->getSQLMappingRel();
         $fullMapping = [
             $historicTable => [
                 'module' => $historicModule,
                 'last_updated_field' => $lastUpdateField,
                 'id_field' => $key,
-                'mapping' => $mapping
+                'mapping' => $mapping,
+                'mapping_rel' => $mappingRel
             ]
         ];
         $check = $this->checkMapping($fullMapping);
@@ -502,7 +640,7 @@ EOF;
             $latestId = $lastId;
             $thisCount = 0;
             foreach ($results as $row) {
-                $suc = $this->addOrUpdateRecordSQL($row,$recordBean, $key, $mapping);
+                $suc = $this->addOrUpdateRecordSQL($row,$recordBean, $key, $fullMapping[$historicTable]);
                 $runLog->records_processed++;
                 if ($suc) {
                     $runLog->unique_records_processed++;
@@ -513,8 +651,8 @@ EOF;
                 $thisCount++;
             }
             $cfg = new Configurator();
-            $cfg->config['mccd_athena']['last_historic_run'] = $latestDate;
-            $cfg->config['mccd_athena']['last_historic_id'] = $latestId;
+            $cfg->config['assist_athena']['last_historic_run'] = $latestDate;
+            $cfg->config['assist_athena']['last_historic_id'] = $latestId;
             $cfg->saveConfig();
             if($thisCount < $limit){
                 break;
@@ -548,7 +686,7 @@ EOF;
         global $timedate, $sugar_config,$db;
         $start = microtime(true);
         $this->log("Starting Athena Sync");
-        $limit = !empty($sugar_config['mccd_athena']['per_run_limit']) ? $sugar_config['mccd_athena']['per_run_limit'] : 5000;
+        $limit = !empty($sugar_config['assist_athena']['per_run_limit']) ? $sugar_config['assist_athena']['per_run_limit'] : 5000;
 
         $runLog = BeanFactory::getBean('SA_AthenaSyncLogs');
         $runLog->name = "Athena Sync on ".$timedate->now();
@@ -626,8 +764,8 @@ EOF;
 
     protected function storeLastRunInfo($table,$date,$id){
         $cfg = new Configurator();
-        $cfg->config['mccd_athena']['last_run_info'][$table]['last_run'] = $date;
-        $cfg->config['mccd_athena']['last_run_info'][$table]['last_run_id'] = $id;
+        $cfg->config['assist_athena']['last_run_info'][$table]['last_run'] = $date;
+        $cfg->config['assist_athena']['last_run_info'][$table]['last_run_id'] = $id;
         $cfg->saveConfig();
     }
 

@@ -128,9 +128,9 @@ array(
               'template' => '{if $fields.joomla_account_id.value && $fields.portal_account_disabled.value && $AOP_PORTAL_ENABLED}[CONTENT]{/if}',
             ),
           ),
-          'MCCD_RDS_SYNC' =>
+          'ASSIST_RDS_SYNC' =>
           array(
-              'customCode' => '<input type="button" onclick="mccdSync(\'{$fields.id.value}\')" class="button" value="{$MOD.LBL_PERFORM_MCCD_RDS_SYNC_BUTTON}">',
+              'customCode' => '<input type="button" onclick="assistSync(\'{$fields.id.value}\')" class="button" value="{$MOD.LBL_PERFORM_ASSIST_RDS_SYNC_BUTTON}">',
           ),
         ),
       ),
@@ -156,7 +156,7 @@ array(
         ),
         0 =>
         array(
-          'file' => 'custom/modules/Contacts/js/MCCDSync.js',
+          'file' => 'custom/modules/Contacts/js/ASSISTSync.js',
         ),
       ),
       'useTabs' => true,

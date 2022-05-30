@@ -1,6 +1,6 @@
 <?php
-#require_once 'custom/include/MCCD/lib/aws.phar';
-class MCCDRDSClient{
+#require_once 'custom/include/ASSIST/lib/aws.phar';
+class ASSISTRDSClient{
     private $client;
 
     /**
@@ -9,12 +9,12 @@ class MCCDRDSClient{
     public function __construct(){
         global $sugar_config;
         $this->client = new \Aws\RDSDataService\RDSDataServiceClient([
-            'version' => $sugar_config['mccd_athena']['api_version'],
-            'region' => $sugar_config['mccd_athena']['region'],
+            'version' => $sugar_config['assist_athena']['api_version'],
+            'region' => $sugar_config['assist_athena']['region'],
             //'debug'   => true,
             'credentials' => [
-                'key' => $sugar_config['mccd_athena']['key'],
-                'secret' => $sugar_config['mccd_athena']['secret'],
+                'key' => $sugar_config['assist_athena']['key'],
+                'secret' => $sugar_config['assist_athena']['secret'],
             ]
         ]);
     }
@@ -59,12 +59,12 @@ class MCCDRDSClient{
             ];
         }
         $callArgs = [
-            'database' => $sugar_config['mccd_athena']['database'],
+            'database' => $sugar_config['assist_athena']['database'],
             'sql' => $query,
             'parameters' => $parameters,
             'includeResultMetadata' => true,
-            'resourceArn' => $sugar_config['mccd_athena']['resource_arn'],
-            'secretArn' => $sugar_config['mccd_athena']['secret_arn'],
+            'resourceArn' => $sugar_config['assist_athena']['resource_arn'],
+            'secretArn' => $sugar_config['assist_athena']['secret_arn'],
         ];
         $result = $this->client->executeStatement($callArgs);
         return $this->processResults($result);

@@ -5,6 +5,7 @@ $dictionary['Contact']['fields']['sa_enrollments'] = array(
     'type' => 'link',
     'relationship' => 'Contacts_SA_Enrollments',
     'source' => 'non-db',
+    'vname' => 'LBL_SA_ENROLLMENTS'
 );
 
 $dictionary['Contact']['relationships']['Contacts_SA_Enrollments'] = array(

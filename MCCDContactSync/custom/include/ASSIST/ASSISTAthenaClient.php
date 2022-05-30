@@ -1,6 +1,6 @@
 <?php
-#require_once 'custom/include/MCCD/lib/aws.phar';
-class MCCDAthenaClient{
+#require_once 'custom/include/ASSIST/lib/aws.phar';
+class ASSISTAthenaClient{
     private $client;
 
     /**
@@ -9,12 +9,12 @@ class MCCDAthenaClient{
     public function __construct(){
         global $sugar_config;
         $this->client = new \Aws\Athena\AthenaClient([
-            'version' => $sugar_config['mccd_athena']['api_version_athena'],
-            'region' => $sugar_config['mccd_athena']['region'],
+            'version' => $sugar_config['assist_athena']['api_version_athena'],
+            'region' => $sugar_config['assist_athena']['region'],
             //'debug'   => true,
             'credentials' => [
-                'key' => $sugar_config['mccd_athena']['key'],
-                'secret' => $sugar_config['mccd_athena']['secret'],
+                'key' => $sugar_config['assist_athena']['key'],
+                'secret' => $sugar_config['assist_athena']['secret'],
             ]
         ]);
     }
@@ -57,11 +57,11 @@ class MCCDAthenaClient{
         $result = $this->client->startQueryExecution([
             'QueryString' => $query,
             'QueryExecutionContext' => [
-                'Catalog' => $sugar_config['mccd_athena']['athena_catalog'],
-                'Database' => $sugar_config['mccd_athena']['athena_database'],
+                'Catalog' => $sugar_config['assist_athena']['athena_catalog'],
+                'Database' => $sugar_config['assist_athena']['athena_database'],
             ],
             'ResultConfiguration' => [
-                'OutputLocation' => $sugar_config['mccd_athena']['athena_query_output']
+                'OutputLocation' => $sugar_config['assist_athena']['athena_query_output']
             ]
 
         ]);

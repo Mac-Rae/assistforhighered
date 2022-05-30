@@ -1,6 +1,6 @@
 <?php
 
-interface MCCDSyncInterace{
+interface ASSISTSyncInterace{
 
     public function getFields($table);
     public function getSingleResult($table, $mappingInfo, $id);

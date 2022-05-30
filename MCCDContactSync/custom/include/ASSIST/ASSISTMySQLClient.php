@@ -1,6 +1,6 @@
 <?php
 
-class MCCDMySQLClient{
+class ASSISTMySQLClient{
     private $client;
 
     /**
@@ -8,13 +8,13 @@ class MCCDMySQLClient{
      */
     public function __construct(){
         global $sugar_config;
-        $dsn = "mysql:host=".$sugar_config['mccd_athena']['db_host']."; ";
-        $dsn.= "port=".$sugar_config['mccd_athena']['db_port']."; ";
-        $dsn.= "dbname=".$sugar_config['mccd_athena']['db_schema'];
+        $dsn = "mysql:host=".$sugar_config['assist_athena']['db_host']."; ";
+        $dsn.= "port=".$sugar_config['assist_athena']['db_port']."; ";
+        $dsn.= "dbname=".$sugar_config['assist_athena']['db_schema'];
         $this->client = new \PDO(
             $dsn,
-            $sugar_config['mccd_athena']['db_user'],
-            $sugar_config['mccd_athena']['db_pwd']
+            $sugar_config['assist_athena']['db_user'],
+            $sugar_config['assist_athena']['db_pwd']
         );
     }
 

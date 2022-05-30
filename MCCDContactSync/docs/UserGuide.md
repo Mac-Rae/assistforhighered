@@ -1,4 +1,4 @@
-# MCCD Athena Sync
+# assist Athena Sync
 
 - Jim Mackin - SalesAgility
 - Version 10
@@ -34,9 +34,9 @@ This page lists the various runs of the sync that have been recorded and stores 
 ### Scheduler
 The schedule is in charge of actually running the sync. The scheduler page is the same as any core scheduler and the schedule can be changed as needed.
 
-When running the scheduler will check the config for the date of the last record it ran on (`$sugar_config['mccd_athena']['last_run']` in the `config_override.php` file, this could be changed or cleared to rerun alrady processed records). It then queries Athena for any record updated after this date and processes them in date order.
+When running the scheduler will check the config for the date of the last record it ran on (`$sugar_config['assist_athena']['last_run']` in the `config_override.php` file, this could be changed or cleared to rerun alrady processed records). It then queries Athena for any record updated after this date and processes them in date order.
 
-The query is limited to `$sugar_config['mccd_athena']['per_run_limit']` records (defaulting to 5000) to prevent unintentionally large runs.
+The query is limited to `$sugar_config['assist_athena']['per_run_limit']` records (defaulting to 5000) to prevent unintentionally large runs.
 
 For each row retrieved from Athena the CRM checks for any contacts with a matching emplid, creating a new record if one does not exist. It then applies the mapping to the row and updates any relevant fields in the CRM. The CRM assumes that Athena is the source of truth and will override any local changes with the Athena version.
 

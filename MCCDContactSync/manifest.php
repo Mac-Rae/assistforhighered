@@ -15,20 +15,20 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'MCCD RDS Contact Sync Package',
+    'description' => 'ASSIST RDS Contact Sync Package',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD RDS Contact Sync',
+    'name' => 'ASSIST RDS Contact Sync',
     'published_date' => '2021-09-06 14:17:33',
     'type' => 'module',
-    'version' => '37',
+    'version' => '40',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
     'copy' => [
         [
-            'from' => '<basepath>/custom/Extension/application/Ext/EntryPointRegistry/mccdRDSSync.php',
-            'to' => 'custom/Extension/application/Ext/EntryPointRegistry/mccdRDSSync.php',
+            'from' => '<basepath>/custom/Extension/application/Ext/EntryPointRegistry/assistRDSSync.php',
+            'to' => 'custom/Extension/application/Ext/EntryPointRegistry/assistRDSSync.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/application/Ext/Include/SA_AthenaSyncLogs.php',
@@ -47,8 +47,8 @@ $installdefs = [
             'to' => 'custom/Extension/application/Ext/Include/SA_Programs.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.MCCDRDSSync.php',
-            'to' => 'custom/Extension/application/Ext/Language/en_us.MCCDRDSSync.php',
+            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.ASSISTRDSSync.php',
+            'to' => 'custom/Extension/application/Ext/Language/en_us.ASSISTRDSSync.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.SA_AthenaSyncLogs.php',
@@ -87,8 +87,8 @@ $installdefs = [
             'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.AthenaConfig.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/modules/Contacts/Ext/Language/en_us.MCCDRDSSync.php',
-            'to' => 'custom/Extension/modules/Contacts/Ext/Language/en_us.MCCDRDSSync.php',
+            'from' => '<basepath>/custom/Extension/modules/Contacts/Ext/Language/en_us.ASSISTRDSSync.php',
+            'to' => 'custom/Extension/modules/Contacts/Ext/Language/en_us.ASSISTRDSSync.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/modules/Contacts/Ext/Language/en_us.SAEnrollments.php',
@@ -351,56 +351,60 @@ $installdefs = [
             'to' => 'custom/Extension/modules/SA_Programs/Ext/Vardefs/start_date.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/Language/en_us.MCCDAthenaSyncScheduler.php',
-            'to' => 'custom/Extension/modules/Schedulers/Ext/Language/en_us.MCCDAthenaSyncScheduler.php',
+            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/Language/en_us.ASSISTAthenaSyncScheduler.php',
+            'to' => 'custom/Extension/modules/Schedulers/Ext/Language/en_us.ASSISTAthenaSyncScheduler.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/MCCDRDSSyncScheduler.php',
-            'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/MCCDRDSSyncScheduler.php',
+            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTRDSSyncScheduler.php',
+            'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTRDSSyncScheduler.php',
             ],
         [
-            'from' => '<basepath>/custom/application/Services/MCCDSyncs/MCCDAthenaSyncImpl.php',
-            'to' => 'custom/application/Services/MCCDSyncs/MCCDAthenaSyncImpl.php',
+            'from' => '<basepath>/custom/application/Services/ASSISTSyncs/ASSISTAthenaSyncImpl.php',
+            'to' => 'custom/application/Services/ASSISTSyncs/ASSISTAthenaSyncImpl.php',
             ],
         [
-            'from' => '<basepath>/custom/application/Services/MCCDSyncs/MCCDMySQLSyncImpl.php',
-            'to' => 'custom/application/Services/MCCDSyncs/MCCDMySQLSyncImpl.php',
+            'from' => '<basepath>/custom/application/Services/ASSISTSyncs/ASSISTMySQLSyncImpl.php',
+            'to' => 'custom/application/Services/ASSISTSyncs/ASSISTMySQLSyncImpl.php',
             ],
         [
-            'from' => '<basepath>/custom/application/Services/MCCDSyncs/MCCDRDSSyncImpl.php',
-            'to' => 'custom/application/Services/MCCDSyncs/MCCDRDSSyncImpl.php',
+            'from' => '<basepath>/custom/application/Services/ASSISTSyncs/ASSISTRDSSyncImpl.php',
+            'to' => 'custom/application/Services/ASSISTSyncs/ASSISTRDSSyncImpl.php',
             ],
         [
-            'from' => '<basepath>/custom/application/Services/MCCDSyncs/MCCDSyncInterface.php',
-            'to' => 'custom/application/Services/MCCDSyncs/MCCDSyncInterface.php',
+            'from' => '<basepath>/custom/application/Services/ASSISTSyncs/ASSISTSyncInterface.php',
+            'to' => 'custom/application/Services/ASSISTSyncs/ASSISTSyncInterface.php',
             ],
         [
-            'from' => '<basepath>/custom/application/Services/mccdRDSSync.php',
-            'to' => 'custom/application/Services/mccdRDSSync.php',
+            'from' => '<basepath>/custom/application/Services/assistRDSSync.php',
+            'to' => 'custom/application/Services/assistRDSSync.php',
             ],
         [
-            'from' => '<basepath>/custom/application/entrypoints/mccdRDSSyncRunner.php',
-            'to' => 'custom/application/entrypoints/mccdRDSSyncRunner.php',
+            'from' => '<basepath>/custom/application/entrypoints/assistRDSSyncRunner.php',
+            'to' => 'custom/application/entrypoints/assistRDSSyncRunner.php',
             ],
         [
-            'from' => '<basepath>/custom/application/entrypoints/mccdTestMapping.php',
-            'to' => 'custom/application/entrypoints/mccdTestMapping.php',
+            'from' => '<basepath>/custom/application/entrypoints/assistSyncFieldOptions.php',
+            'to' => 'custom/application/entrypoints/assistSyncFieldOptions.php',
             ],
         [
-            'from' => '<basepath>/custom/include/MCCD/MCCDAthenaClient.php',
-            'to' => 'custom/include/MCCD/MCCDAthenaClient.php',
+            'from' => '<basepath>/custom/application/entrypoints/assistTestMapping.php',
+            'to' => 'custom/application/entrypoints/assistTestMapping.php',
             ],
         [
-            'from' => '<basepath>/custom/include/MCCD/MCCDMySQLClient.php',
-            'to' => 'custom/include/MCCD/MCCDMySQLClient.php',
+            'from' => '<basepath>/custom/include/ASSIST/ASSISTAthenaClient.php',
+            'to' => 'custom/include/ASSIST/ASSISTAthenaClient.php',
             ],
         [
-            'from' => '<basepath>/custom/include/MCCD/MCCDRDSClient.php',
-            'to' => 'custom/include/MCCD/MCCDRDSClient.php',
+            'from' => '<basepath>/custom/include/ASSIST/ASSISTMySQLClient.php',
+            'to' => 'custom/include/ASSIST/ASSISTMySQLClient.php',
             ],
         [
-            'from' => '<basepath>/custom/include/MCCD/lib/aws.phar',
-            'to' => 'custom/include/MCCD/lib/aws.phar',
+            'from' => '<basepath>/custom/include/ASSIST/ASSISTRDSClient.php',
+            'to' => 'custom/include/ASSIST/ASSISTRDSClient.php',
+            ],
+        [
+            'from' => '<basepath>/custom/include/ASSIST/lib/aws.phar',
+            'to' => 'custom/include/ASSIST/lib/aws.phar',
             ],
         [
             'from' => '<basepath>/custom/include/generic/SugarWidgets/SugarWidgetSubPanelTopQuickCreateContactsSA_EnrollmentsButton.php',
@@ -467,12 +471,12 @@ $installdefs = [
             'to' => 'custom/modules/Administration/AthenaHistoricFieldConfig.tpl',
             ],
         [
-            'from' => '<basepath>/custom/modules/Contacts/js/MCCDSync.js',
-            'to' => 'custom/modules/Contacts/js/MCCDSync.js',
+            'from' => '<basepath>/custom/modules/Contacts/js/ASSISTSync.js',
+            'to' => 'custom/modules/Contacts/js/ASSISTSync.js',
             ],
         [
-            'from' => '<basepath>/custom/modules/Schedulers/Services/MCCDRDSSyncService.php',
-            'to' => 'custom/modules/Schedulers/Services/MCCDRDSSyncService.php',
+            'from' => '<basepath>/custom/modules/Schedulers/Services/ASSISTRDSSyncService.php',
+            'to' => 'custom/modules/Schedulers/Services/ASSISTRDSSyncService.php',
             ],
         [
             'from' => '<basepath>/custom/themes/default/images/CreateSA_AthenaSyncLogs.gif',

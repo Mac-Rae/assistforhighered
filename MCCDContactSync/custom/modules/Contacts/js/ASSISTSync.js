@@ -1,14 +1,14 @@
-function mccdSync(id){
+function assistSync(id){
     var mb = messageBox({"showHeader": false, "showFooter": false});
     mb.setBody(
-        "<p style='text-align: center;' >"+SUGAR.language.translate("app_strings",'LBL_MCCD_RDS_STARTING_SYNC')+"</p>"
+        "<p style='text-align: center;' >"+SUGAR.language.translate("app_strings",'LBL_ASSIST_RDS_STARTING_SYNC')+"</p>"
         + "<br><img style='display: block;margin-left:auto;margin-right:auto;' src='themes/default/images/img_loading_54.gif'/>"
     );
     mb.show();
     $.post(
         'index.php',
         {
-            'entryPoint' : 'mccdRDSSync',
+            'entryPoint' : 'assistRDSSync',
             'record' : id
         },
         function(d){
