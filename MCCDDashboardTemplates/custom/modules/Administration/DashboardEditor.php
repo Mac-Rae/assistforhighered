@@ -6,8 +6,8 @@ if (!is_admin($current_user)) {
 
 if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
     $cfg = new Configurator();
-    $cfg->addKeyToIgnoreOverride('mccd_dashboardtemplates',$_REQUEST['mccd_dashboardtemplates']);
-    $cfg->allow_undefined[] = 'mccd_dashboardtemplates';
+    $cfg->addKeyToIgnoreOverride('assist_dashboardtemplates',$_REQUEST['assist_dashboardtemplates']);
+    $cfg->allow_undefined[] = 'assist_dashboardtemplates';
     $cfg->saveConfig();
     SugarApplication::redirect('index.php?module=Administration&action=index');
     exit();
@@ -34,8 +34,8 @@ $dashboardOptions = get_select_options_with_id($dashboards,'');
 $sugar_smarty->assign('dashboardOptions', $dashboardOptions);
 
 $lines = [];
-foreach($sugar_config['mccd_dashboardtemplates']['dashboard'] as $key => $val){
-    $lines[] = ['dashboard' => $val, 'role' => $sugar_config['mccd_dashboardtemplates']['target_role'][$key]];
+foreach($sugar_config['assist_dashboardtemplates']['dashboard'] as $key => $val){
+    $lines[] = ['dashboard' => $val, 'role' => $sugar_config['assist_dashboardtemplates']['target_role'][$key]];
 }
 $linesJSON = json_encode($lines);
 $sugar_smarty->assign('linesJSON', $linesJSON);

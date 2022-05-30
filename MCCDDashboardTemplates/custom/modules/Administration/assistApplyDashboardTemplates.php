@@ -1,5 +1,5 @@
 <?php
-require_once 'modules/SA_DashboardTemplates/MCCDTemplateHooks.php';
+require_once 'modules/SA_DashboardTemplates/ASSISTTemplateHooks.php';
 global $current_user, $db;
 $role = $_REQUEST['role'] ?? '';
 $dashboard = $_REQUEST['dashboard'] ?? '';
@@ -18,7 +18,7 @@ $dashboardBean = BeanFactory::getBean('SA_DashboardTemplates',$dashboard);
 if(empty($dashboardBean->id)){
     echo json_encode(['error' => 'No dashboard defined']);
 }
-$hook = new MCCDTemplateHooks();
+$hook = new ASSISTTemplateHooks();
 
 $roleIdQuoted = $db->quoted($role);
 $query = "SELECT u.id FROM users u INNER JOIN acl_roles_users ru ON u.id = ru.user_id AND ru.deleted = 0 AND ru.role_id = $roleIdQuoted WHERE u.deleted = 0;";

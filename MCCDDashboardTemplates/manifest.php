@@ -18,10 +18,10 @@ $manifest = [
     'description' => 'Allow setting default dashboards for roles',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Dashboard Templates',
+    'name' => 'ASSIST Dashboard Templates',
     'published_date' => '2021-04-06 16:18:38',
     'type' => 'module',
-    'version' => '7',
+    'version' => '8',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -43,8 +43,8 @@ $installdefs = [
             'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.DashboardEditor.php',
             ],
         '4' => [
-            'from' => '<basepath>/custom/Extension/modules/Users/Ext/LogicHooks/MCCDDashboardSetting.php',
-            'to' => 'custom/Extension/modules/Users/Ext/LogicHooks/MCCDDashboardSetting.php',
+            'from' => '<basepath>/custom/Extension/modules/Users/Ext/LogicHooks/ASSISTDashboardSetting.php',
+            'to' => 'custom/Extension/modules/Users/Ext/LogicHooks/ASSISTDashboardSetting.php',
             ],
         '5' => [
             'from' => '<basepath>/custom/modules/Administration/DashboardEditor.php',
@@ -63,8 +63,8 @@ $installdefs = [
             'to' => 'custom/modules/Administration/DashboardTemplates.tpl',
             ],
         '9' => [
-            'from' => '<basepath>/custom/modules/Administration/mccdApplyDashboardTemplates.php',
-            'to' => 'custom/modules/Administration/mccdApplyDashboardTemplates.php',
+            'from' => '<basepath>/custom/modules/Administration/assistApplyDashboardTemplates.php',
+            'to' => 'custom/modules/Administration/assistApplyDashboardTemplates.php',
             ],
         '10' => [
             'from' => '<basepath>/custom/themes/default/images/CreateSA_DashboardTemplates.gif',
@@ -115,8 +115,8 @@ $installdefs = [
             'to' => 'modules/SA_DashboardTemplates/Dashlets/SA_DashboardTemplatesDashlet/SA_DashboardTemplatesDashlet.php',
             ],
         '22' => [
-            'from' => '<basepath>/modules/SA_DashboardTemplates/MCCDTemplateHooks.php',
-            'to' => 'modules/SA_DashboardTemplates/MCCDTemplateHooks.php',
+            'from' => '<basepath>/modules/SA_DashboardTemplates/ASSISTTemplateHooks.php',
+            'to' => 'modules/SA_DashboardTemplates/ASSISTTemplateHooks.php',
             ],
         '23' => [
             'from' => '<basepath>/modules/SA_DashboardTemplates/SA_DashboardTemplate.php',

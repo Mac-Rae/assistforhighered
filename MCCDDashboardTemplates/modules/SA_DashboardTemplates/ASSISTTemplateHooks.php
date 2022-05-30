@@ -1,5 +1,5 @@
 <?php
-class MCCDTemplateHooks{
+class ASSISTTemplateHooks{
     public function applyDashboardToUser(User $user, SA_DashboardTemplate $dashboard){
         $prefs = json_decode(base64_decode($dashboard->contents),1);
         $user->setPreference('dashlets',$prefs['dashlets'],0,'Home');
@@ -19,9 +19,9 @@ class MCCDTemplateHooks{
             return;
         }
         $newDashboard = false;
-        foreach($sugar_config['mccd_dashboardtemplates']['target_role'] as $key => $roleId){
+        foreach($sugar_config['assist_dashboardtemplates']['target_role'] as $key => $roleId){
             if($roleId == $arguments['related_id']){
-                $newDashboard = $sugar_config['mccd_dashboardtemplates']['dashboard'][$key];
+                $newDashboard = $sugar_config['assist_dashboardtemplates']['dashboard'][$key];
             }
         }
         if(empty($newDashboard)){
