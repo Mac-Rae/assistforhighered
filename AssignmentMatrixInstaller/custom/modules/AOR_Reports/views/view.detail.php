@@ -18,13 +18,13 @@ class CustomAOR_ReportsViewDetail extends AOR_ReportsViewDetail
         $contactBean = BeanFactory::getBean("Contacts");
         $assignment_fields = array();
         foreach($contactBean->field_defs as $name => $def){
-            if($def['type'] === 'MCCDAssignment'){
+            if($def['type'] === 'ASSISTAssignment'){
                 $assignment_fields[$name] = translate($contactBean->field_defs[$name]['vname'],'Contacts');
             }
         }
         $this->ss->assign('assigment_fields', $assignment_fields);
         $this->ss->assign('reportid', $this->bean->id);
-        $popupHtml = $this->ss->fetch('modules/AOR_Reports/tpls/popupAdvisors.tpl');
+        $popupHtml = $this->ss->fetch('custom/modules/AOR_Reports/tpls/popupAdvisors.tpl');
         return $popupHtml;
     }
 

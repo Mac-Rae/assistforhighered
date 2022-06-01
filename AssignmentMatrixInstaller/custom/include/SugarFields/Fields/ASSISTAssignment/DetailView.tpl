@@ -39,9 +39,9 @@
  */
 
 *}
-{assign var="mccd_field_restricted" value={{sugarvar key='mccd_field_restricted' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_restricted" value={{sugarvar key='assist_field_restricted' string=true}} }
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {{if !$nolink && !empty($vardef.id_name)}}
@@ -50,9 +50,9 @@
 <a href="{sugar_ajax_url url=$detail_url}">{/if}
 {{/if}}
 <span id="{{$vardef.id_name}}" class="sugar_field" data-id-value="{{sugarvar memberName='vardef.id_name' key='value'}}">{{sugarvar key='value'}}</span>
-{if !$mccd_field_restricted}
+{if !$assist_field_restricted}
 <span>
-&nbsp;&nbsp;<button class="button" onclick="document.location='index.php?entryPoint=MCCDAssignToMe&module={$module}&record={$fields.id.value}&field={{$vardef.name}}';">{$APP.LBL_MCCD_ASSIGNMENT_ASSIGN_TO_ME}</button>
+&nbsp;&nbsp;<button class="button" onclick="document.location='index.php?entryPoint=ASSISTAssignToMe&module={$module}&record={$fields.id.value}&field={{$vardef.name}}';">{$APP.LBL_ASSIST_ASSIGNMENT_ASSIGN_TO_ME}</button>
 </span>
 {/if}
 {{if !$nolink && !empty($vardef.id_name)}}

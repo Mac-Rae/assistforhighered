@@ -1,12 +1,12 @@
 <?php
-$mccdAssignmentFields = [];
+$assistAssignmentFields = [];
 $subQueryClause = '';
 $hasCstm = false;
 $contactBean = BeanFactory::getBean('Contacts');
 
 $first = true;
 foreach($contactBean->field_defs as $field => $def){
-    if($def['type'] != 'MCCDAssignment' || empty($def['id_name'])){
+    if($def['type'] != 'ASSISTAssignment' || empty($def['id_name'])){
         continue;
     }
     if(!$first){

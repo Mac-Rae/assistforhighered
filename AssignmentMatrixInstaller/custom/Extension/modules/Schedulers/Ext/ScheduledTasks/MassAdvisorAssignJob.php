@@ -10,7 +10,7 @@ class MassAdvisorAssignJob implements RunnableSchedulerJob
         $contactBean = BeanFactory::getBean('Contacts');
         $assignment_fields = array();
         foreach($contactBean->field_defs as $name => $def){
-            if($def['type'] === 'MCCDAssignment'){
+            if($def['type'] === 'ASSISTAssignment'){
                 $assignment_fields[] = $name;
             }
         }

@@ -3,7 +3,7 @@
 if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 global $current_user, $app_strings;
 if (empty($_POST['reportid'])) {
-    SugarApplication::appendErrorMessage($app_strings['LBL_MCCD_MASSIVE_ASSIGN_TO_USER_ERROR']);
+    SugarApplication::appendErrorMessage($app_strings['LBL_ASSIST_MASSIVE_ASSIGN_TO_USER_ERROR']);
     SugarApplication::redirect('index.php');
     return;
 }
@@ -21,6 +21,6 @@ $scheduledJob->target = "class::MassAdvisorAssignJob";
 $queue = new SugarJobQueue();
 $queue->submitJob($scheduledJob);
 
-SugarApplication::appendSuccessMessage($app_strings['LBL_MCCD_MASSIVE_ASSIGN_TO_USER_SUCCESS']);
+SugarApplication::appendSuccessMessage($app_strings['LBL_ASSIST_MASSIVE_ASSIGN_TO_USER_SUCCESS']);
 
 SugarApplication::redirect("index.php?module=AOR_Reports&action=DetailView&record=$reportId");

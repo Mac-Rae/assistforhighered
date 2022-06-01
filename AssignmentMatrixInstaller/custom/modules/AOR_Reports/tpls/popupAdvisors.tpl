@@ -7,9 +7,9 @@
                 Advisors
             </div>
         </div>
-        <div class="panel-body" id="top-panel-2" data-id="LBL_MCCD_ADVISOR_PANEL">
+        <div class="panel-body" id="top-panel-2" data-id="LBL_ASSIST_ADVISOR_PANEL">
             <div class="tab-content">
-                <form id="advisorPopupForm" action="index.php?entryPoint=MCCDMassiveAssign" method="post">
+                <form id="advisorPopupForm" action="index.php?entryPoint=ASSISTMassiveAssign" method="post">
                     <input type="hidden" id="reportid" name="reportid" value="{$reportid}">
                     <div class="row detail-view-row" style="margin-bottom: 3px;">
                         {foreach from=$assigment_fields key=field item=field_label}

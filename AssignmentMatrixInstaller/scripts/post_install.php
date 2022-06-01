@@ -7,8 +7,8 @@ function post_install()
     foreach($views as $view){
         echo "Saving changes to Contacts $view<br>";
         $parser = ParserFactory::getParser($view, 'Contacts');
-        if(!array_key_exists("lbl_mccd_advisor_panel",$parser->_viewdefs['panels'])){
-            $parser->_viewdefs['panels']["lbl_mccd_advisor_panel"] = array (
+        if(!array_key_exists("lbl_assist_advisor_panel",$parser->_viewdefs['panels'])){
+            $parser->_viewdefs['panels']["lbl_assist_advisor_panel"] = array (
                 0 =>
                     array (
                         0 =>
@@ -95,8 +95,8 @@ function post_install()
                     ),
             );
         }
-        if(!array_key_exists("LBL_MCCD_ADVISOR_PANEL",$parser->_viewdefs['templateMeta']['tabDefs'])){
-            $parser->_viewdefs['templateMeta']['tabDefs']['LBL_MCCD_ADVISOR_PANEL'] = array (
+        if(!array_key_exists("LBL_ASSIST_ADVISOR_PANEL",$parser->_viewdefs['templateMeta']['tabDefs'])){
+            $parser->_viewdefs['templateMeta']['tabDefs']['LBL_ASSIST_ADVISOR_PANEL'] = array (
                 'newTab' => false,
                 'panelDefault' => 'expanded',
             );
@@ -113,7 +113,7 @@ function post_install()
     $parser->handleSave(false);
 
     $data = file_get_contents(get_custom_file_if_exists('modules/Contacts/metadata/SearchFields.php'));
-    $data .= "\n\nrequire_once 'custom/include/SugarFields/Fields/MCCDAssignment/MCCDSearchFieldPatch.php';";
+    $data .= "\n\nrequire_once 'custom/include/SugarFields/Fields/ASSISTAssignment/ASSISTSearchFieldPatch.php';";
     file_put_contents('custom/modules/Contacts/metadata/SearchFields.php',$data);
 
     echo "Please run a Quick Repair and Rebuild to finalise the install.<br>";

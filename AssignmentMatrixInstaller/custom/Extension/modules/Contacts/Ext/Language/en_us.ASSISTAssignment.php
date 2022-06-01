@@ -1,5 +1,5 @@
 <?php
-$mod_strings['LBL_MCCD_ADVISOR_PANEL'] = 'Advisors';
+$mod_strings['LBL_ASSIST_ADVISOR_PANEL'] = 'Advisors';
 $mod_strings['LBL_CHANDLER_USER'] = 'Chandler';
 $mod_strings['LBL_ESTRELLA_MOUNTAIN_USER'] = 'Estrella Mountain';
 $mod_strings['LBL_GATEWAY_USER'] = 'Gateway';

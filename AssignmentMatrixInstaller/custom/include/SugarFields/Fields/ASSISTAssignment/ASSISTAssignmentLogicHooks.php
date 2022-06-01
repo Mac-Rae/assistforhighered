@@ -1,8 +1,8 @@
 <?php
-class MCCDAssignmentLogicHooks{
+class ASSISTAssignmentLogicHooks{
     function loadAssignmentFields(SugarBean $bean, $event, $args){
         foreach ($bean->field_defs as $field) {
-            if($field['type'] != 'MCCDAssignment' || empty($field['module'])){
+            if($field['type'] != 'ASSISTAssignment' || empty($field['module'])){
                 continue;
             }
             $name = $field['name'];

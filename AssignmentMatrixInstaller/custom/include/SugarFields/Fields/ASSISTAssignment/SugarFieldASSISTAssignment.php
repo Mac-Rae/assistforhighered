@@ -44,7 +44,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 require_once 'include/SugarFields/Fields/Relate/SugarFieldRelate.php';
 
-class SugarFieldMCCDAssignment extends SugarFieldRelate
+class SugarFieldASSISTAssignment extends SugarFieldRelate
 {
 
     /**
