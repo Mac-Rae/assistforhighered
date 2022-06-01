@@ -11,7 +11,7 @@ global $current_user;
 if (!is_admin($current_user)) {
     sugar_die("Unauthorized access to administration.");
 }
-class MCCDElasticView extends View{
+class ASSISTElasticView extends View{
     public function __construct($file)
     {
         $this->smarty = new Sugar_Smarty();

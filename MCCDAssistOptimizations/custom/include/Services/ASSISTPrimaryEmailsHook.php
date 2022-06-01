@@ -1,5 +1,5 @@
 <?php
-class MCCDPrimaryEmailsHook{
+class ASSISTPrimaryEmailsHook{
     public function isMatchingEmail($email){
         $suffix = "Maricopa.edu";
         $length = strlen( $suffix );

@@ -14,7 +14,7 @@ global $current_user;
 if (!is_admin($current_user)) {
     sugar_die("Unauthorized access to administration.");
 }
-class MCCDElasticController extends Controller{
+class ASSISTElasticController extends Controller{
     public function __construct(View $view)
     {
         $this->view = $view;

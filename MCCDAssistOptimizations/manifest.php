@@ -15,7 +15,7 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'Optimizations for the MCCD Assist Instance',
+    'description' => 'Optimizations for the ASSIST Assist Instance',
     'icon' => '',
     'is_uninstallable' => '1',
     'name' => 'ASSIST Optimizations',
@@ -27,20 +27,20 @@ $manifest = [
 $installdefs = [
     'copy' => [
         '0' => [
-            'from' => '<basepath>/custom/Extension/application/Ext/LogicHooks/MCCDPrimaryEmailsHook.php',
-            'to' => 'custom/Extension/application/Ext/LogicHooks/MCCDPrimaryEmailsHook.php',
+            'from' => '<basepath>/custom/Extension/application/Ext/LogicHooks/ASSISTPrimaryEmailsHook.php',
+            'to' => 'custom/Extension/application/Ext/LogicHooks/ASSISTPrimaryEmailsHook.php',
             ],
         '1' => [
-            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Language/en_us.MCCDElastic.php',
-            'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.MCCDElastic.php',
+            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Language/en_us.ASSISTElastic.php',
+            'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.ASSISTElastic.php',
             ],
         '2' => [
             'from' => '<basepath>/custom/Extension/modules/ModuleBuilder/Ext/Language/en_us.ForceSave.php',
             'to' => 'custom/Extension/modules/ModuleBuilder/Ext/Language/en_us.ForceSave.php',
             ],
         '3' => [
-            'from' => '<basepath>/custom/include/Services/MCCDPrimaryEmailsHook.php',
-            'to' => 'custom/include/Services/MCCDPrimaryEmailsHook.php',
+            'from' => '<basepath>/custom/include/Services/ASSISTPrimaryEmailsHook.php',
+            'to' => 'custom/include/Services/ASSISTPrimaryEmailsHook.php',
             ],
         '4' => [
             'from' => '<basepath>/custom/include/generic/SugarWidgets/SugarWidgetSubPanelTopScheduleCallButton.php',
@@ -51,16 +51,16 @@ $installdefs = [
             'to' => 'custom/modules/Administration/ElasticSearchSettings.php',
             ],
         '6' => [
-            'from' => '<basepath>/custom/modules/Administration/MCCD/MCCDElasticController.php',
-            'to' => 'custom/modules/Administration/MCCD/MCCDElasticController.php',
+            'from' => '<basepath>/custom/modules/Administration/ASSIST/ASSISTElasticController.php',
+            'to' => 'custom/modules/Administration/ASSIST/ASSISTElasticController.php',
             ],
         '7' => [
-            'from' => '<basepath>/custom/modules/Administration/MCCD/MCCDElasticView.php',
-            'to' => 'custom/modules/Administration/MCCD/MCCDElasticView.php',
+            'from' => '<basepath>/custom/modules/Administration/ASSIST/ASSISTElasticView.php',
+            'to' => 'custom/modules/Administration/ASSIST/ASSISTElasticView.php',
             ],
         '8' => [
-            'from' => '<basepath>/custom/modules/Administration/MCCD/view.tpl',
-            'to' => 'custom/modules/Administration/MCCD/view.tpl',
+            'from' => '<basepath>/custom/modules/Administration/ASSIST/view.tpl',
+            'to' => 'custom/modules/Administration/ASSIST/view.tpl',
             ],
         '9' => [
             'from' => '<basepath>/custom/modules/Contacts/metadata/SearchFields.php',
