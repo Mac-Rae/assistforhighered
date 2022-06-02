@@ -1,5 +1,5 @@
 <?php
-#require_once 'custom/include/MCCD/lib/aws.phar';
+#require_once 'custom/include/ASSIST/lib/aws.phar';
 use Aws\Connect\ConnectClient;
 
 class ContactCenterSyncService

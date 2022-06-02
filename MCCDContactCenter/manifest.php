@@ -15,13 +15,13 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'MCCD Contact Center Plugin',
+    'description' => 'ASSIST Contact Center Plugin',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Contact Center',
+    'name' => 'ASSIST Contact Center',
     'published_date' => '2021-04-19 16:32:40',
     'type' => 'module',
-    'version' => '36',
+    'version' => '37',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -127,8 +127,8 @@ $installdefs = [
             'to' => 'custom/Extension/modules/relationships/vardefs/sa_contactcenters_users_1_Users.php',
             ],
         '25' => [
-            'from' => '<basepath>/custom/include/MCCD/lib/aws.phar',
-            'to' => 'custom/include/MCCD/lib/aws.phar',
+            'from' => '<basepath>/custom/include/ASSIST/lib/aws.phar',
+            'to' => 'custom/include/ASSIST/lib/aws.phar',
             ],
         '26' => [
             'from' => '<basepath>/custom/include/Services/SAContactCenterHooks.php',
