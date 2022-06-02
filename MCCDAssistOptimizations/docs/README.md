@@ -3,7 +3,7 @@
 - V1
 
 ## Introduction
-This package contains some optimizations for the ASSIST Assist instance.
+This package contains some optimizations for the ASSIST instance.
 
 ## Changes
 
