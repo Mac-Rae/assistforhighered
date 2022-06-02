@@ -15,46 +15,50 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'MCCD Workflow Webhooks',
+    'description' => 'ASSIST Workflow Webhooks',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Workflow Webhooks',
+    'name' => 'ASSIST Workflow Webhooks',
     'published_date' => '2021-08-25 15:03:17',
     'type' => 'module',
-    'version' => '10',
+    'version' => '11',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
     'copy' => [
-        '0' => [
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOP_Case_Updates/Ext/Language/en_us.ASSISTCaseManagement.php',
+            'to' => 'custom/Extension/modules/AOP_Case_Updates/Ext/Language/en_us.ASSISTCaseManagement.php',
+            ],
+        [
             'from' => '<basepath>/custom/Extension/modules/AOW_Actions/Ext/Actions/SAWebhooks.php',
             'to' => 'custom/Extension/modules/AOW_Actions/Ext/Actions/SAWebhooks.php',
             ],
-        '1' => [
+        [
             'from' => '<basepath>/custom/Extension/modules/AOW_Actions/Ext/Language/en_us.SAWebHooks.php',
             'to' => 'custom/Extension/modules/AOW_Actions/Ext/Language/en_us.SAWebHooks.php',
             ],
-        '2' => [
-            'from' => '<basepath>/custom/modules/AOW_Actions/actions/MCCDTemplateParser.php',
-            'to' => 'custom/modules/AOW_Actions/actions/MCCDTemplateParser.php',
+        [
+            'from' => '<basepath>/custom/modules/AOW_Actions/actions/ASSISTTemplateParser.php',
+            'to' => 'custom/modules/AOW_Actions/actions/ASSISTTemplateParser.php',
             ],
-        '3' => [
+        [
             'from' => '<basepath>/custom/modules/AOW_Actions/actions/actionSAWebHooks.php',
             'to' => 'custom/modules/AOW_Actions/actions/actionSAWebHooks.php',
             ],
-        '4' => [
+        [
             'from' => '<basepath>/custom/modules/AOW_Actions/actions/actionSendEmail.php',
             'to' => 'custom/modules/AOW_Actions/actions/actionSendEmail.php',
             ],
-        '5' => [
+        [
             'from' => '<basepath>/custom/modules/AOW_Actions/actions/js/actionSAWebHook.js',
             'to' => 'custom/modules/AOW_Actions/actions/js/actionSAWebHook.js',
             ],
-        '6' => [
+        [
             'from' => '<basepath>/custom/modules/AOW_Actions/actions/tpl/SAWebHooksEdit.tpl',
             'to' => 'custom/modules/AOW_Actions/actions/tpl/SAWebHooksEdit.tpl',
             ],
-        '7' => [
+        [
             'from' => '<basepath>/custom/modules/AOW_WorkFlow/controller.php',
             'to' => 'custom/modules/AOW_WorkFlow/controller.php',
             ],

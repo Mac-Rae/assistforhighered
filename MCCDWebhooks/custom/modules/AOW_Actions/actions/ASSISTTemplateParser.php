@@ -3,7 +3,7 @@ require_once 'modules/AOW_Actions/actions/templateParser.php';
 
 use SuiteCRM\Utility\SuiteValidator as SuiteValidator;
 
-class MCCDTemplateParser extends aowTemplateParser {
+class ASSISTTemplateParser extends aowTemplateParser {
     public static function parse_template($string, $bean_arr)
     {
         global $beanList;
@@ -99,7 +99,7 @@ class MCCDTemplateParser extends aowTemplateParser {
                     }
                 } elseif ($field_def['type'] == 'text') {
                     $repl_arr[$key . "_" . $fieldName] = $focus->{$fieldName};
-                    if(!empty($sugar_config['mccd_email_public_field_whitelist'][$key]) && in_array($fieldName,$sugar_config['mccd_email_public_field_whitelist'][$key])){
+                    if(!empty($sugar_config['assist_email_public_field_whitelist'][$key]) && in_array($fieldName,$sugar_config['assist_email_public_field_whitelist'][$key])){
                         $m = [];
                         //Field is sometimes double encoded - fix.
                         $repl_arr[$key . "_" . $fieldName] = html_entity_decode($repl_arr[$key . "_" . $fieldName]);

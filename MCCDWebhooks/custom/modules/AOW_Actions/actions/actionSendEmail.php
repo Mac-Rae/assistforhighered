@@ -7,7 +7,7 @@ class customactionSendEmail extends actionSendEmail{
     {
         global $sugar_config;
 
-        require_once 'custom/modules/AOW_Actions/actions/MCCDTemplateParser.php';
+        require_once 'custom/modules/AOW_Actions/actions/ASSISTTemplateParser.php';
 
         $object_arr[$bean->module_dir] = $bean->id;
 
@@ -38,9 +38,16 @@ class customactionSendEmail extends actionSendEmail{
                 }
             }
         }
-        if($bean->module_name == 'Cases' && !empty($bean->parent_type) && !empty($bean->parent_id)){
-            $object_arr[$bean->parent_type] = $bean->parent_id;
-            if($bean->parent_type == 'Leads' && empty($object_arr['Contacts'])){
+        $useCase = false;
+        if($bean->module_name == 'Cases'){
+            $useCase = $bean;
+        }
+        if($bean->module_name == 'AOP_Case_Updates' && !empty($object_arr['Cases'])){
+            $useCase = BeanFactory::getBean('Cases',$object_arr['Cases']);
+        }
+        if($useCase && !empty($useCase->parent_type) && !empty($useCase->parent_id)){
+            $object_arr = array($useCase->parent_type => $useCase->parent_id) + $object_arr;
+            if($useCase->parent_type == 'Leads' && empty($object_arr['Contacts'])){
                 unset($object_arr['Contacts']);
             }
         }
@@ -64,11 +71,11 @@ class customactionSendEmail extends actionSendEmail{
         $template->subject = str_replace("\$contact_user", "\$user", $template->subject);
         $template->body_html = str_replace("\$contact_user", "\$user", $template->body_html);
         $template->body = str_replace("\$contact_user", "\$user", $template->body);
-        $template->subject = MCCDTemplateParser::parse_template($template->subject, $object_arr);
-        $template->body_html = MCCDTemplateParser::parse_template($template->body_html, $object_arr);
+        $template->subject = ASSISTTemplateParser::parse_template($template->subject, $object_arr);
+        $template->body_html = ASSISTTemplateParser::parse_template($template->body_html, $object_arr);
         $template->body_html = str_replace("\$url", $url, $template->body_html);
         $template->body_html = str_replace('$sugarurl', $sugar_config['site_url'], $template->body_html);
-        $template->body = MCCDTemplateParser::parse_template($template->body, $object_arr);
+        $template->body = ASSISTTemplateParser::parse_template($template->body, $object_arr);
         $template->body = str_replace("\$url", $url, $template->body);
         $template->body = str_replace('$sugarurl', $sugar_config['site_url'], $template->body);
     }
