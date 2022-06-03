@@ -8,7 +8,7 @@ class SAPublicProfile
         $colours = [
             [
                 'name' => 'page-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_PAGE_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_PAGE_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['page-bg-color'],
                 'default' => '#ffffff',
                 'attribute' => 'background-color',
@@ -16,7 +16,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'page-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_PAGE_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_PAGE_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['page-text-color'],
                 'default' => '#212529',
                 'attribute' => 'color',
@@ -24,7 +24,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'top-bar-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_TOP_BAR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_TOP_BAR'],
                 'value' => $sugar_config['publicprofile']['theme']['top-bar-color'],
                 'default' => '#002b5c',
                 'attribute' => 'background-color',
@@ -32,7 +32,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'top-bar-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_TOP_BAR_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_TOP_BAR_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['top-bar-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -40,7 +40,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'footer-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_FOOTER'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_FOOTER'],
                 'value' => $sugar_config['publicprofile']['theme']['footer-color'],
                 'default' => '#002b5c',
                 'attribute' => 'background-color',
@@ -48,7 +48,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'panel-header-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_PANEL_HEADER_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_PANEL_HEADER_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['panel-header-bg-color'],
                 'default' => '#002b5c',
                 'attribute' => 'background-color',
@@ -56,7 +56,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'panel-header-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_PANEL_HEADER_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_PANEL_HEADER_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['panel-header-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -64,7 +64,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'warning-card-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_WARNING_CARD_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_WARNING_CARD_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['warning-card-bg-color'],
                 'default' => '#ffc107',
                 'attribute' => 'background-color',
@@ -72,7 +72,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'warning-card-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_WARNING_CARD_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_WARNING_CARD_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['warning-card-text-color'],
                 'default' => '#212529',
                 'attribute' => 'color',
@@ -80,7 +80,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'success-card-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_SUCCESS_CARD_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_SUCCESS_CARD_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['success-card-bg-color'],
                 'default' => '#74AA50',
                 'attribute' => 'background-color',
@@ -88,7 +88,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'success-card-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_SUCCESS_CARD_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_SUCCESS_CARD_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['success-card-text-color'],
                 'default' => '#212529',
                 'attribute' => 'color',
@@ -96,7 +96,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-bg-color'],
                 'default' => '#74aa50',
                 'attribute' => 'background-color',
@@ -104,7 +104,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-border-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_BORDER'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_BORDER'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-border-color'],
                 'default' => '#74aa50',
                 'attribute' => 'border-color',
@@ -112,7 +112,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_TEXT_COLOR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_TEXT_COLOR'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -120,7 +120,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-disabled-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_DISABLED_BTN_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_DISABLED_BTN_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-disabled-bg-color'],
                 'default' => '#3d3d3d',
                 'attribute' => 'background-color',
@@ -128,7 +128,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-disabled-border-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_DISABLED_BORDER'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_DISABLED_BORDER'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-disabled-border-color'],
                 'default' => '#3d3d3d',
                 'attribute' => 'border-color',
@@ -136,7 +136,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-disabled-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_DISABLED_TEXT_COLOR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_DISABLED_TEXT_COLOR'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-disabled-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -144,7 +144,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-selected-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_SELECTED_BTN_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_SELECTED_BTN_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-selected-bg-color'],
                 'default' => '#28a745',
                 'attribute' => 'background-color',
@@ -152,7 +152,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-selected-border-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_SELECTED_BORDER'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_SELECTED_BORDER'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-selected-border-color'],
                 'default' => '#28a745',
                 'attribute' => 'border-color',
@@ -160,7 +160,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-selected-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_SELECTED_TEXT_COLOR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_SELECTED_TEXT_COLOR'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-selected-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -168,7 +168,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-success-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_SUCCESS_BTN_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_SUCCESS_BTN_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-success-bg-color'],
                 'default' => '#74AA50',
                 'attribute' => 'background-color',
@@ -176,7 +176,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-success-border-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_SUCCESS_BORDER'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_SUCCESS_BORDER'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-success-border-color'],
                 'default' => '#74AA50',
                 'attribute' => 'border-color',
@@ -184,7 +184,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'btn-success-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_BTN_SUCCESS_TEXT_COLOR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_BTN_SUCCESS_TEXT_COLOR'],
                 'value' => $sugar_config['publicprofile']['theme']['btn-success-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -192,7 +192,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'matrix-bg-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_MATRIX_BG'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_MATRIX_BG'],
                 'value' => $sugar_config['publicprofile']['theme']['matrix-bg-color'],
                 'default' => '#D3D3D3',
                 'attribute' => 'background-color',
@@ -200,7 +200,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'matrix-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_MATRIX_TEXT_COLOR'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_MATRIX_TEXT_COLOR'],
                 'value' => $sugar_config['publicprofile']['theme']['matrix-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -208,7 +208,7 @@ class SAPublicProfile
             ],
             [
                 'name' => 'header-text-color',
-                'label' => $mod_strings['LBL_MCCD_PUBLIC_PROFILE_COLOUR_HEADER_TEXT'],
+                'label' => $mod_strings['LBL_ASSIST_PUBLIC_PROFILE_COLOUR_HEADER_TEXT'],
                 'value' => $sugar_config['publicprofile']['theme']['header-text-color'],
                 'default' => '#ffffff',
                 'attribute' => 'color',
@@ -771,33 +771,33 @@ EOF;
             $res = curl_exec($ch);
             $ob = json_decode($res,1);
             if(empty($ob) || empty($ob['success'])){
-                return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_RECAPTCHA'];
+                return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_RECAPTCHA'];
             }
         }
 
         if(!empty($_REQUEST['maricopa_id']) && strlen($_REQUEST['maricopa_id']) != 10){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_MARICOPA_ID'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_MARICOPA_ID'];
         }
         if(empty($_REQUEST['first_name'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_FIRST_NAME'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_FIRST_NAME'];
         }
         if(empty($_REQUEST['last_name'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_LAST_NAME'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_LAST_NAME'];
         }
         if(empty($_REQUEST['phone'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_PHONE'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_PHONE'];
         }
         if(!preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $_REQUEST['phone'])) {
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_PHONE'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_PHONE'];
         }
         if(empty($_REQUEST['email_address'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_EMAIL'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_EMAIL'];
         }
         if(empty($_REQUEST['reason'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_REASON'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_REASON'];
         }
         if(empty($_REQUEST['meeting_type'])){
-            return $app_strings['LBL_MCCD_PUBLIC_PROFILE_BOOK_MEETING_ERROR_MEETING_TYPE'];
+            return $app_strings['LBL_ASSIST_PUBLIC_PROFILE_BOOK_MEETING_ERROR_MEETING_TYPE'];
         }
         return false;
     }
