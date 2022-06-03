@@ -82,7 +82,7 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
 
 
 
-  
+
     $ss = new Sugar_Smarty();
     $ss->assign("MOD", $mod_strings);
     $ss->assign("APP", $app_strings);
@@ -100,7 +100,7 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
         $confirm_msg .= "window.setTimeout('ajaxWizStatus.hideStatus()', 5000); ";
         $ss->assign("MSG_SCRIPT", $confirm_msg);
     }
-    
+
     if (isset($_REQUEST['return_module'])) {
         $ss->assign("RETURN_MODULE", $_REQUEST['return_module']);
     }
@@ -117,16 +117,16 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
     if (empty($_REQUEST['return_id'])) {
         $ss->assign("RETURN_ACTION", 'index');
     }
-        
-    
-    
+
+
+
     $ss->assign("CAMPAIGN_TBL", create_campaign_summary($focus));
     $ss->assign("TARGETS_TBL", create_target_summary($focus));
     if ($focus->campaign_type =='NewsLetter' || $focus->campaign_type =='Email') {
         $ss->assign("MARKETING_TBL", create_marketing_summary($focus));
         $ss->assign("TRACKERS_TBL", create_tracker_summary($focus));
     }
-    
+
     $camp_url = "index.php?action=WizardNewsletter&module=Campaigns&return_module=Campaigns&return_action=WizardHome";
     $camp_url .= "&return_id=".$focus->id."&record=".$focus->id."&direct_step=";
     $ss->assign("CAMP_WIZ_URL", $camp_url);
@@ -138,7 +138,7 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
         $mrkt_url .= "'>". $mrkt_string."</a>";
         $mrkt_string = $mrkt_url;
     }
-        
+
     $mrkt_url = "<a  href='index.php?action=WizardMarketing&module=Campaigns&return_module=Campaigns&return_action=WizardHome";
     $mrkt_url .= "&return_id=".$focus->id."&campaign_id=".$focus->id;
     $mrkt_url .= "'>". $mod_strings['LBL_NAVIGATION_MENU_MARKETING']."</a>";
@@ -158,11 +158,13 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
         $ss->assign("CAMPAIGN_DIAGNOSTIC_LINK", diagnose());
     } elseif($focus->campaign_type == 'BulkCase'){
         $ss->assign('NAV_ITEMS', create_wiz_menu_items('BulkCase', $mrkt_string, $camp_url, $summ_url));
+    } elseif($focus->campaign_type == 'SA_SMS'){
+        $ss->assign('NAV_ITEMS', create_wiz_menu_items('SA_SMS', $mrkt_string, $camp_url, $summ_url));
     } else {
         $ss->assign('NAV_ITEMS', create_wiz_menu_items('general', $mrkt_string, $camp_url, $summ_url));
     }
-    
-            
+
+
     /********** FINAL END OF PAGE UI Stuff ********/
     $ss->display(file_exists('custom/modules/Campaigns/WizardHome.html') ? 'custom/modules/Campaigns/WizardHome.html' : 'modules/Campaigns/WizardHome.html');
 
@@ -190,7 +192,7 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
     {
         $campaignId = isset($_REQUEST['campaign_id']) && $_REQUEST['campaign_id'] ? $_REQUEST['campaign_id'] : $_REQUEST['record'];
         $ret = isset($_POST['marketing_id']) && $_POST['marketing_id'] ? $_POST['marketing_id'] : (
-            isset($_REQUEST['marketing_id']) && $_REQUEST['marketing_id'] ? $_REQUEST['marketing_id'] : getFirstMarketingId($campaignId)
+        isset($_REQUEST['marketing_id']) && $_REQUEST['marketing_id'] ? $_REQUEST['marketing_id'] : getFirstMarketingId($campaignId)
         );
         return $ret;
     }
@@ -215,11 +217,11 @@ if (isset($_REQUEST['record']) &&  !empty($_REQUEST['record'])) {
     global $app_list_strings;
     global $app_strings;
     global $current_user;
-    
+
     //if (!is_admin($current_user)) sugar_die("Unauthorized access to administration.");
     //account for use within wizards
     echo getClassicModuleTitle($mod_strings['LBL_MODULE_NAME'], array($mod_strings['LBL_CAMPAIGN_WIZARD'].$focus->name), true, false);
-             
+
 
     $ss = new Sugar_Smarty();
     $ss->assign("MOD", $mod_strings);
@@ -251,7 +253,7 @@ function create_campaign_summary($focus)
     $fields[] = 'expected_cost';
     $fields[] = 'impressions';
     $fields[] = 'objective';
-    
+
     //create edit view status and input buttons
     $cmp_input = '';
 
@@ -265,7 +267,7 @@ function create_campaign_summary($focus)
     $cmp_input.= "this.form.record.value='".$focus->id."';";
     $cmp_input.= "this.form.return_id.value='".$focus->id."';\" ";
     $cmp_input.= "class='button' value='".$mod_strings['LBL_EDIT_EXISTING']."' type='submit'> ";
-          
+
     //create view status button
     if (($focus->campaign_type == 'NewsLetter') || ($focus->campaign_type == 'Email')) {
         $cmp_input .=  " <input id='wiz_status_button' name='SUBMIT'  ";
@@ -286,7 +288,7 @@ function create_campaign_summary($focus)
     $cmp_input.= "this.form.record.value='".$focus->id."';";
     $cmp_input.= "this.form.return_id.value='".$focus->id."';\" ";
     $cmp_input.= "class='button' value='".$mod_strings['LBL_TRACK_ROI_BUTTON_LABEL']."' type='submit'>";
-          
+
     //Create Campaign Header
     $cmpgn_tbl = "<p><table class='edit view' width='100%' border='0' cellspacing='0' cellpadding='0'>";
     $cmpgn_tbl .= "<tr><td class='dataField' align='left'><h4 class='dataLabel'> ".$mod_strings['LBL_LIST_CAMPAIGN_NAME'].'  '. $mod_strings['LBL_WIZ_NEWSLETTER_TITLE_SUMMARY']." </h4></td>";
@@ -304,7 +306,7 @@ function create_campaign_summary($focus)
         }
     }
     $cmpgn_tbl .= "</table></p>";
-    
+
     return $cmpgn_tbl ;
 }
 
@@ -312,7 +314,7 @@ function create_marketing_summary($focus)
 {
     global $mod_strings,$app_strings;
     $colorclass = '';
-    
+
     //create new marketing button input
     $new_mrkt_input =  "<input id='wiz_new_mrkt_button' name='SUBMIT' ";
     $new_mrkt_input .= "onclick=\"this.form.return_module.value='Campaigns';";
@@ -325,24 +327,24 @@ function create_marketing_summary($focus)
     $new_mrkt_input .= "this.form.campaign_id.value='".$focus->id."';";
     $new_mrkt_input .= "this.form.return_id.value='".$focus->id."';\" ";
     $new_mrkt_input .= "class='button' value='".$mod_strings['LBL_CREATE_NEW_MARKETING_EMAIL']."' type='submit'>";
-       
+
     //create marketing email table
     $mrkt_tbl='';
-    
+
     $focus->load_relationship('emailmarketing');
     $mrkt_lists = $focus->emailmarketing->get();
-    
-    
+
+
     $mrkt_tbl = "<p><table  class='list view' width='100%' border='0' cellspacing='1' cellpadding='1'>";
     $mrkt_tbl .= "<tr class='detail view'><td colspan='3'><h4> ".$mod_strings['LBL_WIZ_MARKETING_TITLE']." </h4></td>" .
-                 "<td colspan=2 align='right'>$new_mrkt_input</td></tr>";
+        "<td colspan=2 align='right'>$new_mrkt_input</td></tr>";
     $mrkt_tbl .= "<tr  class='listViewHRS1'><td scope='col' width='15%'><b>".$mod_strings['LBL_MRKT_NAME']."</b></td><td width='15%' scope='col'><b>".$mod_strings['LBL_FROM_MAILBOX_NAME']."</b></td><td width='15%' scope='col'><b>".$mod_strings['LBL_STATUS_TEXT']."</b></td><td scope='col' colspan=2>&nbsp;</td></tr>";
-    
+
     if (count($mrkt_lists)>0) {
         $mrkt_focus = BeanFactory::newBean('EmailMarketing');
         foreach ($mrkt_lists as $mrkt_id) {
             $mrkt_focus->retrieve($mrkt_id);
-    
+
             //create send test marketing button input
             $test_mrkt_input =  "<input id='wiz_new_mrkt_button' name='SUBMIT'  ";
             $test_mrkt_input .= "onclick=\"this.form.return_module.value='Campaigns'; ";
@@ -357,7 +359,7 @@ function create_marketing_summary($focus)
             $test_mrkt_input .= "this.form.record.value='".$focus->id."'; ";
             $test_mrkt_input .= "this.form.return_id.value='".$focus->id."';\" ";
             $test_mrkt_input .= "class='button' value='".$mod_strings['LBL_TEST_BUTTON_LABEL']."' type='submit'>";
-            
+
             //create send marketing button input
             $send_mrkt_input =  "<input id='wiz_new_mrkt_button' name='SUBMIT'  ";
             $send_mrkt_input .= "onclick=\"this.form.return_module.value='Campaigns'; ";
@@ -372,15 +374,15 @@ function create_marketing_summary($focus)
             $send_mrkt_input .= "this.form.record.value='".$focus->id."'; ";
             $send_mrkt_input .= "this.form.return_id.value='".$focus->id."';\" ";
             $send_mrkt_input .= "class='button' value='".$mod_strings['LBL_SEND_EMAIL']."' type='submit'>";
-            
-    
-    
+
+
+
             if ($colorclass== "class='evenListRowS1'") {
                 $colorclass= "class='oddListRowS1'";
             } else {
                 $colorclass= "class='evenListRowS1'";
             }
-    
+
             if (isset($mrkt_focus->name) && !empty($mrkt_focus->name)) {
                 $mrkt_tbl  .= "<tr $colorclass>";
                 $mrkt_tbl  .= "<td scope='row' width='40%'><a href='index.php?action=WizardMarketing&module=Campaigns&return_module=Campaigns&return_action=WizardHome";
@@ -413,8 +415,8 @@ function create_target_summary($focus)
     if ($camp_type=='NewsLetter') {
         $target_title = $mod_strings['LBL_NAVIGATION_MENU_SUBSCRIPTIONS'];
     }
-    
-    
+
+
     $focus->load_relationship('prospectlists');
     $pl_lists = $focus->prospectlists->get();
 
@@ -422,7 +424,7 @@ function create_target_summary($focus)
     $pl_tbl .= "<tr class='detail view'><td colspan='4'><h4> ".$target_title." </h4></td></tr>";
     $pl_tbl .= "<tr class='listViewHRS1'><td width='50%' scope='col'><b>".$mod_strings['LBL_LIST_NAME']."</b></td><td width='30%' scope='col'><b>".$mod_strings['LBL_LIST_TYPE']."</b></td>";
     $pl_tbl .= "<td width='15%' scope='col'><b>".$mod_strings['LBL_TOTAL_ENTRIES']."</b></td><td width='5%' scope='col'>&nbsp;</td></tr>";
-   
+
     if (count($pl_lists)>0) {
         $pl_focus = BeanFactory::newBean('ProspectLists');
         foreach ($pl_lists as $pl_id) {
@@ -431,7 +433,7 @@ function create_target_summary($focus)
             } else {
                 $colorclass= "class='evenListRowS1'";
             }
-                                    
+
             $pl_focus->retrieve($pl_id);
             //set the list type if this is a newsletter
             $type=$pl_focus->list_type;
@@ -482,7 +484,7 @@ function create_tracker_summary($focus)
     $trkr_tbl = "<p><table align='center' class='list view' width='100%' border='0' cellspacing='1' cellpadding='1'>";
     $trkr_tbl .= "<tr class='detail view'><td colspan='6'><h4> ".$mod_strings['LBL_NAVIGATION_MENU_TRACKERS']." </h4></td></tr>";
     $trkr_tbl .= "<tr class='listViewHRS1'><td width='15%' scope='col'><b>".$mod_strings['LBL_EDIT_TRACKER_NAME']."</b></td><td width='15%' scope='col'><b>".$mod_strings['LBL_EDIT_TRACKER_URL']."</b></td><td width='15%' scope='col'><b>".$mod_strings['LBL_EDIT_OPT_OUT']."</b></td></tr>";
-    
+
     if (count($trkr_lists)>0) {
         foreach ($trkr_lists as $trkr_id) {
             if ($colorclass== "class='evenListRowS1'") {
@@ -490,8 +492,8 @@ function create_tracker_summary($focus)
             } else {
                 $colorclass= "class='evenListRowS1'";
             }
-            
-            
+
+
             $ct_focus = BeanFactory::newBean('CampaignTrackers');
             $ct_focus->retrieve($trkr_id);
             if (isset($ct_focus->tracker_name) && !empty($ct_focus->tracker_name)) {
@@ -519,7 +521,7 @@ function create_tracker_summary($focus)
 function create_wiz_menu_items($type, $mrkt_string, $camp_url, $summ_url)
 {
     global $mod_strings;
-    
+
     $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
     if($type != 'BulkCase') {
         $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']] = file_exists('custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignBudget.tpl' : 'modules/Campaigns/tpls/WizardCampaignBudget.tpl';
@@ -539,10 +541,15 @@ function create_wiz_menu_items($type, $mrkt_string, $camp_url, $summ_url)
     if($type == 'BulkCase'){
         $steps = [];
         $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-        $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/MCCDBulkCaseDetails.tpl';
+        $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
         $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
+    }
 
-
+    if($type == 'SA_SMS'){
+        $steps = [];
+        $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
+        $steps[$mod_strings['LBL_NAVIGATION_MENU_SA_SMS_TEMPLATE']] = 'custom/modules/Campaigns/tpls/SA_SMSTemplateDetails.tpl';
+        $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
     }
 
     $nav_html = '<table border="0" cellspacing="0" cellpadding="0" width="100%" >';
@@ -561,8 +568,8 @@ function create_wiz_menu_items($type, $mrkt_string, $camp_url, $summ_url)
     } else {
         $nav_html .= "<td scope='row' nowrap><div id='nav_step'".($i+1).">".$summ_url."</div></td></tr>";
     }
-    
+
     $nav_html .= '</table>';
-  
+
     return $nav_html;
 }

@@ -108,7 +108,7 @@ function navigate(direction, noValidation, noSave) {
             current_step.value = currentValue - 1;
         }
         if (direction == 'next') {
-            if (currentValue == 1 || (currentValue == 2 && campaignType == 'BulkCase')) {
+            if (currentValue == 1 || (currentValue == 2 && (campaignType == 'BulkCase' || campaignType == 'SA_SMS'))) {
                 if (!campaignId) {
                     if (typeof document.getElementById('wizform').direction != 'undefined') {
                         if (!noSave) {
@@ -137,7 +137,15 @@ function navigate(direction, noValidation, noSave) {
         var back_button_div = document.getElementById('back_button_div');
         var save_button_div = document.getElementById('save_button_div');
         var next_button_div = document.getElementById('next_button_div');
-        if(campaignType == 'BulkCase') {
+        if(campaignType == 'SA_SMS') {
+            if(current_step.value == 3){
+                save_button_div.style.display = '';
+                next_button_div.style.display = 'none';
+            }else{
+                save_button_div.style.display = 'none';
+                next_button_div.style.display = '';
+            }
+        }else if(campaignType == 'BulkCase') {
             if(current_step.value == 3){
                 save_button_div.style.display = '';
                 next_button_div.style.display = 'none';

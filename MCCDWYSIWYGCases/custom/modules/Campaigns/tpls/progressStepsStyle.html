@@ -106,6 +106,7 @@
         var step3Shows = $('#step3').css('display') && $('#step3').css('display') != 'none'; // Target Lists / Summary
 
         var step;
+
         if(campaignType == 'NewsLetter' || campaignType == 'Email' || campaignType == null) {
             if(step1Shows) {
                 if(typeof step3Shows == 'undefined') {
@@ -150,6 +151,22 @@
             }
         }
         else if(campaignType == 'BulkCase') {
+            if(step1Shows) {
+                step = 1;
+            }
+            else if(step2Shows) {
+                step = 2;
+            }
+            else if(step3Shows) {
+                if($('#step3').attr('data') == 'summary-page') {
+                    step = 4;
+                }
+                else {
+                    step = 3;
+                }
+            }
+        }
+        else if(campaignType == 'SA_SMS') {
             if(step1Shows) {
                 step = 1;
             }

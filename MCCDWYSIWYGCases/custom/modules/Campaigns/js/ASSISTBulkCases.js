@@ -11,7 +11,7 @@ $(document).ready(
 );
 function createBulkCases(){
     var form = $('#formDetailView');
-    form.append($('<input type="hidden" name="entryPoint" value="MCCDExecuteBulkCases">'));
+    form.append($('<input type="hidden" name="entryPoint" value="ASSISTExecuteBulkCases">'));
     form.find("[name=action]").remove();
     form.find("[name=module]").remove();
     form.submit();

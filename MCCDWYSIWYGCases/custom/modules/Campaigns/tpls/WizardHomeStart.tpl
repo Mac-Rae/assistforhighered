@@ -76,6 +76,7 @@
 									<input type="radio"  id="wizardtype_ot" name='wizardtype' value='3'><label for='wizardtype_ot'>{$MOD.LBL_OTHER_TYPE_CAMPAIGN}</label><br>
 									<input type="radio"  id="wizardtype_survey" name='wizardtype' value='4'><label for='wizardtype_survey'>{$MOD.LBL_CAMPAIGN_SURVEY}</label><br>
 									<input type="radio"  id="wizardtype_bulkcase" name='wizardtype' value='5'><label for='wizardtype_bulkcase'>{$MOD.LBL_CAMPAIGN_BULKCASE}</label><br>
+									<input type="radio"  id="wizardtype_sa_sms" name='wizardtype' value='6'><label for='wizardtype_sa_sms'>{$MOD.LBL_CAMPAIGN_SA_SMS}</label><br>
 								</p>
 
 
@@ -111,13 +112,8 @@
 											<span>{$MOD.LBL_CAMPAIGN_SURVEY}</span>
 										</a>
 									</li>
-									<li class="icon-btn">
-										<a href="javascript:" onclick="$('#wizardtype_bulkcase').click(); $(this).closest('form').submit();" title="{$MOD.LBL_CAMPAIGN_BULKCASE}">
-											<span class="suitepicon suitepicon-module-cases"></span>
-											<br />
-											<span>{$MOD.LBL_CAMPAIGN_BULKCASE}</span>
-										</a>
-									</li>
+									{include file="custom/modules/Campaigns/tpls/SA_BulkCaseMenu.tpl"}
+									{include file="custom/modules/Campaigns/tpls/SA_SMSMenu.tpl"}
 								</ul>
 
 							</fieldset>

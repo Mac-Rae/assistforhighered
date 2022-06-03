@@ -105,13 +105,13 @@ require_once('include/QuickSearchDefaults.php');
 $qsd = QuickSearchDefaults::getQuickSearchDefaults();
 $qsd->setFormName('wizform');
 $sqs_objects = array('parent_name' => $qsd->getQSParent(),
-                    'assigned_user_name' => $qsd->getQSUser(),
-                    //'prospect_list_name' => getProspectListQSObjects(),
-                    'test_name' => getProspectListQSObjects('prospect_list_type_test', 'test_name', 'wiz_step3_test_name_id'),
-                    'unsubscription_name' => getProspectListQSObjects('prospect_list_type_exempt', 'unsubscription_name', 'wiz_step3_unsubscription_name_id'),
-                    'subscription_name' => getProspectListQSObjects('prospect_list_type_default', 'subscription_name', 'wiz_step3_subscription_name_id'),
-                    );
-                    
+    'assigned_user_name' => $qsd->getQSUser(),
+    //'prospect_list_name' => getProspectListQSObjects(),
+    'test_name' => getProspectListQSObjects('prospect_list_type_test', 'test_name', 'wiz_step3_test_name_id'),
+    'unsubscription_name' => getProspectListQSObjects('prospect_list_type_exempt', 'unsubscription_name', 'wiz_step3_unsubscription_name_id'),
+    'subscription_name' => getProspectListQSObjects('prospect_list_type_default', 'subscription_name', 'wiz_step3_subscription_name_id'),
+);
+
 
 $quicksearch_js = '<script type="text/javascript" language="javascript">sqs_objects = ' . $json->encode($sqs_objects) . '</script>';
 
@@ -132,6 +132,8 @@ if ((isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==1)  ||  ($focus
 } elseif ((isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==5) || ($focus->campaign_type == 'BulkCase')) {
     $campaign_type = 'BulkCase';
     //$ss->assign("CAMPAIGN_DIAGNOSTIC_LINK", diagnose());
+} elseif ((isset($_REQUEST['wizardtype'])  && $_REQUEST['wizardtype']==6) || ($focus->campaign_type == 'SA_SMS')) {
+    $campaign_type = 'SA_SMS';
 } else {
     $campaign_type = 'general';
 }
@@ -145,8 +147,8 @@ $popup_request_data = array(
     'field_to_name_array' => array(
         'id' => 'assigned_user_id',
         'user_name' => 'assigned_user_name',
-        ),
-    );
+    ),
+);
 $ss->assign('encoded_users_popup_request_data', $json->encode($popup_request_data));
 
 
@@ -156,8 +158,8 @@ $popup_request_data = array(
     'field_to_name_array' => array(
         'id' => 'survey_id',
         'name' => 'survey_name',
-        ),
-    );
+    ),
+);
 $ss->assign('encoded_surveys_popup_request_data', $json->encode($popup_request_data));
 
 //set default values
@@ -183,33 +185,34 @@ $ss->assign("CAMP_NAME", $focus->name);
 $ss->assign("CAMP_RECORD", $focus->id);
 $ss->assign("CAMP_IMPRESSIONS", $focus->impressions);
 
-
-if($campaign_type == 'BulkCase'){
+if($campaign_type == 'SA_SMS'){
+    $ss->assign("SA_SMS_TEMPLATE", $focus->sa_sms_template);
+}else if($campaign_type == 'BulkCase'){
     $caseBean = BeanFactory::getBean('Cases');
-    $ss->assign("MCCD_CASE_NAME", $focus->mccd_case_name);
-    $ss->assign("MCCD_CASE_PRIORITY", get_select_options_with_id($app_list_strings[$caseBean->field_defs['priority']['options']],$focus->mccd_case_priority));
-    $ss->assign("MCCD_CASE_TYPE", get_select_options_with_id($app_list_strings[$caseBean->field_defs['type']['options']],$focus->mccd_case_type));
+    $ss->assign("ASSIST_CASE_NAME", $focus->assist_case_name);
+    $ss->assign("ASSIST_CASE_PRIORITY", get_select_options_with_id($app_list_strings[$caseBean->field_defs['priority']['options']],$focus->assist_case_priority));
+    $ss->assign("ASSIST_CASE_TYPE", get_select_options_with_id($app_list_strings[$caseBean->field_defs['type']['options']],$focus->assist_case_type));
     if(!empty($caseBean->field_defs['institution_c'])){
-        $ss->assign("MCCD_CASE_INSTITUTION",get_select_options_with_id($app_list_strings[$caseBean->field_defs['institution_c']['options']],$focus->mccd_case_institution));
+        $ss->assign("ASSIST_CASE_INSTITUTION",get_select_options_with_id($app_list_strings[$caseBean->field_defs['institution_c']['options']],$focus->assist_case_institution));
     }
-    $ss->assign("MCCD_CASE_NOTIFY_CLOSE", $focus->mccd_case_notify_close ? 'checked="checked"' : '');
-    $ss->assign("MCCD_CASE_NOTIFY_UPDATE", $focus->mccd_case_notify_update ? 'checked="checked"' : '');
+    $ss->assign("ASSIST_CASE_NOTIFY_CLOSE", $focus->assist_case_notify_close ? 'checked="checked"' : '');
+    $ss->assign("ASSIST_CASE_NOTIFY_UPDATE", $focus->assist_case_notify_update ? 'checked="checked"' : '');
 
 
-    $ss->assign("MCCD_CASE_ASSIGNED_ID",$focus->mccd_case_assigned);
-    if($focus->mccd_case_assigned){
-        $mccdAssigned = BeanFactory::getBean('Users', $focus->mccd_case_assigned);
-        $ss->assign("MCCD_CASE_ASSIGNED_NAME",$mccdAssigned->get_summary_text());
+    $ss->assign("ASSIST_CASE_ASSIGNED_ID",$focus->assist_case_assigned);
+    if($focus->assist_case_assigned){
+        $assistAssigned = BeanFactory::getBean('Users', $focus->assist_case_assigned);
+        $ss->assign("ASSIST_CASE_ASSIGNED_NAME",$assistAssigned->get_summary_text());
     }
     $popup_request_data = array(
         'call_back_function' => 'set_return',
         'form_name' => 'wizform',
         'field_to_name_array' => array(
-            'id' => 'mccd_case_assigned',
-            'user_name' => 'mccd_case_assigned_name',
+            'id' => 'assist_case_assigned',
+            'user_name' => 'assist_case_assigned_name',
         ),
     );
-    $ss->assign('mccd_assigned_encoded_users_popup_request_data', $json->encode($popup_request_data));
+    $ss->assign('assist_assigned_encoded_users_popup_request_data', $json->encode($popup_request_data));
 
 }
 
@@ -292,7 +295,7 @@ if ($campaign_type == 'general') {
             $myTypeOptionsArr[$key] = $val;
         }
     }
-    
+
     //now create select option html without the newsletter/email, or blank ('') options
     $type_option_html =' ';
     $selected = false;
@@ -337,6 +340,11 @@ if ($campaign_type == 'general') {
     $ss->assign("CAMPAIGN_TYPE_OPTIONS", $mod_strings['LBL_BULKCASE']);
     $ss->assign("SHOULD_TYPE_BE_DISABLED", "input type='hidden' value='BulkCase'");
     $ss->assign("HIDE_CAMPAIGN_TYPE", true);
+} elseif ($campaign_type == 'SA_SMS') {
+    $ss->assign("CAMPAIGN_TYPE_OPTIONS", $mod_strings['LBL_SA_SMS']);
+    $ss->assign("SHOULD_TYPE_BE_DISABLED", "input type='hidden' value='SA_SMS'");
+    $ss->assign("HIDE_CAMPAIGN_TYPE", true);
+
 } else {
     //Assign NewsLetter as type of campaign being created an disable the select widget
     $ss->assign("CAMPAIGN_TYPE_OPTIONS", $mod_strings['LBL_NEWSLETTER']);
@@ -357,7 +365,7 @@ $trkr_html ='';
 $ss->assign('TRACKER_COUNT', count($trkr_lists));
 if (count($trkr_lists)>0) {
     global $odd_bg, $even_bg, $hilite_bg;
-    
+
     $trkr_count = 0;
     //create the html to create tracker table
     foreach ($trkr_lists as $trkr_id) {
@@ -378,12 +386,12 @@ if (count($trkr_lists)>0) {
         }
         $trkr_count =$trkr_count+1;
     }
-    
+
     $trkr_html .= "<div id='no_trackers'></div>";
 } else {
     $trkr_html .= "<div id='no_trackers'><table width='100%' border='0' cellspacing='0' cellpadding='0'><tr class='evenListRowS1'><td>".$mod_strings['LBL_NONE']."</td></tr></table></div>";
 }
-    $ss->assign('EXISTING_TRACKERS', $trkr_html);
+$ss->assign('EXISTING_TRACKERS', $trkr_html);
 
 
 
@@ -395,59 +403,59 @@ if (count($trkr_lists)>0) {
 
 /************** SUBSCRIPTION UI DIV Stuff ***************/
 //fill in popups for target list options
-    $popup_request_data = array(
-        'call_back_function' => 'set_return',
-        'form_name' => 'wizform',
-        'field_to_name_array' => array(
-            'id' => 'wiz_step3_subscription_name_id',
-            'name' => 'wiz_step3_subscription_name',
-            
-            ),
-        );
+$popup_request_data = array(
+    'call_back_function' => 'set_return',
+    'form_name' => 'wizform',
+    'field_to_name_array' => array(
+        'id' => 'wiz_step3_subscription_name_id',
+        'name' => 'wiz_step3_subscription_name',
+
+    ),
+);
 
 $json = getJSONobj();
 $encoded_newsletter_popup_request_data = $json->encode($popup_request_data);
 $ss->assign('encoded_subscription_popup_request_data', $encoded_newsletter_popup_request_data);
 
-    $popup_request_data = array(
-        'call_back_function' => 'set_return',
-        'form_name' => 'wizform',
-        'field_to_name_array' => array(
-            'id' => 'wiz_step3_unsubscription_name_id',
-            'name' => 'unsubscription_name',
-            
-            ),
-        );
+$popup_request_data = array(
+    'call_back_function' => 'set_return',
+    'form_name' => 'wizform',
+    'field_to_name_array' => array(
+        'id' => 'wiz_step3_unsubscription_name_id',
+        'name' => 'unsubscription_name',
+
+    ),
+);
 
 $json = getJSONobj();
 $encoded_newsletter_popup_request_data = $json->encode($popup_request_data);
 $ss->assign('encoded_unsubscription_popup_request_data', $encoded_newsletter_popup_request_data);
 
-    $popup_request_data = array(
-        'call_back_function' => 'set_return', //set_return_and_save_background
-        'form_name' => 'wizform',
-        'field_to_name_array' => array(
-            'id' => 'wiz_step3_test_name_id',
-            'name' => 'test_name',
-            
-            ),
-        );
+$popup_request_data = array(
+    'call_back_function' => 'set_return', //set_return_and_save_background
+    'form_name' => 'wizform',
+    'field_to_name_array' => array(
+        'id' => 'wiz_step3_test_name_id',
+        'name' => 'test_name',
+
+    ),
+);
 
 $json = getJSONobj();
 $encoded_newsletter_popup_request_data = $json->encode($popup_request_data);
 $ss->assign('encoded_test_popup_request_data', $encoded_newsletter_popup_request_data);
 
 
-    $popup_request_data = array(
-        'call_back_function' => 'set_return_prospect_list',
-        'form_name' => 'wizform',
-        'field_to_name_array' => array(
-            'id' => 'popup_target_list_id',
-            'name' => 'popup_target_list_name',
-            'list_type' => 'popup_target_list_type',
-            
-            ),
-        );
+$popup_request_data = array(
+    'call_back_function' => 'set_return_prospect_list',
+    'form_name' => 'wizform',
+    'field_to_name_array' => array(
+        'id' => 'popup_target_list_id',
+        'name' => 'popup_target_list_name',
+        'list_type' => 'popup_target_list_type',
+
+    ),
+);
 
 $json = getJSONobj();
 $encoded_newsletter_popup_request_data = $json->encode($popup_request_data);
@@ -471,13 +479,13 @@ if ($targetList) {
     if (isset($targetList) && $targetList) {
         foreach ($targetList as $prospectLst) {
             $next = array(
-            'id' => $prospectLst->id,
-            'name' => $prospectLst->name,
-            //'type' => $prospectLst->type,
-            'description' => $prospectLst->description,
-            'type' => $prospectLst->list_type,
-            'count' => $prospectLst->get_entry_count(),
-        );
+                'id' => $prospectLst->id,
+                'name' => $prospectLst->name,
+                //'type' => $prospectLst->type,
+                'description' => $prospectLst->description,
+                'type' => $prospectLst->list_type,
+                'count' => $prospectLst->get_entry_count(),
+            );
             $targetListDataArray[] = $next;
             $targetListDataAssoc[$prospectLst->id] = $next;
         }
@@ -564,7 +572,7 @@ if ((isset($_REQUEST['wizardtype']) && $_REQUEST['wizardtype'] ==1) || ($focus->
     $ss->assign('EXISTING_TARGETS', $trgt_html);
 }
 
-    
+
 /**************************** WIZARD UI DIV Stuff *******************/
 $mrkt_string = $mod_strings['LBL_NAVIGATION_MENU_MARKETING'];
 if (!empty($focus->id)) {
@@ -573,45 +581,45 @@ if (!empty($focus->id)) {
     $mrkt_url .= "'>". $mrkt_string."</a>";
     $mrkt_string = $mrkt_url;
 }
-    $summ_url = $mod_strings['LBL_NAVIGATION_MENU_SUMMARY'];
-    if (!empty($focus->id)) {
-        $summ_url = "<a ";
-        if($campaign_type == 'BulkCase'){
-            $summ_url.= " style='color: inherit;' ";
-        }
-        $summ_url .= " href='index.php?action=WizardHome&module=Campaigns";
-        $summ_url .= "&return_id=".$focus->id."&record=".$focus->id;
-        $summ_url .= "'> ". $mod_strings['LBL_NAVIGATION_MENU_SUMMARY']."</a>";
+$summ_url = $mod_strings['LBL_NAVIGATION_MENU_SUMMARY'];
+if (!empty($focus->id)) {
+    $summ_url = "<a ";
+    if($campaign_type == 'BulkCase' || $campaign_type == 'SA_SMS'){
+        $summ_url.= " style='color: inherit;' ";
     }
-   
+    $summ_url .= " href='index.php?action=WizardHome&module=Campaigns";
+    $summ_url .= "&return_id=".$focus->id."&record=".$focus->id;
+    $summ_url .= "'> ". $mod_strings['LBL_NAVIGATION_MENU_SUMMARY']."</a>";
+}
+
 
 
 $script_to_call ='';
-    if (!empty($focus->id)) {
-        $maxStep = 2;
-        if($focus->campaign_type == 'BulkCase'){
-            $maxStep = 3;
-        }
-        $script_to_call = "link_navs(1, {$maxStep});";
-        if (isset($_REQUEST['direct_step']) and !empty($_REQUEST['direct_step'])) {
-            $directStep = (int) $_REQUEST['direct_step'];
-            if ($directStep < 1) {
-                $directStep = 1;
-            }
-            if ($directStep > $maxStep) {
-                $directStep = $maxStep;
-            }
-            $script_to_call .='   direct(' . $directStep . ');';
-        }
+if (!empty($focus->id)) {
+    $maxStep = 2;
+    if($focus->campaign_type == 'BulkCase'){
+        $maxStep = 3;
     }
-    $ss->assign("HILITE_ALL", $script_to_call);
+    $script_to_call = "link_navs(1, {$maxStep});";
+    if (isset($_REQUEST['direct_step']) and !empty($_REQUEST['direct_step'])) {
+        $directStep = (int) $_REQUEST['direct_step'];
+        if ($directStep < 1) {
+            $directStep = 1;
+        }
+        if ($directStep > $maxStep) {
+            $directStep = $maxStep;
+        }
+        $script_to_call .='   direct(' . $directStep . ');';
+    }
+}
+$ss->assign("HILITE_ALL", $script_to_call);
 if($campaign_type == 'BulkCase') {
     $validation = "if(!validate_step2()){return false;}";
 }else{
     $validation = '';
 }
 //  this is the wizard control script that resides in page
- $divScript = <<<EOQ
+$divScript = <<<EOQ
 
  <script type="text/javascript" language="javascript">
    
@@ -640,7 +648,7 @@ $ss->assign("DIV_JAVASCRIPT", $divScript);
 
 
 $sshtml = ' ';
-    $i = 1;
+$i = 1;
 
 //Create the html to fill in the wizard steps
 
@@ -675,6 +683,14 @@ if ($campaign_type == 'general') {
     }
     $ss->assign('NAV_ITEMS', create_wiz_menu_items($_steps, 'BulkCase', $mrkt_string, $summ_url, 'dotlist'));
     $ss->assign('HIDE_CONTINUE', 'hidden');
+} elseif ($campaign_type == 'SA_SMS') {
+    $steps = create_sa_sms_steps();
+
+    foreach ($steps as $key => $step) {
+        $_steps[$key] = false;
+    }
+    $ss->assign('NAV_ITEMS', create_wiz_menu_items($_steps, 'SA_SMS', $mrkt_string, $summ_url, 'dotlist'));
+    $ss->assign('HIDE_CONTINUE', 'hidden');
 } else {
     $steps = create_newsletter_steps();
 
@@ -694,7 +710,7 @@ $ss->assign('TOTAL_STEPS', count($steps));
 
 $sshtml = create_wiz_step_divs($steps, $ss);
 $ss->assign('STEPS', $sshtml);
-             
+
 
 /**************************** FINAL END OF PAGE UI Stuff *******************/
 
@@ -731,9 +747,17 @@ if (!$focus->id && isset($campaign_id) && $campaign_id) {
 function create_bulkcase_steps(){
     global $mod_strings;
     $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/MCCDBulkCaseDetails.tpl';
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
     $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
 
+    return $steps;
+}
+function create_sa_sms_steps(){
+    global $mod_strings;
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
+    #$steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_SA_SMS_TEMPLATE']] = 'custom/modules/Campaigns/tpls/SA_SMSTemplateDetails.tpl';
+    $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
     return $steps;
 }
 function create_newsletter_steps()
@@ -787,14 +811,16 @@ function create_wiz_menu_items($steps, $type, $mrkt_string, $summ_url, $view = n
 
 
     if ($view == 'dotlist') {
-        if($type == 'BulkCase'){
+        if($type == 'SA_SMS') {
+            require_once 'custom/modules/Campaigns/SA_SMSDotListWizardMenu.php';
+        }elseif($type == 'BulkCase'){
             require_once 'custom/modules/Campaigns/BulkCasesDotListWizardMenu.php';
         }else{
             include_once 'modules/Campaigns/DotListWizardMenu.php';
         }
 
 
-        if ($type!='campaign' && $type != 'BulkCase') {
+        if ($type!='campaign' && $type != 'BulkCase' && $type != 'SA_SMS') {
             $templateURLForProgressBar = false;
             if ($campaign_id && $marketing_id && $template_id) {
                 $templateURLForProgressBar = "index.php?action=WizardMarketing&module=Campaigns&return_module=Campaigns&return_action=WizardHome&return_id={$campaign_id}&campaign_id={$campaign_id}&jump=2&marketing_id={$marketing_id}&record={$marketing_id}&campaign_type=Email&template_id={$template_id}";
@@ -817,14 +843,16 @@ function create_wiz_menu_items($steps, $type, $mrkt_string, $summ_url, $view = n
 
             $steps[$mod_strings['LBL_NAVIGATION_MENU_MARKETING']] = $marketingLink;
             $steps[$mod_strings['LBL_NAVIGATION_MENU_SEND_EMAIL_AND_SUMMARY']] = $summ_url ? $summ_url : false;
-        //$steps[$summ_url] = '#';
+            //$steps[$summ_url] = '#';
         } else {
             if($summ_url){
                 $steps[$summ_url] = false; //'#';
             }
 
         }
-        if($type == 'BulkCase') {
+        if($type == 'SA_SMS') {
+            $nav_html = new SA_SMSDotListWizardMenu($mod_strings, $steps, true);
+        } elseif($type == 'BulkCase') {
             $nav_html = new BulkCasesDotListWizardMenu($mod_strings, $steps, true);
         }else{
             $nav_html = new DotListWizardMenu($mod_strings, $steps, true);

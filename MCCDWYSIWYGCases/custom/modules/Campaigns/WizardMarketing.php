@@ -498,8 +498,11 @@ $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']] = $camp_url.'1';
 if ($campaign_focus->campaign_type == 'Telesales' || (isset($_REQUEST['campaign_type']) && $_REQUEST['campaign_type'] == 'Telesales')) {
     $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN2']] = 'index.php?action=WizardNewsletter&module=Campaigns&return_module=Campaigns&return_action=WizardHome&return_id=' . $campaign_focus->id . '&record=' . $campaign_focus->id . '&direct_step=2';
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '2&show_target_list=1';
+}elseif ($campaign_focus->campaign_type == 'SA_SMS'){
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_SA_SMS_TEMPLATE']] = $camp_url.'2';
+    $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '3';
 }elseif ($campaign_focus->campaign_type == 'BulkCase'){
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = $camp_url . '2';
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = $camp_url . '2';
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '3';
 } else {
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '2';
@@ -507,6 +510,7 @@ if ($campaign_focus->campaign_type == 'Telesales' || (isset($_REQUEST['campaign_
 if (
     $campaign_focus->campaign_type != 'Telesales'
     && $campaign_focus->campaign_type != 'BulkCase'
+    && $campaign_focus->campaign_type != 'SA_SMS'
     && (!isset($_REQUEST['campaign_type']) || $_REQUEST['campaign_type'] != 'Telesales')) {
     $steps[$mod_strings['LBL_SELECT_TEMPLATE']] = $templateURLForProgressBar;
     if (!$marketingURLForProgressBar) {
@@ -525,8 +529,14 @@ if (
     $steps[$mod_strings['LBL_NAVIGATION_MENU_SUMMARY']] = $summaryURLForProgressBar;
 }
 
-require_once 'custom/modules/Campaigns/BulkCasesDotListWizardMenu.php';
-$dotListWizardMenu = new BulkCasesDotListWizardMenu($mod_strings, $steps, true);
+if($campaign_focus->campaign_type == 'SA_SMS'){
+    require_once 'custom/modules/Campaigns/SA_SMSDotListWizardMenu.php';
+    $dotListWizardMenu = new SA_SMSDotListWizardMenu($mod_strings, $steps, true);
+
+} else if($campaign_focus->campaign_type == 'BulkCase'){
+    require_once 'custom/modules/Campaigns/BulkCasesDotListWizardMenu.php';
+    $dotListWizardMenu = new BulkCasesDotListWizardMenu($mod_strings, $steps, true);
+}
 
 
 if (isset($_REQUEST['redirectToTargetList']) && $_REQUEST['redirectToTargetList']) {
@@ -779,8 +789,12 @@ if (isset($_SESSION['msg']) && $_SESSION['msg']) {
 if (!empty($_REQUEST['func'])) {
     echo '<input type="hidden" id="func" value="'.$_REQUEST['func'].'">';
 }
-if($campaign_focus->campaign_type == 'BulkCase'){
-    $ss->display('custom/modules/Campaigns/MCCDBulkCaseOverview.html');
+if($campaign_focus->campaign_type == 'SA_SMS'){
+    $ss->assign("DISABLE_SMS_SEND", $pl_lists==0 || !$campaign_focus->sa_sms_template);
+    $ss->assign("SA_SMS_TEMPLATE", $campaign_focus->sa_sms_template);
+    $ss->display('custom/modules/Campaigns/SA_SMSOverview.html');
+}else if($campaign_focus->campaign_type == 'BulkCase'){
+    $ss->display('custom/modules/Campaigns/ASSISTBulkCaseOverview.html');
 }else{
     $ss->display('modules/Campaigns/WizardMarketing.html');
 }

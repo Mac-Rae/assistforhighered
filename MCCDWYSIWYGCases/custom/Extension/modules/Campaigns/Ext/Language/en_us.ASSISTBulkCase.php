@@ -1,0 +1,19 @@
+<?php
+$mod_strings['LBL_CAMPAIGN_BULKCASE'] = 'Bulk Case Creation';
+$mod_strings['LBL_BULKCASE'] = 'Bulk Case';
+$mod_strings['LBL_BULKCASE_OVERVIEW'] = 'Bulk Case Overview';
+$mod_strings['LBL_BULKCASE_CHECKED'] = 'Checks Successful. Ready to create Cases.<br><small>Please note - multiple runs will not recreate cases already created for Contacts.</small>';
+$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS'] = 'Case Details';
+$mod_strings['LBL_ASSIST_BULK_CREATE_CASES_EXECUTE'] = 'Create Cases';
+$mod_strings['LBL_ASSIST_BULK_CREATE_CASES_EXECUTE_CONFIRM'] = 'Are you sure you wish to create a case for all targets in the related lists?';
+$mod_strings['LBL_BULKCASES_NO_CAMPAIGN_ID'] = 'No campaign found';
+$mod_strings['LBL_BULKCASES_NO_CAMPAIGN_ACCESS'] = 'No access to this campaign';
+$mod_strings['LBL_BULKCASES_SUCCESS'] = 'Successfully Queued cases';
+$mod_strings['LBL_WIZ_ASSIST_CASE_DETAILS'] = 'Case Details';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_SUBJECT'] = 'Service Area';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_PRIORITY'] = 'Priority';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_TYPE'] = 'Type';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_NOTIFY_CLOSE'] = 'Notify On Close';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_NOTIFY_UPDATE'] = 'Notify On Update';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_INSTITUTION'] = 'Institution';
+$mod_strings['LBL_ASSIST_CASE_DETAILS_ASSIGNED'] = 'Assigned User';

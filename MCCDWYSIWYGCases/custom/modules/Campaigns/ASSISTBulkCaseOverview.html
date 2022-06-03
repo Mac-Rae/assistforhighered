@@ -1,6 +1,6 @@
 
 
-TODO: Add more fields to the case details
+
     <div id='wiz_stage' style="display:block;">
         <form  id="wizform" name="wizform" method="POST" action="index.php" enctype="multipart/form-data">
             <input type="hidden" name="module" value="Campaigns">
@@ -50,7 +50,7 @@ TODO: Add more fields to the case details
                                             <input type="hidden" name="wiz_home_next_step" value="1" />
 
                                             <a class="btn btn-primary btn-sm" style="border-radius: 0px;" href="javascript:;" onclick="createBulkCases(this, '{$CAMPAIGN_ID}');">
-                                            <span class="suitepicon suitepicon-action-schedule"></span> {$MOD.LBL_MCCD_BULK_CREATE_CASES_EXECUTE}
+                                            <span class="suitepicon suitepicon-action-schedule"></span> {$MOD.LBL_ASSIST_BULK_CREATE_CASES_EXECUTE}
                                             </a>
                                         </div>
                                         <div class="button-group-separator"></div>
@@ -75,11 +75,11 @@ TODO: Add more fields to the case details
     <script language="javascript">
         {literal}
         function createBulkCases(){
-            if(!confirm('{/literal}{$MOD.LBL_MCCD_BULK_CREATE_CASES_EXECUTE_CONFIRM}{literal}')){
+            if(!confirm('{/literal}{$MOD.LBL_ASSIST_BULK_CREATE_CASES_EXECUTE_CONFIRM}{literal}')){
                 return false;
             }
             var form = $('#wizform');
-            form.append($('<input type="hidden" name="entryPoint" value="MCCDExecuteBulkCases">'));
+            form.append($('<input type="hidden" name="entryPoint" value="ASSISTExecuteBulkCases">'));
             form.find("[name=action]").remove();
             form.find("[name=module]").remove();
             form.submit();

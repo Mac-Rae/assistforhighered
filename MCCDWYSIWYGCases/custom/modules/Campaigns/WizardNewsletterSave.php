@@ -64,7 +64,8 @@ global $mod_strings;
     foreach ($camp_steps as $step) {
         $campaign_focus =  populate_wizard_bean_from_request($campaign_focus, $step);
     }
-    if($_REQUEST['currentstep'] == 2 && $campaign_focus->campaign_type == 'BulkCase'){
+    //Force Saves
+    if($_REQUEST['currentstep'] == 2 && ($campaign_focus->campaign_type == 'BulkCase' || $campaign_focus->campaign_type == 'SA_SMS')){
         $_REQUEST['currentstep'] = 1;
     }
     switch ($_REQUEST['currentstep']) {
