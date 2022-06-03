@@ -1,5 +1,6 @@
 <?php
 function display_threaded_sms(SugarBean $bean,$field){
+    //TODO: Check for detail view, editview, new record
     $ss = new Sugar_Smarty();
     $smsRecords = $bean->get_linked_beans('sa_sms','','date_sent');
     $smsRows = [];
