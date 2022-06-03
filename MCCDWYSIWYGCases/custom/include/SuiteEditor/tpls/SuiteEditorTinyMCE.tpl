@@ -39,7 +39,7 @@
 
 <!-- [TinyMCE Editor implementation] -->
 
-<script src="{$mccd_tiny_cdn_info.url}" integrity="{$mccd_tiny_cdn_info.integrity}" crossorigin="anonymous"></script>
+<script src="{$assist_tiny_cdn_info.url}" integrity="{$assist_tiny_cdn_info.integrity}" crossorigin="anonymous"></script>
 <script>
 
     /**
@@ -93,7 +93,7 @@
     {rdelim});
 </script>
 <script>
-    tinyMCE.baseURL = "{$mccd_tiny_cdn_info.base_url}";
+    tinyMCE.baseURL = "{$assist_tiny_cdn_info.base_url}";
     tinyMCE.suffix = '.min';
     tinymce.init(
         $.extend({$tinyMCESetup},

@@ -1,9 +1,9 @@
 <?php
 $hook_array['after_save'][] = Array(
     1,
-    'MCCD Save Related KB Articles',
-    'custom/modules/Cases/Services/MCCDCaseManagementHooks.php',
-    'MCCDCaseManagementHooks',
+    'ASSIST Save Related KB Articles',
+    'custom/modules/Cases/Services/ASSISTCaseManagementHooks.php',
+    'ASSISTCaseManagementHooks',
     'saveRelatedKBArticles');
 $hook_array['after_save'][] = Array(
     1,

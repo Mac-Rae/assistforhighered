@@ -73,7 +73,7 @@ class SuiteEditorTinyMCE implements SuiteEditorInterface
     {
         $smarty = new Sugar_Smarty();
         $smarty->assign((array)$this->settings);
-        $smarty->assign("mccd_tiny_cdn_info", get_mccd_tinymce_url_info());
+        $smarty->assign("assist_tiny_cdn_info", get_assist_tinymce_url_info());
         return $smarty->fetch(get_custom_file_if_exists('include/SuiteEditor/tpls/SuiteEditorTinyMCE.tpl'));
     }
 }

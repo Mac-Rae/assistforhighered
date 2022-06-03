@@ -31,7 +31,7 @@ $scheduledJob->name = "Bulk Cases Job For Campaign {$campaign->id}";
 
 $scheduledJob->assigned_user_id = $current_user->id;
 $scheduledJob->data = $campaign->id;
-$scheduledJob->target = "class::MCCDBulkCasesJob";
+$scheduledJob->target = "class::ASSISTBulkCasesJob";
 
 $queue = new SugarJobQueue();
 $queue->submitJob($scheduledJob);

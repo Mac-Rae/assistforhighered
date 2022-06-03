@@ -37,8 +37,8 @@ class CustomCasesController extends CasesController
             $echo .= '<td>' . $kb->name . '</td>';
             $echo .= '<td>' . $app_list_strings['aok_status_list'][$kb->status] . '</td>';
             $echo .= "<td>";
-            $echo .= "<a id='assign_kb_".$kb->id."' onclick='mccd_relate_to_case(".json_encode($kb->id).")'><img height='10' src='custom/themes/SuiteP/MCCDCaseManagement/images/check.svg'/></a>";
-            $echo .= "&nbsp;&nbsp;<a onclick='mccd_copy_to_case(".json_encode($kb->id).")'><img height='10' src='custom/themes/SuiteP/MCCDCaseManagement/images/copy.svg'/></a></td>";
+            $echo .= "<a id='assign_kb_".$kb->id."' onclick='assist_relate_to_case(".json_encode($kb->id).")'><img height='10' src='custom/themes/SuiteP/ASSISTCaseManagement/images/check.svg'/></a>";
+            $echo .= "&nbsp;&nbsp;<a onclick='assist_copy_to_case(".json_encode($kb->id).")'><img height='10' src='custom/themes/SuiteP/ASSISTCaseManagement/images/copy.svg'/></a></td>";
             $echo .= '</tr>';
             $count++;
         }
@@ -46,14 +46,14 @@ class CustomCasesController extends CasesController
 
         if ($count > 1) {
             echo $echo;
-            $confirmMessage = json_encode($mod_strings['LBL_MCCD_CONFIRM_COPY_KB']);
+            $confirmMessage = json_encode($mod_strings['LBL_ASSIST_CONFIRM_COPY_KB']);
             echo <<<EOF
 <script>
-function mccd_relate_to_case(kb_id){
-    $('#EditView').append("<input type='hidden' name='mccd_related_kb_id[]' value='"+kb_id+"'/>");
-    $('#assign_kb_'+kb_id+" img").attr("src",'custom/themes/SuiteP/MCCDCaseManagement/images/check_circle.svg');
+function assist_relate_to_case(kb_id){
+    $('#EditView').append("<input type='hidden' name='assist_related_kb_id[]' value='"+kb_id+"'/>");
+    $('#assign_kb_'+kb_id+" img").attr("src",'custom/themes/SuiteP/ASSISTCaseManagement/images/check_circle.svg');
 }
-function mccd_copy_to_case(kb_id){
+function assist_copy_to_case(kb_id){
     if(!confirm($confirmMessage)){
         return;
     }

@@ -46,7 +46,7 @@ array(
     array(
       'form' =>
       array(
-          'headerTpl' => 'custom/modules/Cases/MCCD/tpls/CaseDetailHeader.tpl',
+          'headerTpl' => 'custom/modules/Cases/ASSIST/tpls/CaseDetailHeader.tpl',
         'buttons' =>
         array(
           0 => 'EDIT',

@@ -1174,7 +1174,7 @@
         }, 300);
 
 
-        tinyMCE.baseURL = mccd_tiny_mce_base_url;
+        tinyMCE.baseURL = assist_tiny_mce_base_url;
         tinyMCE.suffix = '.min';
         setTimeout(function(){
           tinyMCE.init(opts.tinyMceOptions);

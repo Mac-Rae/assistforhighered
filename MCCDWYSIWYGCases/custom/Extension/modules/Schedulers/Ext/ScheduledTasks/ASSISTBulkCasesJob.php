@@ -1,5 +1,5 @@
 <?php
-class MCCDBulkCasesJob implements RunnableSchedulerJob
+class ASSISTBulkCasesJob implements RunnableSchedulerJob
 {
     public function run($campaignId)
     {
@@ -30,13 +30,13 @@ class MCCDBulkCasesJob implements RunnableSchedulerJob
         }
         $case = BeanFactory::newBean('Cases');
         $fieldMapping = [//Mapping of campaign field => Case Field
-            'mccd_case_name' => 'name',
-            'mccd_case_priority' => 'priority',
-            'mccd_case_type' => 'type',
-            'mccd_case_notify_close' => 'notify_on_close_c',
-            'mccd_case_notify_update' => 'notify_on_update_c ',
-            'mccd_case_institution' => 'institution_c',
-            'mccd_case_assigned' => 'assigned_user_id',
+            'assist_case_name' => 'name',
+            'assist_case_priority' => 'priority',
+            'assist_case_type' => 'type',
+            'assist_case_notify_close' => 'notify_on_close_c',
+            'assist_case_notify_update' => 'notify_on_update_c ',
+            'assist_case_institution' => 'institution_c',
+            'assist_case_assigned' => 'assigned_user_id',
         ];
         foreach($fieldMapping as $campaignField => $caseField){
             $case->$caseField = $campaign->$campaignField;

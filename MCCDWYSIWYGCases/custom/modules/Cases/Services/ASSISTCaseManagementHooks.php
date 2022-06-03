@@ -1,13 +1,13 @@
 <?php
-class MCCDCaseManagementHooks{
+class ASSISTCaseManagementHooks{
     public function saveRelatedKBArticles($bean){
-        if(empty($_REQUEST['mccd_related_kb_id'])){
+        if(empty($_REQUEST['assist_related_kb_id'])){
             return;
         }
         if(!$bean->load_relationship('aok_knowledgebase')){
             return;
         }
-        $bean->aok_knowledgebase->add($_REQUEST['mccd_related_kb_id']);
+        $bean->aok_knowledgebase->add($_REQUEST['assist_related_kb_id']);
     }
 
     public function logKBQualityChanges(SugarBean &$bean){

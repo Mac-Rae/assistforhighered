@@ -20,7 +20,7 @@ class CustomCasesViewDetail extends ViewDetail{
         $this->bean->resolution = html_entity_decode(str_replace('&nbsp;', ' ', $this->bean->resolution));
         $this->dv->th->ss->assign("statuses",$this->getStatusInfo());
         parent::display();
-        $cdnInfo = get_mccd_tinymce_url_info();
+        $cdnInfo = get_assist_tinymce_url_info();
         $cdnUrl = $cdnInfo['url'];
         $cdnIntegrity = $cdnInfo['integrity'];
         $cdnBase = $cdnInfo['base_url'];

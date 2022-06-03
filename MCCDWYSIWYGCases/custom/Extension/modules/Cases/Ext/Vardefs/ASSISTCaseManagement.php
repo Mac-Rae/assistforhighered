@@ -7,7 +7,7 @@ $dictionary['Case']['fields']['parent_type'] =
         'dbType' => 'varchar',
         'required' => false,
         'group' => 'parent_name',
-        'options' => 'parent_type_display_mccd_cases',
+        'options' => 'parent_type_display_assist_cases',
         'len' => 255,
         'comment' => 'The Sugar object to which the call is related',
     );
@@ -21,7 +21,7 @@ $dictionary['Case']['fields']['parent_name'] =
         'type' => 'parent',
         'group' => 'parent_name',
         'source' => 'non-db',
-        'options' => 'parent_type_display_mccd_cases',
+        'options' => 'parent_type_display_assist_cases',
     );
 $dictionary['Case']['fields']['parent_id'] =
     array (

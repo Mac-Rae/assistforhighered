@@ -7,7 +7,7 @@ class CustomCasesViewList extends CasesViewList{
             $data = $this->getCaseData();
             $ss = new Sugar_Smarty();
             $ss->assign('case_data', $data);
-            $ss->display('custom/modules/Cases/MCCD/tpls/ListViewData.tpl');
+            $ss->display('custom/modules/Cases/ASSIST/tpls/ListViewData.tpl');
         }
         parent::listViewProcess();
     }

@@ -3,7 +3,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-class SugarWidgetSubPanelTopButtonQuickCreateMCCDCases extends SugarWidgetSubPanelTopButtonQuickCreate
+class SugarWidgetSubPanelTopButtonQuickCreateASSISTCases extends SugarWidgetSubPanelTopButtonQuickCreate
 {
     public function __construct($layoutDef = "",$module = '', $title = '', $access_key = '', $form_value = 'LBL_NEW_BUTTON_LABEL')
     {

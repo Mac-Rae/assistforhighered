@@ -11,7 +11,7 @@ class CustomCasesViewEdit extends CasesViewEdit{
 </style>
 EOF;
         parent::display();
-        $cdnInfo = get_mccd_tinymce_url_info();
+        $cdnInfo = get_assist_tinymce_url_info();
         $cdnUrl = $cdnInfo['url'];
         $cdnIntegrity = $cdnInfo['integrity'];
         $cdnBase = $cdnInfo['base_url'];
