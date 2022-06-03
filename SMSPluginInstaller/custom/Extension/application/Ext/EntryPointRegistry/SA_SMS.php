@@ -15,3 +15,7 @@ $entry_point_registry['SA_SMSTwilioWebHook'] = array(
     'file' => 'custom/include/Services/SA_SMS/SA_SMSTwilioWebHook.php',
     'auth' => false,
 );
+$entry_point_registry['SA_SMSSchedule'] = array(
+    'file' => 'custom/include/Services/SA_SMS/SA_SMSSchedule.php',
+    'auth' => true
+);

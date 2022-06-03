@@ -108,7 +108,7 @@ class actionSendSMS extends actionBase{
      */
     public function run_action(SugarBean $bean, $params = array(), $in_save = false)
     {
-        global $current_user;
+        global $current_user, $timedate;
         $client = SA_SMSClient::getClientFromConfig();
         $people = $this->getPeopleFromParams($bean, $params);
         $sentAnSMS = false;
@@ -135,6 +135,7 @@ class actionSendSMS extends actionBase{
                 $smsBean->to_record_type = $person->module_name;
                 $smsBean->parent_id = $person->id;
                 $smsBean->parent_type = $person->module_name;
+                $smsBean->date_sent = $timedate->nowDb();
                 if($res){
                     $smsBean->third_party = $res['third_party'];
                     $smsBean->third_party_id = $res['third_party_id'];
