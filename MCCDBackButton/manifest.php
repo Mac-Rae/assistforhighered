@@ -15,24 +15,24 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'MCCD - Back Button',
+    'description' => 'ASSIST - Back Button',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Back Button',
+    'name' => 'ASSIST Back Button',
     'published_date' => '2022-02-07 14:28:06',
     'type' => 'module',
-    'version' => '3',
+    'version' => '4',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
     'copy' => [
-        '0' => [
-            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.MCCDMenus.php',
-            'to' => 'custom/Extension/application/Ext/Language/en_us.MCCDMenus.php',
+        [
+            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.ASSISTMenus.php',
+            'to' => 'custom/Extension/application/Ext/Language/en_us.ASSISTMenus.php',
             ],
-        '1' => [
-            'from' => '<basepath>/custom/Extension/application/Ext/Menus/MCCDMenus.php',
-            'to' => 'custom/Extension/application/Ext/Menus/MCCDMenus.php',
+        [
+            'from' => '<basepath>/custom/Extension/application/Ext/Menus/ASSISTMenus.php',
+            'to' => 'custom/Extension/application/Ext/Menus/ASSISTMenus.php',
             ],
         ],
     'language' => [
