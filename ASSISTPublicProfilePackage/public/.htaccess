@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteRule ^(\w*)$ ../index.php?entryPoint=PublicProfile&vanity=$1 [NC]
+RewriteRule ^(\w*)/booked$ ../index.php?entryPoint=PublicProfile&status=booked&vanity=$1 [NC]
+RewriteRule ^(\w*)/meeting$ ../index.php?entryPoint=PublicProfileMeeting&vanity=$1 [NC]
+
