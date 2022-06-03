@@ -5,7 +5,7 @@ $dictionary['Contact']['fields']['sa_sms'] =
       'type' => 'link',
       'relationship' => 'contacts_sa_sms',
       'source' => 'non-db',
-      'vname' => 'LBL_SA_SMS_TO',
+      'vname' => 'LBL_SA_SMS',
     ];
 
 
@@ -20,3 +20,21 @@ $dictionary['Contact']['relationships']['contacts_sa_sms'] = [
     'relationship_role_column' => 'parent_type',
     'relationship_role_column_value' => 'Contacts'
 ];
+
+$dictionary['Contact']['fields']['threaded_sa_sms'] =
+    [
+        'name' => 'threaded_sa_sms',
+        'type' => 'function',
+        'source' => 'non-db',
+        'vname' => 'LBL_SA_SMS_THREADED',
+        'audited' => false,
+        'reportable' => false,
+        'inline_edit' => false,
+        'studio' => 'visible',
+        'function' =>
+            array (
+                'name' => 'display_threaded_sms',
+                'returns' => 'html',
+                'include' => 'modules/SA_SMS/UI/SA_SMSThreaded.php',
+            ),
+    ];

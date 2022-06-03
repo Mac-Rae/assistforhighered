@@ -1,5 +1,5 @@
 <?php
-global $current_user;
+global $current_user, $timedate;
 
 require_once 'custom/include/Services/SA_SMS/SA_SMSClient.php';
 
@@ -106,16 +106,31 @@ $smsBean->to_record_id = $bean->id;
 $smsBean->to_record_type = $bean->module_name;
 $smsBean->parent_id = $bean->id;
 $smsBean->parent_type = $bean->module_name;
+$smsBean->date_sent = $timedate->nowDb();
 if($res){
     $smsBean->third_party = $res['third_party'];
     $smsBean->third_party_id = $res['third_party_id'];
     $smsBean->status = $res['status'];
 }
 $smsBean->save();
-
+$smsBean->fill_in_additional_list_fields();
+$formattedDateSent = $smsBean->date_sent;
+$dateOb = $timedate->fromDb($smsBean->date_sent);
+if($dateOb){
+    $formattedDateSent = $timedate->asUser($dateOb);
+}
 echo json_encode(
     [
-        'result' => translate('LBL_SMS_DIALOG_SEND_SUCCESS', 'SA_SMS')
+        'result' => translate('LBL_SMS_DIALOG_SEND_SUCCESS', 'SA_SMS'),
+        'sms' => [
+            'from_name' => $smsBean->getFromName(),
+            'from_number' => $smsBean->from_number,
+            'to_name' => $smsBean->getToName(),
+            'to_number' => $smsBean->to_number,
+            'date_sent' => $formattedDateSent,
+            'sms_body' => $smsBean->description,
+            'type' => $smsBean->sms_type
+        ]
     ]
 );
 return;

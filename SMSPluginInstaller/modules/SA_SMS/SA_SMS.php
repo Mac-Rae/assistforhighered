@@ -53,4 +53,17 @@ class SA_SMS extends Basic
         }
         return parent::ACLAccess($view, $is_owner, $in_group);
     }
+
+    public function getToName(){
+        if($this->sms_type != 'crm_out'){
+            return translate('LBL_SYSTEM_MESSAGE','SA_SMS');
+        }
+        return $this->parent_name;
+    }
+    public function getFromName(){
+        if($this->sms_type == 'crm_out'){
+            return translate('LBL_SYSTEM_MESSAGE','SA_SMS');
+        }
+        return $this->parent_name;
+    }
 }

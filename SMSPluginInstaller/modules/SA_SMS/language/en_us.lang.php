@@ -57,5 +57,9 @@ $mod_strings = array(
     'LBL_THIRD_PARTY_ID' => 'Third Party Provider ID',
     'LBL_PARENT_TYPE' => 'Parent Type',
     'LBL_PARENT_ID' => 'Parent Id',
-    'LBL_RELATED_TO' => 'Related To'
+    'LBL_RELATED_TO' => 'Related To',
+    'LBL_SYSTEM_MESSAGE' => 'CRM',
+    'LBL_THREADED_FROM' => 'From',
+    'LBL_THREADED_TO' => 'To',
+    'LBL_THREADED_DATE' => 'Date',
 );

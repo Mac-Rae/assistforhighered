@@ -40,8 +40,8 @@
 
 *}
 {assign var="vardef_name" value={{sugarvar key='name' string=true}} }
-{assign var="mccd_field_hidden" value={{sugarvar key='mccd_field_hidden' string=true}} }
-{if $mccd_field_hidden}
+{assign var="assist_field_hidden" value={{sugarvar key='assist_field_hidden' string=true}} }
+{if $assist_field_hidden}
     {include file='custom/include/SugarFields/Redacted.tpl' vardef={{$vardef.name}}}
 {else}
 {if !empty({{sugarvar key='value' string=true}})}
