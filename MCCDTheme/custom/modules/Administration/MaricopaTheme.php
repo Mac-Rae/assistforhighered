@@ -1,5 +1,5 @@
 <?php
-require_once 'custom/include/MCCDThemeLib/scssphp/scss.inc.php';
+require_once 'custom/include/ASSISTThemeLib/scssphp/scss.inc.php';
 
 use ScssPhp\ScssPhp\Compiler;
 
@@ -171,9 +171,9 @@ function getColours()
             'value' => $sugar_config['maricopatheme']['table-focus-bg'],
             'default' => '#FAF7CF',],
         [
-            'name' => 'mccd-custom-icon-color',
+            'name' => 'assist-custom-icon-color',
             'label' => $mod_strings['LBL_MARICOPATHEME_CUSTOM_ICON_COLOR'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-icon-color'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-icon-color'],
             'default' => '#F08377',],
 
         [
@@ -182,9 +182,9 @@ function getColours()
             'value' => $sugar_config['maricopatheme']['additional-info-header'],
             'default' => '#F5F5F5',],
         [
-            'name' => 'mccd-custom-additional-info-link',
+            'name' => 'assist-custom-additional-info-link',
             'label' => $mod_strings['LBL_MARICOPATHEME_ADDITIONAL_INFO_LINK'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-additional-info-link'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-additional-info-link'],
             'default' => '#F08377',],
 
         [
@@ -193,93 +193,93 @@ function getColours()
             'value' => $sugar_config['maricopatheme']['scroll-bar-thumb-color'],
             'default' => '#a5e8d6',],
         [
-            'name' => 'mccd-custom-dropdown-arrow-color',
+            'name' => 'assist-custom-dropdown-arrow-color',
             'label' => $mod_strings['LBL_MARICOPATHEME_DROPDOWN_ARROW_COLOR'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-dropdown-arrow-color'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-dropdown-arrow-color'],
             'default' => '#f08377',
         ],
         [
-            'name' => 'mccd-custom-search-icon',
+            'name' => 'assist-custom-search-icon',
             'label' => $mod_strings['LBL_MARICOPATHEME_SEARCH_ICON_COLOR'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-search-icon'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-search-icon'],
             'default' => '#ffffff',
         ],
         [
-            'name' => 'mccd-custom-case-card-bg',
+            'name' => 'assist-custom-case-card-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_CARD_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-case-card-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-case-card-bg'],
             'default' => '#f08377',
         ],
         [
-            'name' => 'mccd-custom-case-card-bg-hover',
+            'name' => 'assist-custom-case-card-bg-hover',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_CARD_BG_HOVER'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-case-card-bg-hover'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-case-card-bg-hover'],
             'default' => '#808f9c',
         ],
         [
-            'name' => 'mccd-custom-case-card-header',
+            'name' => 'assist-custom-case-card-header',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_CARD_HEADER'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-case-card-header'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-case-card-header'],
             'default' => '#534D64',
         ],
         [
-            'name' => 'mccd-custom-case-card-sub',
+            'name' => 'assist-custom-case-card-sub',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_CARD_SUB'],
-            'value' => $sugar_config['maricopatheme']['mccd-custom-case-card-sub'],
+            'value' => $sugar_config['maricopatheme']['assist-custom-case-card-sub'],
             'default' => '#534D64',
         ],
         [
-            'name' => 'mccd-global-search-filter-bg',
+            'name' => 'assist-global-search-filter-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_GLOBAL_SEARCH_FILTER_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-global-search-filter-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-global-search-filter-bg'],
             'default' => '#F5F5F5',
         ],
         [
-            'name' => 'mccd-global-search-filter-border',
+            'name' => 'assist-global-search-filter-border',
             'label' => $mod_strings['LBL_MARICOPATHEME_GLOBAL_SEARCH_FILTER_BORDER'],
-            'value' => $sugar_config['maricopatheme']['mccd-global-search-filter-border'],
+            'value' => $sugar_config['maricopatheme']['assist-global-search-filter-border'],
             'default' => '#F5F5F5',
         ],
         [
-            'name' => 'mccd-case-progress-bar-active-bg',
+            'name' => 'assist-case-progress-bar-active-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_PROGRESS_BAR_ACTIVE_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-case-progress-bar-active-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-case-progress-bar-active-bg'],
             'default' => '#808f9c',
         ],
         [
-            'name' => 'mccd-case-progress-bar-active-font',
+            'name' => 'assist-case-progress-bar-active-font',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_PROGRESS_BAR_ACTIVE_FONT'],
-            'value' => $sugar_config['maricopatheme']['mccd-case-progress-bar-active-font'],
+            'value' => $sugar_config['maricopatheme']['assist-case-progress-bar-active-font'],
             'default' => '#FFFFFF',
         ],
         [
-            'name' => 'mccd-case-progress-bar-inactive-bg',
+            'name' => 'assist-case-progress-bar-inactive-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_PROGRESS_BAR_INACTIVE_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-case-progress-bar-inactive-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-case-progress-bar-inactive-bg'],
             'default' => '#f08377',
         ],
         [
-            'name' => 'mccd-case-progress-bar-inactive-font',
+            'name' => 'assist-case-progress-bar-inactive-font',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_PROGRESS_BAR_INACTIVE_FONT'],
-            'value' => $sugar_config['maricopatheme']['mccd-case-progress-bar-inactive-font'],
+            'value' => $sugar_config['maricopatheme']['assist-case-progress-bar-inactive-font'],
             'default' => '#FFFFFF',
         ],
         [
-            'name' => 'mccd-case-progress-bar-div-bg',
+            'name' => 'assist-case-progress-bar-div-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_CASE_PROGRESS_BAR_DIV_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-case-progress-bar-div-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-case-progress-bar-div-bg'],
             'default' => '#F5F5F5',
         ],
         [
-            'name' => 'mccd-selected-option-bg',
+            'name' => 'assist-selected-option-bg',
             'label' => $mod_strings['LBL_MARICOPATHEME_SELECTED_OPTION_BG'],
-            'value' => $sugar_config['maricopatheme']['mccd-selected-option-bg'],
+            'value' => $sugar_config['maricopatheme']['assist-selected-option-bg'],
             'default' => '#FFFFFF',
         ],
         [
-            'name' => '$mccd-selected-option',
+            'name' => '$assist-selected-option',
             'label' => $mod_strings['LBL_MARICOPATHEME_SELECTED_OPTION'],
-            'value' => $sugar_config['maricopatheme']['$mccd-selected-option'],
+            'value' => $sugar_config['maricopatheme']['$assist-selected-option'],
             'default' => '#0c2340',
         ],
     ];
@@ -308,9 +308,9 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
         }
         $compiler->replaceVariables($vars);
 
-        $ret = $compiler->compileString('@import "themes/SuiteP/css/MCCD/style.scss";');
-        $f = sugar_file_put_contents('themes/SuiteP/css/MCCD/style.css', $ret->getCss());
-        unlink('cache/themes/SuiteP/css/MCCD/style.css');
+        $ret = $compiler->compileString('@import "themes/SuiteP/css/ASSIST/style.scss";');
+        $f = sugar_file_put_contents('themes/SuiteP/css/ASSIST/style.css', $ret->getCss());
+        unlink('cache/themes/SuiteP/css/ASSIST/style.css');
     } catch (Exception $ex) {
         $failed = true;
         SugarApplication::appendErrorMessage("Failed to set theme: " . $ex->getMessage());

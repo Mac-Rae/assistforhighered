@@ -76,8 +76,8 @@ if (!empty($app_strings['LBL_SUBTHEMES'])) {
             'Day'   => $app_strings['LBL_SUBTHEME_OPTIONS_DAY'],
             'Dusk'  => $app_strings['LBL_SUBTHEME_OPTIONS_DUSK'],
             'Night' => $app_strings['LBL_SUBTHEME_OPTIONS_NIGHT'],
-            'MCCD' => $app_strings['LBL_SUBTHEME_OPTIONS_MCCD'],
+            'ASSIST' => $app_strings['LBL_SUBTHEME_OPTIONS_ASSIST'],
         ),
     );
-    $themedef['config_options']['sub_themes']['default'] = 'MCCD';
+    $themedef['config_options']['sub_themes']['default'] = 'ASSIST';
 }

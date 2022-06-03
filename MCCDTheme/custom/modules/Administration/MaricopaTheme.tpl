@@ -7,7 +7,7 @@
 
         <tr>
             <td scope="row">
-                <span>{$MOD.LBL_MCCD_THEME_SUPPORT_URL}</span>
+                <span>{$MOD.LBL_ASSIST_THEME_SUPPORT_URL}</span>
             </td>
             <td>
                 <input type="text" id="maricopatheme_support_url"
@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <td scope="row">
-                <span>{$MOD.LBL_MCCD_THEME_TRAINING_URL}</span>
+                <span>{$MOD.LBL_ASSIST_THEME_TRAINING_URL}</span>
             </td>
             <td>
                 <input type="text" id="maricopatheme_training_url"
@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td scope="row">
-                <span>{$MOD.LBL_MCCD_THEME_FEEDBACK_URL}</span>
+                <span>{$MOD.LBL_ASSIST_THEME_FEEDBACK_URL}</span>
             </td>
             <td>
                 <input type="text" id="maricopatheme_feedback_url"
