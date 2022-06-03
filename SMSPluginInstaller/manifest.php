@@ -15,13 +15,13 @@ $manifest = [
     'readme' => '',
     'key' => 'SA',
     'author' => 'Jim Mackin - SalesAgility',
-    'description' => 'MCCD SMS Plugin',
+    'description' => 'ASSIST SMS Plugin',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD SMS Plugin',
+    'name' => 'ASSIST SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '9',
+    'version' => '14',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -63,6 +63,14 @@ $installdefs = [
             'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.SA_SMS.php',
             ],
         [
+            'from' => '<basepath>/custom/Extension/modules/Campaigns/Ext/Language/en_us.SA_SMS.php',
+            'to' => 'custom/Extension/modules/Campaigns/Ext/Language/en_us.SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/Campaigns/Ext/Vardefs/SA_SMS.php',
+            'to' => 'custom/Extension/modules/Campaigns/Ext/Vardefs/SA_SMS.php',
+            ],
+        [
             'from' => '<basepath>/custom/Extension/modules/Contacts/Ext/Language/en_us.SA_SMS.php',
             'to' => 'custom/Extension/modules/Contacts/Ext/Language/en_us.SA_SMS.php',
             ],
@@ -95,6 +103,10 @@ $installdefs = [
             'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/PollHistoricSMSScheduler.php',
             ],
         [
+            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/SA_SMSScheduledJob.php',
+            'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/SA_SMSScheduledJob.php',
+            ],
+        [
             'from' => '<basepath>/custom/include/Services/SA_SMS/Clients/SA_SMSTwilioClient.php',
             'to' => 'custom/include/Services/SA_SMS/Clients/SA_SMSTwilioClient.php',
             ],
@@ -105,6 +117,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSClient.php',
             'to' => 'custom/include/Services/SA_SMS/SA_SMSClient.php',
+            ],
+        [
+            'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSSchedule.php',
+            'to' => 'custom/include/Services/SA_SMS/SA_SMSSchedule.php',
             ],
         [
             'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSTwilioWebHook.php',
@@ -8863,6 +8879,66 @@ $installdefs = [
             'to' => 'custom/modules/Administration/SA_SMS.tpl',
             ],
         [
+            'from' => '<basepath>/custom/modules/Campaigns/SA_SMSDotListWizardMenu.php',
+            'to' => 'custom/modules/Campaigns/SA_SMSDotListWizardMenu.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/SA_SMSOverview.html',
+            'to' => 'custom/modules/Campaigns/SA_SMSOverview.html',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/WizardHome.php',
+            'to' => 'custom/modules/Campaigns/WizardHome.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/WizardMarketing.php',
+            'to' => 'custom/modules/Campaigns/WizardMarketing.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/WizardNewsletter.php',
+            'to' => 'custom/modules/Campaigns/WizardNewsletter.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/WizardNewsletterSave.php',
+            'to' => 'custom/modules/Campaigns/WizardNewsletterSave.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/js/SA_SMS.js',
+            'to' => 'custom/modules/Campaigns/js/SA_SMS.js',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/metadata/detailviewdefs.php',
+            'to' => 'custom/modules/Campaigns/metadata/detailviewdefs.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/SA_SMSMenu.tpl',
+            'to' => 'custom/modules/Campaigns/tpls/SA_SMSMenu.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/SA_SMSTemplateDetails.tpl',
+            'to' => 'custom/modules/Campaigns/tpls/SA_SMSTemplateDetails.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl',
+            'to' => 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/WizardHomeStart.tpl',
+            'to' => 'custom/modules/Campaigns/tpls/WizardHomeStart.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/WizardNewsletter.tpl',
+            'to' => 'custom/modules/Campaigns/tpls/WizardNewsletter.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/tpls/progressStepsStyle.html',
+            'to' => 'custom/modules/Campaigns/tpls/progressStepsStyle.html',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Campaigns/wizard.js',
+            'to' => 'custom/modules/Campaigns/wizard.js',
+            ],
+        [
             'from' => '<basepath>/custom/themes/default/images/CreateSA_SMS.gif',
             'to' => 'custom/themes/default/images/CreateSA_SMS.gif',
             ],
@@ -8925,6 +9001,14 @@ $installdefs = [
         [
             'from' => '<basepath>/modules/SA_SMS/SA_SMS.php',
             'to' => 'modules/SA_SMS/SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/modules/SA_SMS/UI/SA_SMSThreaded.php',
+            'to' => 'modules/SA_SMS/UI/SA_SMSThreaded.php',
+            ],
+        [
+            'from' => '<basepath>/modules/SA_SMS/UI/tpls/threaded.tpl',
+            'to' => 'modules/SA_SMS/UI/tpls/threaded.tpl',
             ],
         [
             'from' => '<basepath>/modules/SA_SMS/language/en_us.lang.php',
