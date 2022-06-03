@@ -502,7 +502,7 @@ if ($campaign_focus->campaign_type == 'Telesales' || (isset($_REQUEST['campaign_
     $steps[$mod_strings['LBL_NAVIGATION_MENU_SA_SMS_TEMPLATE']] = $camp_url.'2';
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '3';
 }elseif ($campaign_focus->campaign_type == 'BulkCase'){
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = $camp_url . '2';
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = $camp_url . '2';
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '3';
 } else {
     $steps[$mod_strings['LBL_TARGET_LIST']] = $camp_url . '2';
@@ -794,7 +794,7 @@ if($campaign_focus->campaign_type == 'SA_SMS'){
     $ss->assign("SA_SMS_TEMPLATE", $campaign_focus->sa_sms_template);
     $ss->display('custom/modules/Campaigns/SA_SMSOverview.html');
 }else if($campaign_focus->campaign_type == 'BulkCase'){
-    $ss->display('custom/modules/Campaigns/MCCDBulkCaseOverview.html');
+    $ss->display('custom/modules/Campaigns/ASSISTBulkCaseOverview.html');
 }else{
     $ss->display('modules/Campaigns/WizardMarketing.html');
 }

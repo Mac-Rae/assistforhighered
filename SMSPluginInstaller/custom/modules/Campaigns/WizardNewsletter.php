@@ -189,30 +189,30 @@ if($campaign_type == 'SA_SMS'){
     $ss->assign("SA_SMS_TEMPLATE", $focus->sa_sms_template);
 }else if($campaign_type == 'BulkCase'){
     $caseBean = BeanFactory::getBean('Cases');
-    $ss->assign("MCCD_CASE_NAME", $focus->mccd_case_name);
-    $ss->assign("MCCD_CASE_PRIORITY", get_select_options_with_id($app_list_strings[$caseBean->field_defs['priority']['options']],$focus->mccd_case_priority));
-    $ss->assign("MCCD_CASE_TYPE", get_select_options_with_id($app_list_strings[$caseBean->field_defs['type']['options']],$focus->mccd_case_type));
+    $ss->assign("ASSIST_CASE_NAME", $focus->assist_case_name);
+    $ss->assign("ASSIST_CASE_PRIORITY", get_select_options_with_id($app_list_strings[$caseBean->field_defs['priority']['options']],$focus->assist_case_priority));
+    $ss->assign("ASSIST_CASE_TYPE", get_select_options_with_id($app_list_strings[$caseBean->field_defs['type']['options']],$focus->assist_case_type));
     if(!empty($caseBean->field_defs['institution_c'])){
-        $ss->assign("MCCD_CASE_INSTITUTION",get_select_options_with_id($app_list_strings[$caseBean->field_defs['institution_c']['options']],$focus->mccd_case_institution));
+        $ss->assign("ASSIST_CASE_INSTITUTION",get_select_options_with_id($app_list_strings[$caseBean->field_defs['institution_c']['options']],$focus->assist_case_institution));
     }
-    $ss->assign("MCCD_CASE_NOTIFY_CLOSE", $focus->mccd_case_notify_close ? 'checked="checked"' : '');
-    $ss->assign("MCCD_CASE_NOTIFY_UPDATE", $focus->mccd_case_notify_update ? 'checked="checked"' : '');
+    $ss->assign("ASSIST_CASE_NOTIFY_CLOSE", $focus->assist_case_notify_close ? 'checked="checked"' : '');
+    $ss->assign("ASSIST_CASE_NOTIFY_UPDATE", $focus->assist_case_notify_update ? 'checked="checked"' : '');
 
 
-    $ss->assign("MCCD_CASE_ASSIGNED_ID",$focus->mccd_case_assigned);
-    if($focus->mccd_case_assigned){
-        $mccdAssigned = BeanFactory::getBean('Users', $focus->mccd_case_assigned);
-        $ss->assign("MCCD_CASE_ASSIGNED_NAME",$mccdAssigned->get_summary_text());
+    $ss->assign("ASSIST_CASE_ASSIGNED_ID",$focus->assist_case_assigned);
+    if($focus->assist_case_assigned){
+        $assistAssigned = BeanFactory::getBean('Users', $focus->assist_case_assigned);
+        $ss->assign("ASSIST_CASE_ASSIGNED_NAME",$assistAssigned->get_summary_text());
     }
     $popup_request_data = array(
         'call_back_function' => 'set_return',
         'form_name' => 'wizform',
         'field_to_name_array' => array(
-            'id' => 'mccd_case_assigned',
-            'user_name' => 'mccd_case_assigned_name',
+            'id' => 'assist_case_assigned',
+            'user_name' => 'assist_case_assigned_name',
         ),
     );
-    $ss->assign('mccd_assigned_encoded_users_popup_request_data', $json->encode($popup_request_data));
+    $ss->assign('assist_assigned_encoded_users_popup_request_data', $json->encode($popup_request_data));
 
 }
 
@@ -747,7 +747,7 @@ if (!$focus->id && isset($campaign_id) && $campaign_id) {
 function create_bulkcase_steps(){
     global $mod_strings;
     $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/MCCDBulkCaseDetails.tpl';
+    $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
     $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
 
     return $steps;
@@ -755,7 +755,7 @@ function create_bulkcase_steps(){
 function create_sa_sms_steps(){
     global $mod_strings;
     $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-    #$steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/MCCDBulkCaseDetails.tpl';
+    #$steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
     $steps[$mod_strings['LBL_NAVIGATION_MENU_SA_SMS_TEMPLATE']] = 'custom/modules/Campaigns/tpls/SA_SMSTemplateDetails.tpl';
     $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
     return $steps;

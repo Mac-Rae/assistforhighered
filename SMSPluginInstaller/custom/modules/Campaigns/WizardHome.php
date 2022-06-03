@@ -541,7 +541,7 @@ function create_wiz_menu_items($type, $mrkt_string, $camp_url, $summ_url)
     if($type == 'BulkCase'){
         $steps = [];
         $steps[$mod_strings['LBL_NAVIGATION_MENU_GEN1']]          = file_exists('custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignHeader.tpl' : 'modules/Campaigns/tpls/WizardCampaignHeader.tpl';
-        $steps[$mod_strings['LBL_NAVIGATION_MENU_MCCD_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/MCCDBulkCaseDetails.tpl';
+        $steps[$mod_strings['LBL_NAVIGATION_MENU_ASSIST_BULK_CASE_DETAILS']] = 'custom/modules/Campaigns/tpls/ASSISTBulkCaseDetails.tpl';
         $steps[$mod_strings['LBL_TARGET_LISTS']]                   = file_exists('custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl') ? 'custom/modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl' : 'modules/Campaigns/tpls/WizardCampaignTargetListForNonNewsLetter.tpl';
     }
 
