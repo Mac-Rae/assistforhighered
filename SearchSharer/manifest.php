@@ -18,19 +18,19 @@ $manifest = [
     'description' => 'Allows sharing the results of list view searches',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Search Sharer',
+    'name' => 'ASSIST Search Sharer',
     'published_date' => '2021-08-17 11:19:35',
     'type' => 'module',
-    'version' => '1',
+    'version' => '2',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
     'copy' => [
-        '0' => [
+        [
             'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.SearchSharer.php',
             'to' => 'custom/Extension/application/Ext/Language/en_us.SearchSharer.php',
             ],
-        '1' => [
+        [
             'from' => '<basepath>/custom/themes/SuiteP/include/ListView/ListViewPaginationTop.tpl',
             'to' => 'custom/themes/SuiteP/include/ListView/ListViewPaginationTop.tpl',
             ],

@@ -85,7 +85,7 @@
 						  {/if}
 						<script>
 							{literal}
-							function mccd_show_shareable_link(){
+							function assist_show_shareable_link(){
 								var url = '{/literal}{$APP_CONFIG.site_url}{literal}/index.php?';
 								var currentQuery = $('[name=current_query_by_page]').val();
 								var mb = messageBox({"size" : "m","showHeader": true, "showFooter": false, "onCancel" : function(){
@@ -111,10 +111,10 @@
 							{/literal}
 						</script>
 						<ul
-						class="clickMenu selectmenu SugarActionMenu columnsFilterLink listViewLinkButton listViewLinkButton_{$action_menu_location}" onclick="mccd_show_shareable_link();"
+						class="clickMenu selectmenu SugarActionMenu columnsFilterLink listViewLinkButton listViewLinkButton_{$action_menu_location}" onclick="assist_show_shareable_link();"
 						>
 							<li class="sugar_action_button">
-								<a href="#" class="glyphicon glyphicon-send" title='{sugar_translate label="LBL_MCCD_SEARCH_SHARER"}'></a>
+								<a href="#" class="glyphicon glyphicon-send" title='{sugar_translate label="LBL_ASSIST_SEARCH_SHARER"}'></a>
 							</li>
 						</ul>
 						&nbsp;{$selectedObjectsSpan}
