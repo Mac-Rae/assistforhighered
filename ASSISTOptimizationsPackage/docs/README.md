@@ -1,4 +1,4 @@
-# Maricopa Community Colleges Optimization Package
+# ASSIST Optimization Package
 - Jim Mackin - jim.mackin@salesagility.com
 - V1
 
