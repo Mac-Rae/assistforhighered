@@ -34,7 +34,7 @@ class CustomSearchFormView extends \SuiteCRM\Search\UI\SearchFormView{
 
         $this->smarty->assign('sizeOptions', $sizes);
 
-        $totalSizes = $sugar_config['mccd_search_total_options'];
+        $totalSizes = $sugar_config['assist_search_total_options'];
         $this->smarty->assign('totalSizeOptions', $totalSizes);
 
         $this->smarty->assign('engineOptions', $engines);

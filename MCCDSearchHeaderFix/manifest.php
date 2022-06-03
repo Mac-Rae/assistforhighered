@@ -18,7 +18,7 @@ $manifest = [
     'description' => 'Fixes the module name in Elastic Search',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'MCCD Elastic Search Fix',
+    'name' => 'ASSIST Elastic Search Fix',
     'published_date' => '2021-03-15 16:22:03',
     'type' => 'module',
     'version' => '12',
@@ -31,8 +31,8 @@ $installdefs = [
             'to' => 'custom/Extension/SearchEngines/CustomElasticSearchEngine.php',
             ],
         '1' => [
-            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.MCCDCustomElastic.php',
-            'to' => 'custom/Extension/application/Ext/Language/en_us.MCCDCustomElastic.php',
+            'from' => '<basepath>/custom/Extension/application/Ext/Language/en_us.ASSISTCustomElastic.php',
+            'to' => 'custom/Extension/application/Ext/Language/en_us.ASSISTCustomElastic.php',
             ],
         '2' => [
             'from' => '<basepath>/custom/Extension/modules/AOK_KnowledgeBase/Ext/Vardefs/FixSearch.php',
