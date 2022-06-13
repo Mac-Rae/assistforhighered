@@ -521,6 +521,13 @@ EOF;
     private function getActivitiesForPeriod($userId,DateTime $startDate,DateTime $endDate){
         global $db, $timedate;
         $userQuoted = $db->quoted($userId);
+
+        $user = BeanFactory::getBean('Users',$_REQUEST['user']);
+        $tz = $user->getPreference('timezone','global');
+        if($tz){
+            $tz = new DateTimeZone($tz);
+        }
+
         $start = $db->quoted($timedate->asDb($startDate));
         $end = $db->quoted($timedate->asDb($endDate));
         $sql = <<<EOF
@@ -558,6 +565,17 @@ EOF;
         $res = $db->query($sql);
         $activities = [];
         while($row = $db->fetchByAssoc($res)){
+            if($tz){
+                $dateStart = $timedate->fromDb($row['date_start']);
+                $dateEnd = $timedate->fromDb($row['date_end']);
+                $offset = $tz->getOffset($dateStart);
+                $dateStart->modify('+'.$offset.' second');
+                $offset = $tz->getOffset($dateEnd);
+                $offset = $offset;
+                $dateEnd->modify($offset.' second');
+                $row['date_start'] = $timedate->asDb($dateStart);
+                $row['date_end'] = $timedate->asDb($dateEnd);
+            }
             $activities[] = $row;
         }
         return $activities;
@@ -835,6 +853,15 @@ EOF;
             echo $ss->fetch('custom/modules/Users/PublicProfile/SAPublicProfileError.tpl');
             return;
         }
+        $user = BeanFactory::getBean('Users',$_REQUEST['user']);
+        $tz = $user->getPreference('timezone','global');
+
+        if($tz){
+            $tz = new DateTimeZone($tz);
+            $offset = 0-$tz->getOffset($slot);
+            $slot->modify('+'.$offset.' second');
+        }
+
         $end = clone $slot;
         $end->add(DateInterval::createFromDateString($this->getMeetingLength($profile)." minutes"));
         if($this->getActivitiesForPeriod($profile->assigned_user_id,$slot,$end)){
