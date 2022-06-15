@@ -1,6 +1,6 @@
-<h2>Maricopa Theme</h2>
+<h2>ASSIST Theme</h2>
 <form id="ConfigureSettings" name="ConfigureSettings" enctype='multipart/form-data' method="POST"
-      action="index.php?module=Administration&action=MaricopaTheme&do=save">
+      action="index.php?module=Administration&action=ASSISTTheme&do=save">
 
     <table width="100%" border="0" cellspacing="1" cellpadding="0" class="edit view">
 
@@ -10,9 +10,9 @@
                 <span>{$MOD.LBL_ASSIST_THEME_SUPPORT_URL}</span>
             </td>
             <td>
-                <input type="text" id="maricopatheme_support_url"
-                       name='maricopatheme[support_url]'
-                       value='{$config.maricopatheme.support_url}'>
+                <input type="text" id="assisttheme_support_url"
+                       name='assisttheme[support_url]'
+                       value='{$config.assisttheme.support_url}'>
 
             </td>
         </tr>
@@ -21,9 +21,9 @@
                 <span>{$MOD.LBL_ASSIST_THEME_TRAINING_URL}</span>
             </td>
             <td>
-                <input type="text" id="maricopatheme_training_url"
-                       name='maricopatheme[training_url]'
-                       value='{$config.maricopatheme.training_url}'>
+                <input type="text" id="assisttheme_training_url"
+                       name='assisttheme[training_url]'
+                       value='{$config.assisttheme.training_url}'>
 
             </td>
         </tr>
@@ -32,9 +32,9 @@
                 <span>{$MOD.LBL_ASSIST_THEME_FEEDBACK_URL}</span>
             </td>
             <td>
-                <input type="text" id="maricopatheme_feedback_url"
-                       name='maricopatheme[feedback_url]'
-                       value='{$config.maricopatheme.feedback_url}'>
+                <input type="text" id="assisttheme_feedback_url"
+                       name='assisttheme[feedback_url]'
+                       value='{$config.assisttheme.feedback_url}'>
 
             </td>
         </tr>
@@ -44,10 +44,10 @@
                     <span>{$colour.label}</span>
                 </td>
                 <td>
-                    <input type='color' size='20' id="maricopatheme_{$colour.name}"
-                           name='maricopatheme[{$colour.name}]'
+                    <input type='color' size='20' id="assisttheme_{$colour.name}"
+                           name='assisttheme[{$colour.name}]'
                            style="text-align: right;" value='{$colour.value}'>
-                    <button type="button" onclick="$('#maricopatheme_{$colour.name}').val('{$colour.default}');return false;"><span class="suitepicon suitepicon-action-clear"></span></button>
+                    <button type="button" onclick="$('#assisttheme_{$colour.name}').val('{$colour.default}');return false;"><span class="suitepicon suitepicon-action-clear"></span></button>
                 </td>
             </tr>
         {/foreach}

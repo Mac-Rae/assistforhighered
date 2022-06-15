@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'Maricopa Community Colleges SuiteCRM Theme',
     'published_date' => '2021-01-26 09:20:21',
     'type' => 'module',
-    'version' => '30',
+    'version' => '31',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -35,12 +35,12 @@ $installdefs = [
             'to' => 'custom/Extension/application/Ext/Language/en_us.ASSISTTheme.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Administration/MaricopaTheme.php',
-            'to' => 'custom/Extension/modules/Administration/Ext/Administration/MaricopaTheme.php',
+            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Administration/ASSISTTheme.php',
+            'to' => 'custom/Extension/modules/Administration/Ext/Administration/ASSISTTheme.php',
             ],
         [
-            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Language/en_us.MaricopaTheme.php',
-            'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.MaricopaTheme.php',
+            'from' => '<basepath>/custom/Extension/modules/Administration/Ext/Language/en_us.ASSISTTheme.php',
+            'to' => 'custom/Extension/modules/Administration/Ext/Language/en_us.ASSISTTheme.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/modules/Users/Ext/Language/en_us.ASSISTTheme.php',
@@ -227,12 +227,12 @@ $installdefs = [
             'to' => 'custom/include/generic/SugarWidgets/SugarWidgetSubPanelTopComposeEmailButton.php',
             ],
         [
-            'from' => '<basepath>/custom/modules/Administration/MaricopaTheme.php',
-            'to' => 'custom/modules/Administration/MaricopaTheme.php',
+            'from' => '<basepath>/custom/modules/Administration/ASSISTTheme.php',
+            'to' => 'custom/modules/Administration/ASSISTTheme.php',
             ],
         [
-            'from' => '<basepath>/custom/modules/Administration/MaricopaTheme.tpl',
-            'to' => 'custom/modules/Administration/MaricopaTheme.tpl',
+            'from' => '<basepath>/custom/modules/Administration/ASSISTTheme.tpl',
+            'to' => 'custom/modules/Administration/ASSISTTheme.tpl',
             ],
         [
             'from' => '<basepath>/custom/themes/SuiteP/images/accept_inline.svg',
