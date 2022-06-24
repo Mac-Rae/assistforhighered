@@ -11,6 +11,7 @@
                 <input type='checkbox' size='20' id="maintenancemode_config_enabled"
                        name='maintenancemode[enabled]'
                        value='1'
+                       aria-label="{$MOD.LBL_MAINTENANCEMODE_CONFIG_ENABLED}"
                         {if $config.maintenancemode.enabled}checked="checked"{/if}
                 >
             </td>
@@ -21,6 +22,7 @@
             </td>
             <td>
                 <textarea id="maintenancemode_config_page"
+                          aria-label="{$MOD.LBL_MAINTENANCEMODE_CONFIG_PAGE}"
                        name='maintenancemode[page]'>{$config.maintenancemode.page}</textarea>
             </td>
         </tr>

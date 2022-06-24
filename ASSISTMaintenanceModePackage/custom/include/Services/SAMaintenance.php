@@ -31,9 +31,15 @@ class SAMaintenance
         if($userType == 'Admin' || $userType == 'Unauthenticated'){
             return;
         }
-        session_destroy();
-        echo html_entity_decode($sugar_config['maintenancemode']['page']);
-        sugar_die("");
+        http_response_code(503);
+
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'){
+            echo "<script>document.location = 'index.php';</script>";
+        }else{
+            session_destroy();
+            echo html_entity_decode($sugar_config['maintenancemode']['page']);
+        }
+        sugar_cleanup(true);
     }
 
 }
