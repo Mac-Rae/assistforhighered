@@ -16,7 +16,7 @@ function pre_install()
         $scheduler = BeanFactory::newBean('Schedulers');
         $scheduler->new_with_id = true;
         $scheduler->id = 'b29be142-54b2-f5b0-b699-613775e9f7ab';
-        $scheduler->name = 'Athena Sync';
+        $scheduler->name = 'ASSIST Sync';
         $scheduler->job = "function::ASSISTRDSSyncScheduler";
         $scheduler->job_interval = "0::*/1::*::*::*";
         $scheduler->status = "Inactive";
@@ -28,7 +28,7 @@ function pre_install()
         $scheduler = BeanFactory::newBean('Schedulers');
         $scheduler->new_with_id = true;
         $scheduler->id = 'a6a42fde-32b7-6ed9-e540-61489a5989f2';
-        $scheduler->name = 'Athena Historic Sync';
+        $scheduler->name = 'ASSIST Historic Sync';
         $scheduler->job = "function::ASSISTRDSSyncHistoricScheduler";
         $scheduler->job_interval = "*/15::2-6::*::*::*";
         $scheduler->status = "Inactive";
