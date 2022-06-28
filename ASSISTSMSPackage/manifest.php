@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '14',
+    'version' => '15',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [

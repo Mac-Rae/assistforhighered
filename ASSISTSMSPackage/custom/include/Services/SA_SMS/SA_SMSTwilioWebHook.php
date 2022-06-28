@@ -11,7 +11,16 @@ try {
     $service = new PollHistoricSMSService();
     $sms = $client->getSMS($_REQUEST['MessageSid']);
     if($sms){
-        $service->processSingleSMS($sms,$client);
+        $smsBean = $service->processSingleSMS($sms,$client);
+        $alert = BeanFactory::newBean('Alerts');
+        $alert->name = 'New SMS from '.$smsBean->getFromName();
+        $alert->description = $smsBean->description;
+        $alert->url_redirect = 'index.php';
+        $alert->target_module = 'SA_SMS';
+        $alert->assigned_user_id = $smsBean->assigned_user_id;
+        $alert->type = 'info';
+        $alert->is_read = 0;
+        $alert->save();
     }
 }catch(Exception $ex){
     $GLOBALS['log']->error("Failed to process Twilio Webhook ".$ex->getMessage());

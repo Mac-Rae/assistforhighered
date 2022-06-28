@@ -46,6 +46,7 @@ class PollHistoricSMSService
                 $newSMS->from_record_type = $linkedRecord->module_name;
                 $newSMS->parent_id = $linkedRecord->id;
                 $newSMS->parent_type = $linkedRecord->module_name;
+                $newSMS->assigned_user_id = $linkedRecord->assigned_user_id;
             }
         }
         if(!empty($newSMS->to_number) && !$client->isSystemNumber($newSMS->to_number)){
@@ -55,6 +56,7 @@ class PollHistoricSMSService
                 $newSMS->to_record_type = $linkedRecord->module_name;
                 $newSMS->parent_id = $linkedRecord->id;
                 $newSMS->parent_type = $linkedRecord->module_name;
+                $newSMS->assigned_user_id = $linkedRecord->assigned_user_id;
             }
         }
         $newSMS->save();
