@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Maintenance Mode',
     'published_date' => '2021-02-18 15:14:28',
     'type' => 'module',
-    'version' => '4',
+    'version' => '6',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
