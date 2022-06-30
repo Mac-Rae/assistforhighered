@@ -120,7 +120,9 @@ class actionSendSMS extends actionBase{
                 if (empty($person->phone_mobile)) {
                     continue;
                 }
-                //TODO: Check Phone number validity
+                if(!$client->isNumberValid($person->phone_mobile)){
+                    continue;
+                }
                 $res = $client->sendSMS($person->phone_mobile, $params['sms_body']);
                 $sentAnSMS = true;
                 $smsBean = BeanFactory::newBean('SA_SMS');

@@ -6,7 +6,13 @@ function openSASMS(recordId, recordType, phoneNumber){
         'sugar_body_only' : true
     };
     $.get('index.php?entryPoint=SA_SMSDialog',data, function(ret){
-        sms_mb = messageBox({"showHeader": false, "showFooter": false});
+        sms_mb = messageBox(
+            {
+                "size":"m",
+                "showHeader": false,
+                "showFooter": false
+            }
+        );
         sms_mb.setBody(ret);
         sms_mb.show();
     });

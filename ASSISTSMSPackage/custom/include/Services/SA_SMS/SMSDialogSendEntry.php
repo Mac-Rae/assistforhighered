@@ -1,4 +1,5 @@
 <?php
+require_once 'include/SugarQueue/SugarJobQueue.php';
 global $current_user, $timedate;
 
 require_once 'custom/include/Services/SA_SMS/SA_SMSClient.php';
@@ -93,29 +94,35 @@ if(!$client){
     );
     return;
 }
-$res = $client->sendSMS($phoneNumber,$body);
-$smsBean = BeanFactory::newBean('SA_SMS');
-$smsBean->name = "From: ".$client->getFrom()." To: ".$phoneNumber;
-$smsBean->description = $body;
-$smsBean->from_number = $client->getFrom();
-$smsBean->to_number = $phoneNumber;
-$smsBean->sms_type = 'crm_out';
-$smsBean->send_record_id = $current_user->id;
-$smsBean->send_record_type = "Users";
-$smsBean->to_record_id = $bean->id;
-$smsBean->to_record_type = $bean->module_name;
-$smsBean->parent_id = $bean->id;
-$smsBean->parent_type = $bean->module_name;
-$smsBean->date_sent = $timedate->nowDb();
-if($res){
-    $smsBean->third_party = $res['third_party'];
-    $smsBean->third_party_id = $res['third_party_id'];
-    $smsBean->status = $res['status'];
+$scheduledJob = new SchedulersJob();
+
+$scheduledJob->name = "SMS Single Send Job";
+
+$scheduledJob->assigned_user_id = $current_user->id;
+$scheduledJob->data = json_encode([
+    'phoneNumber' => $phoneNumber,
+    'body' => $body,
+    'to_id' => $bean->id,
+    'to_module' => $bean->module_name,
+]);
+$scheduledJob->target = "class::SA_SMSSingleJob";
+if(empty($_REQUEST['scheduleSMS'] || empty($_REQUEST['schedule_date']))){
+    $scheduledJob->execute_time = $timedate->nowDb();
+}else{
+    try{
+        $tz = new DateTimeZone($current_user->getPreference('timezone'));
+    }catch(Exception $ex){
+        $tz = new DateTimeZone("UTC");
+    }
+    $scheduleDate = DateTime::createFromFormat('Y/m/d h:ia', $_REQUEST['schedule_date'],$tz);
+    $scheduledJob->execute_time = $timedate->asDb($scheduleDate);
 }
-$smsBean->save();
-$smsBean->fill_in_additional_list_fields();
-$formattedDateSent = $smsBean->date_sent;
-$dateOb = $timedate->fromDb($smsBean->date_sent);
+
+$queue = new SugarJobQueue();
+$queue->submitJob($scheduledJob);
+
+$formattedDateSent = $scheduledJob->execute_time;
+$dateOb = $timedate->fromDb($scheduledJob->execute_time);
 if($dateOb){
     $formattedDateSent = $timedate->asUser($dateOb);
 }
@@ -123,14 +130,13 @@ echo json_encode(
     [
         'result' => translate('LBL_SMS_DIALOG_SEND_SUCCESS', 'SA_SMS'),
         'sms' => [
-            'from_name' => $smsBean->getFromName(),
-            'from_number' => $smsBean->from_number,
-            'to_name' => $smsBean->getToName(),
-            'to_number' => $smsBean->to_number,
-            'date_sent' => $formattedDateSent,
-            'sms_body' => $smsBean->description,
-            'type' => $smsBean->sms_type
+            'from_name' => translate('LBL_SYSTEM_MESSAGE','SA_SMS'),
+            'from_number' =>  $client->getFrom(),
+            'to_name' => $bean->get_summary_text(),
+            'to_number' => $phoneNumber,
+            'date_sent' => $formattedDateSent,//TODO: Seems wrong - 1 hour out
+            'sms_body' => $body,
+            'type' => 'crm_out'
         ]
     ]
 );
-return;

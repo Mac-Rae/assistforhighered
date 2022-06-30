@@ -1,7 +1,46 @@
 <?php
 
 require_once 'custom/include/Services/SA_SMS/SA_SMSClient.php';
+class SA_SMSSingleJob implements RunnableSchedulerJob{
+    public function run($params)
+    {
+        global $timedate;
+        $params = json_decode($params,1);
+        $phoneNumber = $params['phoneNumber'];
+        $body = $params['body'];
+        $toId = $params['to_id'];
+        $toModule = $params['to_module'];
+        $client = SA_SMSClient::getClientFromConfig();
+        if(!$client){
+            return false;
+        }
+        $res = $client->sendSMS($phoneNumber,$body);
+        $smsBean = BeanFactory::newBean('SA_SMS');
+        $smsBean->name = "From: ".$client->getFrom()." To: ".$phoneNumber;
+        $smsBean->description = $body;
+        $smsBean->from_number = $client->getFrom();
+        $smsBean->to_number = $phoneNumber;
+        $smsBean->sms_type = 'crm_out';
+        $smsBean->send_record_id = $this->assigned_user_id;
+        $smsBean->send_record_type = "Users";
+        $smsBean->to_record_id = $toId;
+        $smsBean->to_record_type = $toModule;
+        $smsBean->parent_id = $toId;
+        $smsBean->parent_type = $toModule;
+        $smsBean->date_sent = $timedate->nowDb();
+        if($res){
+            $smsBean->third_party = $res['third_party'];
+            $smsBean->third_party_id = $res['third_party_id'];
+            $smsBean->status = $res['status'];
+        }
+        $smsBean->save();
+    }
 
+    public function setJob(SchedulersJob $job)
+    {
+        $this->job = $job;
+    }
+}
 class SA_SMSScheduledJob implements RunnableSchedulerJob
 {
     public function run($campaignId)

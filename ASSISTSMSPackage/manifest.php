@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '15',
+    'version' => '17',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -141,6 +141,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/Services/SA_SMS/tpls/SMSDialog.tpl',
             'to' => 'custom/include/Services/SA_SMS/tpls/SMSDialog.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/Smarty/plugins/function.sa_sms_enable.php',
+            'to' => 'custom/include/Smarty/plugins/function.sa_sms_enable.php',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Phone/DetailView.tpl',

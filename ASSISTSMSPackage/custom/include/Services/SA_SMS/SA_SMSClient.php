@@ -55,4 +55,10 @@ abstract class SA_SMSClient{
         }
         return false;
     }
+
+    public static function isNumberValid($number){
+        $res = preg_match('/^\+[0-9]{10,11}$/', $number);
+        return $res;
+    }
+
 }

@@ -42,6 +42,7 @@ $mod_strings = array(
     'LBL_SMS_DIALOG_BODY' => 'SMS Contents',
     'LBL_SMS_DIALOG_SEND' => 'Send SMS',
     'LBL_SMS_DIALOG_CANCEL' => 'Cancel',
+    'LBL_SMS_DIALOG_SCHEDULE' => 'Schedule',
     'LBL_SEND_SMS_CONFIRM' => 'Are you sure you want to send an SMS to this person?',
     'LBL_SMS_DIALOG_SEND_SUCCESS' => 'Successfully sent SMS',
     'LBL_SMS_SEND_ERROR' => 'Error Sending SMS. Please check your config.',

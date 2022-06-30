@@ -46,7 +46,8 @@
 {else}
 {if !empty({{sugarvar key='value' string=true}})}
 {assign var="phone_value" value={{sugarvar key='value' string=true}} }
-{if ($module == 'Contacts' or $module == 'Leads') and $vardef_name == 'phone_mobile' and $phone_value and $fields.sms_opt_in_c.value == 'Y'}
+{capture name="enable_sa_sms"}{sa_sms_enable vardef_name=$vardef_name optin=$fields.sms_opt_in_c.value module=$module number=$phone_value}{/capture}
+{if $smarty.capture.enable_sa_sms}
 <a href="#" onclick="openSASMS('{$fields.id.value}', '{$module}', '{$phone_value}');"><span class="suitepicon suitepicon-admin-languages"></span></a>
 {/if}
 {sugar_phone value=$phone_value usa_format="{{if !empty($vardef.validate_usa_format)}}1{{else}}0{{/if}}"}
