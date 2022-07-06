@@ -2,14 +2,20 @@
 require_once 'custom/include/Services/SA_SMS/SA_SMSClient.php';
 require_once 'custom/include/Services/SA_SMS/PollHistoricSMSService.php';
 global $timedate;
-if(empty($_REQUEST['MessageSid'])){
+
+if(!empty($_REQUEST['MessageSid'])) {
+    $messageId = $_REQUEST['MessageSid'];
+}elseif(!empty($_REQUEST['SmsMessageSid'])){
+    $messageId = $_REQUEST['SmsMessageSid'];
+}
+if(empty($messageId)){
     echo "<Response></Response>";
     return;
 }
 try {
     $client = SA_SMSClient::getClientFromConfig();
     $service = new PollHistoricSMSService();
-    $sms = $client->getSMS($_REQUEST['MessageSid']);
+    $sms = $client->getSMS($messageId);
     if($sms){
         $smsBean = $service->processSingleSMS($sms,$client);
         $alert = BeanFactory::newBean('Alerts');

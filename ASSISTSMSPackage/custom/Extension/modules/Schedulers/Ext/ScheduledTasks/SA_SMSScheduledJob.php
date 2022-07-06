@@ -5,7 +5,7 @@ class SA_SMSSingleJob implements RunnableSchedulerJob{
     public function run($params)
     {
         global $timedate;
-        $params = json_decode($params,1);
+        $params = json_decode(html_entity_decode($params),1);
         $phoneNumber = $params['phoneNumber'];
         $body = $params['body'];
         $toId = $params['to_id'];
@@ -34,6 +34,7 @@ class SA_SMSSingleJob implements RunnableSchedulerJob{
             $smsBean->status = $res['status'];
         }
         $smsBean->save();
+        return true;
     }
 
     public function setJob(SchedulersJob $job)
