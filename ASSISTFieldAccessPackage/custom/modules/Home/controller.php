@@ -279,4 +279,15 @@ class CustomHomeController extends HomeController{
             echo $html;
         }
     }
+    public function action_saveHTMLField()
+    {
+        $bean = BeanFactory::getBean($_REQUEST['current_module'], $_REQUEST['id']);
+        $fieldRestriction = new ASSISTFieldRestriction();
+        $fieldRestriction->setFieldFlags($bean);
+        $fieldDef = $bean->field_defs[$_REQUEST['field']];
+        if(!empty($fieldDef['assist_field_hidden']) || !empty($fieldDef['assist_field_restricted'])){
+            return;
+        }
+        parent::action_saveHTMLField();
+    }
 }
