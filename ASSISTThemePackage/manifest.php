@@ -15,17 +15,21 @@ $manifest = [
     'readme' => '',
     'key' => '',
     'author' => 'SalesAgility',
-    'description' => 'Theme for Maricopa Community Colleges SuiteCRM',
+    'description' => 'Theme for ASSIST SuiteCRM Instances',
     'icon' => '',
     'is_uninstallable' => '1',
-    'name' => 'Maricopa Community Colleges SuiteCRM Theme',
+    'name' => 'ASSIST SuiteCRM Theme',
     'published_date' => '2021-01-26 09:20:21',
     'type' => 'module',
-    'version' => '31',
+    'version' => '32',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
     'copy' => [
+        [
+            'from' => '<basepath>/custom/Extension/application/Ext/EntryPointRegistry/SurveyCSS.php',
+            'to' => 'custom/Extension/application/Ext/EntryPointRegistry/SurveyCSS.php',
+            ],
         [
             'from' => '<basepath>/custom/Extension/application/Ext/GlobalLinks/ASSISTTheme.php',
             'to' => 'custom/Extension/application/Ext/GlobalLinks/ASSISTTheme.php',
@@ -233,6 +237,18 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/modules/Administration/ASSISTTheme.tpl',
             'to' => 'custom/modules/Administration/ASSISTTheme.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Surveys/Entry/Survey.php',
+            'to' => 'custom/modules/Surveys/Entry/Survey.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Surveys/Entry/Thanks.php',
+            'to' => 'custom/modules/Surveys/Entry/Thanks.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/Surveys/css/survey.css',
+            'to' => 'custom/modules/Surveys/css/survey.css',
             ],
         [
             'from' => '<basepath>/custom/themes/SuiteP/images/accept_inline.svg',
