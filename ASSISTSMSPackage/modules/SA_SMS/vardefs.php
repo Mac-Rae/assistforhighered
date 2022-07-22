@@ -61,6 +61,12 @@ $dictionary['SA_SMS'] = array(
             'type' => 'datetime',
             'vname' => 'LBL_DATE_SENT',
         ],
+        'is_scheduled' => [
+            'name' => 'is_scheduled',
+            'type' => 'bool',
+            'vname' => 'LBL_IS_SCHEDULED',
+            'default' => false,
+        ],
         'parent_type'=>
             [
                 'name'=>'parent_type',

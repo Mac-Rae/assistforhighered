@@ -138,6 +138,7 @@ class actionSendSMS extends actionBase{
                 $smsBean->parent_id = $person->id;
                 $smsBean->parent_type = $person->module_name;
                 $smsBean->date_sent = $timedate->nowDb();
+                $smsBean->is_scheduled = false;
                 if($res){
                     $smsBean->third_party = $res['third_party'];
                     $smsBean->third_party_id = $res['third_party_id'];

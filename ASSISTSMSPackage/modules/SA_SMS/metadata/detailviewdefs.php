@@ -107,6 +107,7 @@ array (
         5 => 
         array (
           0 => 'description',
+          1 => 'is_scheduled',
         ),
       ),
     ),

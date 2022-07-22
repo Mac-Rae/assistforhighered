@@ -19,3 +19,7 @@ $entry_point_registry['SA_SMSSchedule'] = array(
     'file' => 'custom/include/Services/SA_SMS/SA_SMSSchedule.php',
     'auth' => true
 );
+$entry_point_registry['SA_SMSThreadedMore'] = array(
+    'file' => 'custom/include/Services/SA_SMS/SA_SMSThreadedMore.php',
+    'auth' => true
+);

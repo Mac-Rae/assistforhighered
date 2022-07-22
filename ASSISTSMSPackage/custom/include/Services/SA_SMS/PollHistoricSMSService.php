@@ -39,6 +39,7 @@ class PollHistoricSMSService
         $newSMS->date_sent = $sms['date_sent'];
         $newSMS->third_party = $sms['third_party'];
         $newSMS->third_party_id = $sms['third_party_id'];
+        $newSMS->is_scheduled = false;
         if(!empty($newSMS->from_number) && !$client->isSystemNumber($newSMS->from_number)){
             $linkedRecord = $client->getPersonFromNumber($newSMS->from_number);
             if($linkedRecord){

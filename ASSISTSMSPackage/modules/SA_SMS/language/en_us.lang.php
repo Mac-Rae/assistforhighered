@@ -63,4 +63,8 @@ $mod_strings = array(
     'LBL_THREADED_FROM' => 'From',
     'LBL_THREADED_TO' => 'To',
     'LBL_THREADED_DATE' => 'Date',
+    'LBL_THREADED_TITLE' => 'SMS Conversation with %s',
+    'LBL_LOAD_MORE_LINK' => 'Load more',
+    'LBL_IS_SCHEDULED' => 'Is Scheduled',
+    'LBL_SCHEDULED' => 'Scheduled',
 );

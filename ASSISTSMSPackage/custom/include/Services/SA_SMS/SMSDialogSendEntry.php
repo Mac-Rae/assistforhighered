@@ -99,15 +99,28 @@ $scheduledJob = new SchedulersJob();
 $scheduledJob->name = "SMS Single Send Job";
 
 $scheduledJob->assigned_user_id = $current_user->id;
-$scheduledJob->data = json_encode([
-    'phoneNumber' => $phoneNumber,
-    'body' => $body,
-    'to_id' => $bean->id,
-    'to_module' => $bean->module_name,
-]);
+
+$smsBean = BeanFactory::newBean('SA_SMS');
+$smsBean->name = "From: ".$client->getFrom()." To: ".$phoneNumber;
+$smsBean->description = $body;
+$smsBean->from_number = $client->getFrom();
+$smsBean->to_number = $phoneNumber;
+$smsBean->sms_type = 'crm_out';
+$smsBean->send_record_id = $this->assigned_user_id;
+$smsBean->send_record_type = "Users";
+$smsBean->to_record_id = $bean->id;
+$smsBean->to_record_type = $bean->module_name;
+$smsBean->parent_id = $bean->id;
+$smsBean->parent_type = $bean->module_name;
+$smsBean->date_sent = $timedate->nowDb();
+$smsBean->status = 'crm_scheduled';
+
+
+
 $scheduledJob->target = "class::SA_SMSSingleJob";
 if(empty($_REQUEST['scheduleSMS'] || empty($_REQUEST['schedule_date']))){
     $scheduledJob->execute_time = $timedate->nowDb();
+    $smsBean->is_scheduled = false;
 }else{
     try{
         $tz = new DateTimeZone($current_user->getPreference('timezone'));
@@ -115,9 +128,15 @@ if(empty($_REQUEST['scheduleSMS'] || empty($_REQUEST['schedule_date']))){
         $tz = new DateTimeZone("UTC");
     }
     $scheduleDate = DateTime::createFromFormat('Y/m/d h:ia', $_REQUEST['schedule_date'],$tz);
+    if(!$scheduleDate){
+        $scheduleDate = DateTime::createFromFormat('Y-m-d h:ia', $_REQUEST['schedule_date'],$tz);
+    }
     $scheduledJob->execute_time = $timedate->asDb($scheduleDate);
+    $smsBean->is_scheduled = true;
 }
-
+$smsBean->date_sent = $scheduledJob->execute_time;
+$smsBean->save();
+$scheduledJob->data = $smsBean->id;
 $queue = new SugarJobQueue();
 $queue->submitJob($scheduledJob);
 
@@ -136,7 +155,8 @@ echo json_encode(
             'to_number' => $phoneNumber,
             'date_sent' => $formattedDateSent,//TODO: Seems wrong - 1 hour out
             'sms_body' => $body,
-            'type' => 'crm_out'
+            'type' => 'crm_out',
+            'is_scheduled' => $smsBean->is_scheduled
         ]
     ]
 );

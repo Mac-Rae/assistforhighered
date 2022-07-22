@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '20',
+    'version' => '25',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -121,6 +121,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSSchedule.php',
             'to' => 'custom/include/Services/SA_SMS/SA_SMSSchedule.php',
+            ],
+        [
+            'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSThreadedMore.php',
+            'to' => 'custom/include/Services/SA_SMS/SA_SMSThreadedMore.php',
             ],
         [
             'from' => '<basepath>/custom/include/Services/SA_SMS/SA_SMSTwilioWebHook.php',
@@ -9013,6 +9017,10 @@ $installdefs = [
         [
             'from' => '<basepath>/modules/SA_SMS/UI/tpls/threaded.tpl',
             'to' => 'modules/SA_SMS/UI/tpls/threaded.tpl',
+            ],
+        [
+            'from' => '<basepath>/modules/SA_SMS/UI/tpls/threaded_sms.tpl',
+            'to' => 'modules/SA_SMS/UI/tpls/threaded_sms.tpl',
             ],
         [
             'from' => '<basepath>/modules/SA_SMS/language/en_us.lang.php',
