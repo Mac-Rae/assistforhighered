@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Field Level Access',
     'published_date' => '2021-03-26 08:18:56',
     'type' => 'module',
-    'version' => '24',
+    'version' => '33',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -45,6 +45,18 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/Extension/application/Ext/Utils/ASSISTUtils.php',
             'to' => 'custom/Extension/application/Ext/Utils/ASSISTUtils.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOR_Reports/Ext/Language/en_us.ASSISTFieldAccess.php',
+            'to' => 'custom/Extension/modules/AOR_Reports/Ext/Language/en_us.ASSISTFieldAccess.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOR_Scheduled_Reports/Ext/Language/en_us.ASSISTFieldAccess.php',
+            'to' => 'custom/Extension/modules/AOR_Scheduled_Reports/Ext/Language/en_us.ASSISTFieldAccess.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/AOR_Scheduled_Reports/Ext/LogicHooks/ASSISTFieldAccess.php',
+            'to' => 'custom/Extension/modules/AOR_Scheduled_Reports/Ext/LogicHooks/ASSISTFieldAccess.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/modules/Accounts/Ext/Vardefs/SAEmailAddressFieldRestriction.php',
@@ -91,6 +103,14 @@ $installdefs = [
             'to' => 'custom/include/Services/ASSISTFieldRestriction.php',
             ],
         [
+            'from' => '<basepath>/custom/include/Services/ASSISTIsReportRestricted.php',
+            'to' => 'custom/include/Services/ASSISTIsReportRestricted.php',
+            ],
+        [
+            'from' => '<basepath>/custom/include/Smarty/plugins/function.sugar_evalcolumn.php',
+            'to' => 'custom/include/Smarty/plugins/function.sugar_evalcolumn.php',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarEmailAddress/saGetEmailAddressWidget.php',
             'to' => 'custom/include/SugarEmailAddress/saGetEmailAddressWidget.php',
             ],
@@ -103,12 +123,20 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Address/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Address/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Address/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Address/en_us.DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Address/en_us.DetailView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Address/en_us.EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Address/en_us.EditView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Assigned_user_name/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Assigned_user_name/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Base/DetailView.tpl',
@@ -131,6 +159,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Base/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Base/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Base/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Bool/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Bool/DetailView.tpl',
             ],
@@ -147,6 +179,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Bool/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Bool/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Bool/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Currency/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Currency/DetailView.tpl',
             ],
@@ -159,6 +195,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Currency/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Currency/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Currency/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Datetime/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Datetime/DetailView.tpl',
             ],
@@ -167,12 +207,24 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Datetime/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Datetime/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Datetime/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Datetimecombo/EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Datetimecombo/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Datetimecombo/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Datetimecombo/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Dynamicenum/EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Dynamicenum/EditView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Dynamicenum/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Dynamicenum/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Enum/DetailView.tpl',
@@ -191,6 +243,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Enum/EditViewFunction.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Enum/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Enum/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/File/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/File/DetailView.tpl',
             ],
@@ -203,6 +259,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/File/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/File/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/File/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Float/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Float/DetailView.tpl',
             ],
@@ -211,12 +271,20 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Float/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Float/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Float/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Iframe/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Iframe/DetailView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Iframe/EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Iframe/EditView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Iframe/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Iframe/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Image/DetailView.tpl',
@@ -231,6 +299,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Image/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Image/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Image/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Image/deleteAttachment.php',
             'to' => 'custom/include/SugarFields/Fields/Image/deleteAttachment.php',
             ],
@@ -243,6 +315,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Int/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Int/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Int/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Link/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Link/DetailView.tpl',
             ],
@@ -253,6 +329,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Link/ListView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Link/ListView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Link/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Link/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Multienum/DetailView.tpl',
@@ -271,6 +351,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Multienum/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Multienum/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Multienum/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Parent/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Parent/DetailView.tpl',
             ],
@@ -279,8 +363,16 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Parent/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Parent/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Parent/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Password/EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Password/EditView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Password/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Password/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Phone/DetailView.tpl',
@@ -295,6 +387,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Phone/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Phone/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Phone/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Radioenum/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Radioenum/DetailView.tpl',
             ],
@@ -303,12 +399,20 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Radioenum/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Radioenum/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Radioenum/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Relate/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Relate/DetailView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Relate/EditView.tpl',
             'to' => 'custom/include/SugarFields/Fields/Relate/EditView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Relate/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Relate/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Text/ClassicEditView.tpl',
@@ -323,6 +427,10 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Text/EditView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Text/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Text/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Fields/URL/DetailView.tpl',
             'to' => 'custom/include/SugarFields/Fields/URL/DetailView.tpl',
             ],
@@ -333,6 +441,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/URL/ListView.tpl',
             'to' => 'custom/include/SugarFields/Fields/URL/ListView.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/URL/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/URL/SearchView.tpl',
             ],
         [
             'from' => '<basepath>/custom/include/SugarFields/Fields/Wysiwyg/DetailView.tpl',
@@ -347,8 +459,32 @@ $installdefs = [
             'to' => 'custom/include/SugarFields/Fields/Wysiwyg/ListView.tpl',
             ],
         [
+            'from' => '<basepath>/custom/include/SugarFields/Fields/Wysiwyg/SearchView.tpl',
+            'to' => 'custom/include/SugarFields/Fields/Wysiwyg/SearchView.tpl',
+            ],
+        [
             'from' => '<basepath>/custom/include/SugarFields/Redacted.tpl',
             'to' => 'custom/include/SugarFields/Redacted.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOR_Reports/metadata/detailviewdefs.php',
+            'to' => 'custom/modules/AOR_Reports/metadata/detailviewdefs.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOR_Reports/tpls/report.tpl',
+            'to' => 'custom/modules/AOR_Reports/tpls/report.tpl',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOR_Reports/views/view.detail.php',
+            'to' => 'custom/modules/AOR_Reports/views/view.detail.php',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOR_Scheduled_Reports/ASSIST/FieldRestriction.js',
+            'to' => 'custom/modules/AOR_Scheduled_Reports/ASSIST/FieldRestriction.js',
+            ],
+        [
+            'from' => '<basepath>/custom/modules/AOR_Scheduled_Reports/metadata/editviewdefs.php',
+            'to' => 'custom/modules/AOR_Scheduled_Reports/metadata/editviewdefs.php',
             ],
         [
             'from' => '<basepath>/custom/modules/Administration/ASSISTFieldAccess.php',

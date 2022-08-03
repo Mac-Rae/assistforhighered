@@ -9,9 +9,56 @@ if(empty($module) || empty($role) || empty($_REQUEST['fields_edit']) || empty($_
     echo json_encode(["error" => "Failed to save"]);
     return;
 }
+$bean = BeanFactory::getBean($module);
+$bean = BeanFactory::newBean($module);
+if(empty($bean)){
+    echo json_encode(["error" => "Failed to save"]);
+    return;
+}
+$roleBean = BeanFactory::getBean('ACLRoles', $role);
+if(empty($roleBean)){
+    echo json_encode(["error" => "Failed to save"]);
+    return;
+}
+$fileName = 'custom/modules/'.$bean->module_dir.'/metadata/SearchFields.php';
+if(!file_exists($fileName)){
+    copy('modules/'.$bean->module_dir.'/metadata/SearchFields.php',$fileName);
+}
+
+$contents = file_get_contents($fileName);
+if(!str_contains($contents, "//ASSIST Field Restriction Check")){
+    $newContents = <<<EOF
+
+//ASSIST Field Restriction Check
+require_once 'custom/include/Services/ASSISTFieldRestriction.php';
+\$searchFields = ASSISTFieldRestriction::processSearchFields(\$searchFields);
+
+EOF;
+    sugar_file_put_contents($fileName,$newContents,FILE_APPEND);
+}
+
+$fileName = 'custom/modules/'.$bean->module_dir.'/metadata/searchdefs.php';
+if(!file_exists($fileName)){
+    copy('modules/'.$bean->module_dir.'/metadata/searchdefs.php',$fileName);
+}
+
+$contents = file_get_contents($fileName);
+if(!str_contains($contents, "//ASSIST Field Restriction Check")){
+    $newContents = <<<EOF
+
+//ASSIST Field Restriction Check
+require_once 'custom/include/Services/ASSISTFieldRestriction.php';
+\$searchdefs = ASSISTFieldRestriction::processSearchDefs(\$searchdefs);
+
+EOF;
+    sugar_file_put_contents($fileName,$newContents,FILE_APPEND);
+}
 
 foreach($_REQUEST['fields_edit'] as $key => $fieldInfo){
     $name = substr($fieldInfo['name'],0,-10);
+    if(empty($bean->field_defs[$name])){
+        continue;
+    }
     $viewInfo = $_REQUEST['fields_view'][$key];
     $assistFieldAccess = getBeanForASSISTFieldAccess($module,$role, $name);
     $assistFieldAccess->access_type = $fieldInfo['value'];

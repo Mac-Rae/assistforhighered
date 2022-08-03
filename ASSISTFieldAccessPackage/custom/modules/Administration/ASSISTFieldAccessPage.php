@@ -11,6 +11,10 @@ $bean = BeanFactory::newBean($module);
 if(empty($bean)){
     sugar_die('Bad module');
 }
+$roleBean = BeanFactory::getBean('ACLRoles', $role);
+if(empty($roleBean)){
+    sugar_die('Bad role');
+}
 $fieldTypeBlacklist = [
     'link',
     'parent_type'
@@ -22,6 +26,18 @@ $fieldNameBlacklist = [
     'modified_user_id',
     'created_by',
     'deleted'];
+$labelMap = [];
+foreach($bean->field_defs as $field => $def) {
+    if($def['id_name'] && $field != $def['id_name']){
+        $labelMap[$field] = $def['vname'];
+        $labelMap[$def['id_name']] = $def['vname'];
+    }else{
+        if(empty($labelMap[$field])){
+            $labelMap[$field] = $def['vname'];
+        }
+
+    }
+}
 foreach($bean->field_defs as $field => $def){
     if(in_array($field,$fieldNameBlacklist)){
         continue;
@@ -29,7 +45,11 @@ foreach($bean->field_defs as $field => $def){
     if(in_array($def['type'],$fieldTypeBlacklist)){
         continue;
     }
-    if($def['type'] !== 'relate' && $def['type'] !== 'email' && $def['source'] == 'non-db'){
+    if($def['type'] !== 'relate'
+        && $def['type'] !== 'email'
+        && $def['type'] !== 'function'
+        && $def['source'] == 'non-db'
+    ){
         continue;
     }
     if(!empty($def['id_name']) && $def['id_name'] != $field){
@@ -38,7 +58,7 @@ foreach($bean->field_defs as $field => $def){
     if(!empty($def['link_type']) && $def['link_type'] == 'relationship_info'){
         continue;
     }
-    $def['actual_label'] = translate($def['vname'],$module);
+    $def['actual_label'] = translate($labelMap[$field],$module);
     $assistFieldAccess = BeanFactory::newBean('SA_FieldAccess');
     $assistFieldAccess->retrieve_by_string_fields(['access_role' => $role,'access_field' => $field, 'access_module' => $module]);
     $def['assist_field_access_options_edit'] = get_select_options_with_id($app_list_strings['assist_field_access_action_options'],$assistFieldAccess->access_type);

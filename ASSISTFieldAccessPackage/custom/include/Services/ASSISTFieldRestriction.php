@@ -1,6 +1,72 @@
 <?php
 class ASSISTFieldRestriction{
 
+    public static function processSearchFields($searchFields)
+    {
+        $assistField = new ASSISTFieldRestriction();
+        foreach ($searchFields as $module => $defs) {
+            $bean = BeanFactory::getBean($module);
+            if (!$bean->assist_field_checks_done) {
+                $assistField->setFieldFlags($bean);
+            }
+            foreach ($defs as $fieldName => $fieldDef) {
+                if ($bean->field_defs[$fieldName]['assist_field_hidden']) {
+                    unset($searchFields[$module][$fieldName]);
+                }
+                if ($fieldDef['db_field']) {
+                    foreach ($fieldDef['db_field'] as $key => $dbField) {
+                        if ($bean->field_defs[$dbField]['assist_field_hidden']) {
+                            unset($searchFields[$module][$fieldName]['db_field'][$key]);
+                        }
+                    }
+                    if (empty($searchFields[$module][$fieldName]['db_field'])) {
+                        #unset($searchFields[$module][$fieldName]);
+                        $searchFields[$module][$fieldName]['assist_field_hidden'] = true;
+                    }
+                }
+            }
+        }
+        return $searchFields;
+    }
+    public static function checkHidden($fieldName, $bean, $searchField){
+        if($bean->field_defs[$fieldName]['assist_field_hidden']){
+            return true;
+        }
+        if($searchField && $searchField['assist_field_hidden']){
+            return true;
+        }
+        return false;
+    }
+    public static function processSearchDefs($searchDefs){
+        $assistField = new ASSISTFieldRestriction();
+        foreach($searchDefs as $module => $defs){
+
+            $bean = BeanFactory::getBean($module);
+            if(!$bean->assist_field_checks_done){
+                $assistField->setFieldFlags($bean);
+            }
+            require_once "custom/modules/".$bean->module_dir."/metadata/SearchFields.php";
+            foreach($defs['layout'] as $searchType => $layout){
+                if($searchType == 'basic_search'){
+                    foreach($layout as $key => $layout) {
+                            $fieldName = $layout['name'];
+
+                            if (self::checkHidden($fieldName,$bean,$searchFields[$module][$fieldName])) {
+                                $searchDefs[$module]['layout'][$searchType][$key][$fieldName]['assist_field_hidden'] = true;
+                            }
+                    }
+                }else{
+                    foreach($layout as $fieldName => $def){
+                        if (self::checkHidden($fieldName,$bean,$searchFields[$module][$fieldName])) {
+                            $searchDefs[$module]['layout'][$searchType][$fieldName]['assist_field_hidden'] = true;
+                        }
+                    }
+                }
+            }
+        }
+        return $searchDefs;
+    }
+
     public function checkChanges(SugarBean $bean){
         global $current_user;
         if($current_user->is_admin){
@@ -10,14 +76,19 @@ class ASSISTFieldRestriction{
             if(empty($def['assist_field_restricted']) && empty($def['assist_field_hidden'])){
                 continue;
             }
-            $bean->$name = $bean->fetched_row[$name];
+            if(empty($def['function'])){
+                $bean->$name = $bean->fetched_row[$name];
+            }else{
+                if(substr($bean->module_dir,0,3) == 'AOS'){
+                    unset($_POST['group_group_number']);
+                    unset($_POST['product_name']);
+                    unset($_POST['service_name']);
+                }
+            }
         }
     }
-
-    public function setFieldFlags(&$bean=null){
-        global $db, $current_user,$app;
-        $accessList = [];
-        $viewList = [];
+    private function getBeanForRequest($bean){
+        global $app;
         if(!$bean || is_string($bean)) {
             $bean = false;
             if ($_REQUEST['module'] == 'Calendar' && $_REQUEST['action'] == 'QuickEdit') {
@@ -26,10 +97,84 @@ class ASSISTFieldRestriction{
                 $bean = $app->controller->bean;
             }
         }
+        return $bean;
+    }
+
+    public function isFieldRestricted($report, $field){
+        $field_module = $report->report_module;
+        $path = unserialize(base64_decode($field->module_path));
+        foreach($path as $rel){
+            $field_module = getRelatedModule($field_module, $rel);
+
+        }
+        $tmpBean = BeanFactory::getBean($field_module);
+        $this->setFieldFlags($tmpBean);
+        if($tmpBean->field_defs[$field->field]['assist_field_hidden']){
+            return true;
+        }
+        return false;
+    }
+    public function isReportRestricted($report){
+        global $current_user;
+        if($current_user->is_admin){
+            return false;
+        }
+
+
+        foreach($report->get_linked_beans('aor_fields') as $field){
+            if($this->isFieldRestricted($report, $field)){
+                return true;
+            }
+        }
+        foreach($report->get_linked_beans('aor_conditions') as $field){
+            if($this->isFieldRestricted($report, $field)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function checkScheduledReport($bean, $event, $args){
+        if(empty($bean->aor_report_id)){
+            return;
+        }
+        $report = BeanFactory::getBean('AOR_Reports', $bean->aor_report_id);
+        if($this->isReportRestricted($report)){
+            $bean->aor_report_id = '';
+        }
+    }
+
+    public function cleanMassUpdate($bean){
+        if($GLOBALS['app']->controller->action != 'MassUpdate'){
+            return;
+        }
+        $bean = $this->getBeanForRequest($bean);
         if(empty($bean)){
             return;
         }
+        foreach ($bean->field_defs as $name => $def){
+            if(!empty($def['assist_field_hidden']) || !empty($def['assist_field_restricted'])){
+                unset($_REQUEST[$def['name']]);
+                unset($_GET[$def['name']]);
+                unset($_POST[$def['name']]);
+            }
+        }
+    }
 
+    public function setFieldFlags($bean=null){
+        global $db, $current_user,$app;
+        $accessList = [];
+        $viewList = [];
+        $bean = $this->getBeanForRequest($bean);
+        if(empty($bean)){
+            return;
+        }
+        if($bean->module_dir == 'Alerts'){
+            return;
+        }
+        if($bean->assist_field_checks_done){
+            return;
+        }
         if(!$current_user->is_admin){
             $idQuoted = $db->quoted($current_user->id);
             $accessModule = $db->quoted($bean->module_dir);
@@ -134,6 +279,26 @@ EOF;
                     $bean->field_defs[$key]['function']['name'] = 'getCurrencyDropDownASSISTCustom';
                 }
             }
+            if($bean->field_defs[$key]['assist_field_hidden']){
+                $bean->field_name_map[$key]['exportable'] = false;
+                if($bean->field_defs[$key]['function']){
+                    if(is_array($bean->field_defs[$key]['function'])){
+                        $bean->field_defs[$key]['function']['name'] = 'assistRedactedField';
+                    }else{
+                        $bean->field_defs[$key]['function'] = 'assistRedactedField';
+                    }
+                }
+            }elseif ($bean->field_defs[$key]['assist_field_restricted']){
+                if($bean->field_defs[$key]['function']){
+                    $bean->field_defs[$key]['old_function'] = $bean->field_defs[$key]['function'];
+                    if(is_array($bean->field_defs[$key]['function'])){
+                        $bean->field_defs[$key]['function']['name'] = 'assistRestrictedField';
+                    }else{
+                        $bean->field_defs[$key]['function'] = 'assistRestrictedField';
+                    }
+
+                }
+            }
         }
         //Clean up Id Fields
         foreach($bean->field_defs as $key => $def){
@@ -143,5 +308,6 @@ EOF;
             $bean->field_defs[$key]['assist_field_restricted'] = $bean->field_defs[$def['id_name']]['assist_field_restricted'];
             $bean->field_defs[$key]['assist_field_hidden'] = $bean->field_defs[$def['id_name']]['assist_field_hidden'];
         }
+        $bean->assist_field_checks_done = true;
     }
 }

@@ -9,7 +9,7 @@
             </td>
             <td>
                 <select id="assistfieldaccess_module"
-                       name='assistfieldaccess[module]'>
+                       name='assistfieldaccess[module]' tabindex="0">
                     {$moduleOptions}
                 </select>
             </td>
@@ -20,7 +20,7 @@
             </td>
             <td>
                 <select id="assistfieldaccess_role"
-                        name='assistfieldaccess[role]'>
+                        name='assistfieldaccess[role]' tabindex="0">
                     {$roleOptions}
                 </select>
             </td>

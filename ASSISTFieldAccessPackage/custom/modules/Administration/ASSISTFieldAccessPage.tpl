@@ -17,12 +17,12 @@
             {$field.actual_label}
         </td>
         <td>
-            <select name="{$field.name}_role_edit" class="assist_field_role_edit">
+            <select name="{$field.name}_role_edit" class="assist_field_role_edit" tabindex="0">
                 {$field.assist_field_access_options_edit}
             </select>
         </td>
         <td>
-            <select name="{$field.name}_role_view" class="assist_field_role_view">
+            <select name="{$field.name}_role_view" class="assist_field_role_view" tabindex="0">
                 {$field.assist_field_access_options_view}
             </select>
         </td>

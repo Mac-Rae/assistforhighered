@@ -5,6 +5,12 @@ $hook_array['pre_process_tasks'][] = Array(
     'custom/include/Services/ASSISTFieldRestriction.php',
     'ASSISTFieldRestriction',
     'setFieldFlags');
+$hook_array['pre_process_tasks'][] = Array(
+    99,
+    'ASSIST Set Field Restriction Mass Update',
+    'custom/include/Services/ASSISTFieldRestriction.php',
+    'ASSISTFieldRestriction',
+    'cleanMassUpdate');
 $hook_array['process_record'][] = Array(
     99,
     'ASSIST Set Field Restriction flags - Process Record',
