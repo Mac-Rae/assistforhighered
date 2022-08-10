@@ -355,16 +355,17 @@ class ASSISTRDSSyncService
                 }else{
                     $emailId = $emailRow['id'];
                 }
-
+                $isPrimary = $this->isPrimaryEmail($email) ? 1 : 0;
                 $emailRelRow = $db->fetchOne('SELECT id FROM email_addr_bean_rel WHERE email_address_id = ' . $db->quoted($emailId) .' AND bean_id = '.$db->quoted($id) .' AND bean_module = "'.$recordBean->module_name.'"',true);
                 if(!$emailRelRow){
-                    $emailRelRowInsert = "INSERT INTO email_addr_bean_rel (id,email_address_id,bean_id,bean_module,date_created,date_modified) VALUES ('"
+                    $emailRelRowInsert = "INSERT INTO email_addr_bean_rel (id,email_address_id,bean_id,bean_module,date_created,date_modified, primary_address) VALUES ('"
                                             . create_guid()."',"
                                             .$db->quoted($emailId).", "
                                             .$db->quoted($id).", "
                                             ."'".$recordBean->module_name."', "
                                             ."NOW(), "
-                                            ."NOW())";
+                                            ."NOW(),"
+                                            ."$isPrimary)";
                     $db->query($emailRelRowInsert,true);
                 }
             }
@@ -495,15 +496,18 @@ EOF;
             $record->$crmField = $value;
         }
 
-
+        $record->save();
         if($emails){
             $oldEmails = $record->emailAddress->getAddressesByGUID($record->id,$record->module_dir);
             foreach($oldEmails as $oldEmail){
                 $emails[] = $oldEmail['email_address'];
             }
-            $record->email_addresses_non_primary = $emails;
+            $emails = array_unique($emails);
+            foreach ($emails as $email){
+                $record->emailAddress->addAddress($email,$this->isPrimaryEmail($email));
+            }
+            $record->emailAddress->saveEmail($record->id, $record->module_name);
         }
-        $record->save();
 
         if(empty($mappingInfo['mapping_rel'])){
             return true;
@@ -567,7 +571,6 @@ EOF;
      */
     public function historicRun()
     {
-        //TODO: Add linking to relationships
         global $timedate, $sugar_config;
         $start = microtime(true);
         $this->log("Starting Historic Athena Sync");
@@ -676,13 +679,25 @@ EOF;
     private function cleanTableName($table){
         return preg_replace("/[^A-Za-z0-9_]/", '', $table);
     }
+
+    private function isPrimaryEmail($email){
+        global $sugar_config;
+        $email = strtolower($email);
+        if(empty($sugar_config['assist_athena']['primary_email_suffix'])){
+            return false;
+        }
+        $suffix = $sugar_config['assist_athena']['primary_email_suffix'];
+        $suffix = strtolower($suffix);
+        $length = strlen($suffix);
+        return substr( $email, -$length ) === $suffix;
+    }
+
     /**
      * @return bool
      * @throws Exception
      */
     public function run()
     {
-        //TODO: Add linking to relationships
         global $timedate, $sugar_config,$db;
         $start = microtime(true);
         $this->log("Starting Athena Sync");
