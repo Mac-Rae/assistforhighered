@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Field Level Access',
     'published_date' => '2021-03-26 08:18:56',
     'type' => 'module',
-    'version' => '33',
+    'version' => '34',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -553,10 +553,6 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/themes/default/images/sub_panel/modules/SA_FieldAccess.svg',
             'to' => 'custom/themes/default/images/sub_panel/modules/SA_FieldAccess.svg',
-            ],
-        [
-            'from' => '<basepath>/include/MVC/Controller/SugarController.php',
-            'to' => 'include/MVC/Controller/SugarController.php',
             ],
         [
             'from' => '<basepath>/modules/Contacts/metadata/editviewdefs.php',

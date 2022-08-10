@@ -1,11 +1,11 @@
 <?php
-$hook_array['pre_process_tasks'][] = Array(
+$hook_array['after_retrieve'][] = Array(
     99,
     'ASSIST Set Field Restriction flags',
     'custom/include/Services/ASSISTFieldRestriction.php',
     'ASSISTFieldRestriction',
     'setFieldFlags');
-$hook_array['pre_process_tasks'][] = Array(
+$hook_array['after_retrieve'][] = Array(
     99,
     'ASSIST Set Field Restriction Mass Update',
     'custom/include/Services/ASSISTFieldRestriction.php',
