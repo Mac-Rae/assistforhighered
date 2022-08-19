@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Field Level Access',
     'published_date' => '2021-03-26 08:18:56',
     'type' => 'module',
-    'version' => '34',
+    'version' => '35',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [

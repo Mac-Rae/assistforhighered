@@ -37,4 +37,12 @@ class SA_FieldAccess extends Basic
         
         return false;
     }
+    public function ACLAccess($view, $is_owner = 'not_set', $in_group = 'not_set')
+    {
+        global $current_user;
+        if ($current_user->isAdmin() || !$this->bean_implements('ACL')) {
+            return true;
+        }
+        return false;
+    }
 }
