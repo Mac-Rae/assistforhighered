@@ -9,8 +9,8 @@
             </td>
             <td>
 
-
-                <select style="width: 90%;" multiple id="public_profile_users" name="publicprofile[users][]">
+                <input type="hidden" id="public_profile_users_val" name="publicprofile[users]" value=""/>
+                <select style="width: 90%;" multiple id="public_profile_users" name="">
                     {$vanityURLUsers}
                 </select>
                 <br>
@@ -120,7 +120,13 @@
 {literal}
 <script>
     function selectUsers(){
-        $('#public_profile_users option').attr('selected','selected');
+        var options = $('#public_profile_users option');
+        options.attr('selected','selected');
+        var vals = [];
+        for(var x = 0; x < options.length; x++){
+            vals.push(options[x].value);
+        }
+        $('#public_profile_users_val').val(JSON.stringify(vals));
     }
     function clearSelectedUsers(){
         $('#public_profile_users').find("option:selected").remove();

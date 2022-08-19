@@ -9,7 +9,10 @@ $htmlFields = ['custom_css','top_html','bottom_html'];
 if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
     $cfg = new Configurator();
     $cfg->allow_undefined[] = 'publicprofile';
-
+    if(!empty($_REQUEST['publicprofile']['users'])){
+        $_REQUEST['publicprofile']['users'] = json_decode(html_entity_decode($_REQUEST['publicprofile']['users']),1);
+        $_POST['publicprofile']['users'] = $_REQUEST['publicprofile']['users'];
+    }
     $cfg->populateFromPost();
     if(empty($_REQUEST['publicprofile']['users'])){
         $cfg->config['publicprofile']['users'] = '';
@@ -31,7 +34,11 @@ $sugar_smarty = new Sugar_Smarty();
 
 $vanityURLUsers = [];
 foreach($sugar_config['publicprofile']['users'] as $userId){
-    $vanityURLUsers[$userId] = get_user_name($userId);
+    $username = get_user_name($userId);
+    if(!$username){
+        continue;
+    }
+    $vanityURLUsers[$userId] = $username;
 }
 $vanityURLUsers = get_select_options_with_id($vanityURLUsers,'');
 $sugar_smarty->assign('vanityURLUsers',$vanityURLUsers);

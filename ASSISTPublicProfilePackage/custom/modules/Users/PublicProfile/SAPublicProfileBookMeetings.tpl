@@ -50,7 +50,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-6  d-flex justify-content-center">
-            {if $user_data.photo}<img class="user-photo" src="data:image;base64,{$user_data.photo}"/>{/if}
+            {if $user_data.photo}<img alt="Photo of {$user_data.first_name} {$user_data.last_name}" class="user-photo" src="data:image;base64,{$user_data.photo}"/>{/if}
         </div>
     </div>
     <div class="row justify-content-center">
@@ -68,7 +68,7 @@
                 {/if}
                 <div class="form-group">
                     <label class="font-weight-bold" for="maricopa_id">Booking</label>
-                    <div class="">{$slotDisplay}</div>
+                    <div class="">{$slotDisplay} {$user_data.tz_display}</div>
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold" for="meeting_type">Meeting Format</label>
@@ -143,7 +143,7 @@
         {else}
             <div class="row">
                 <div class="col-3">
-                    <img src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
+                    <img alt="Site Logo" src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
                 </div>
             </div>
         {/if}

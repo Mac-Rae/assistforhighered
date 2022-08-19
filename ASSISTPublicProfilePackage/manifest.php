@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Public User Profiles',
     'published_date' => '2021-03-19 00:00:00',
     'type' => 'module',
-    'version' => '50',
+    'version' => '58',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [

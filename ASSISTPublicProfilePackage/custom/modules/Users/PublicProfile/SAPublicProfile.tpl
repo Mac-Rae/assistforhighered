@@ -66,7 +66,7 @@
                         {/if}
                         <strong>{$user_data.business_days}</strong> between
                         <strong>{$user_data.business_hours_start}</strong> and
-                        <strong>{$user_data.business_hours_end}</strong> Arizona Time.
+                        <strong>{$user_data.business_hours_end}</strong> {$user_data.tz_display}.
 
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         <div class="col-md-3 col-sm-12">
             {if $user_data.photo}
                 <div class="text-center">
-                    <img class="img-fluid user-photo" src="data:image;base64,{$user_data.photo}"/>
+                    <img alt="Photo of {$user_data.first_name} {$user_data.last_name}" class="img-fluid user-photo" src="data:image;base64,{$user_data.photo}"/>
                 </div>
             {/if}
         </div>
@@ -97,12 +97,12 @@
                     </div>
                     {if $user_data.linkedin}
                         <a class="social" href="{$user_data.linkedin}">
-                            <img src="{$site_url}/custom/modules/Users/PublicProfile/images/Linkedin.png"/>
+                            <img alt="LinkedIn Logo" src="{$site_url}/custom/modules/Users/PublicProfile/images/Linkedin.png"/>
                         </a>
                     {/if}
                     {if $user_data.twitter}
                         <a class="social"  href="{$user_data.twitter}">
-                            <img src="{$site_url}/custom/modules/Users/PublicProfile/images/Twitter.png"/>
+                            <img alt="Twitter Logo" src="{$site_url}/custom/modules/Users/PublicProfile/images/Twitter.png"/>
                         </a>
                     {/if}
                     {if $user_data.email_address}<a class="btn btn-primary" href="mailto:{$user_data.email_address}">Send Email</a>{/if}
@@ -157,7 +157,7 @@
         {else}
             <div class="row">
                 <div class="col-3">
-                    <img src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
+                    <img alt="Site Logo" src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
                 </div>
             </div>
         {/if}

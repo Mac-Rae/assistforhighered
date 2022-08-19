@@ -4,7 +4,8 @@ require_once 'custom/include/Services/SANormalisedPhoneHooks.php';
 class SAPublicProfile
 {
     public static function getPublicProfileColours(){
-        global $sugar_config, $mod_strings;
+        global $sugar_config;
+        $mod_strings = return_module_language("", "Administration");
         $colours = [
             [
                 'name' => 'page-bg-color',
@@ -236,8 +237,11 @@ class SAPublicProfile
 
     public function checkWithinBusinessHours(SA_PublicProfile $profile){
         global $timedate;
+        $user = BeanFactory::getBean('Users',$profile->assigned_user_id);
         $now = $timedate->getNow();
+        $now = $timedate->tzUser($now, $user);
         $today = $now->format("l");
+
         $workingDay = false;
         foreach(unencodeMultienum($profile->business_days) as $day){
             if($day == strtolower($today)){
@@ -248,8 +252,11 @@ class SAPublicProfile
         if(!$workingDay){
             return false;
         }
+        $now = $now->format("Y-m-d H:i");
         $startTime = DateTime::createFromFormat('H:i', $this->formatTime($profile->business_hours_start_hours, $profile->business_hours_start_minutes));
+        $startTime = $startTime->format("Y-m-d H:i");
         $endTime = DateTime::createFromFormat('H:i',$this->formatTime($profile->business_hours_end_hours,$profile->business_hours_end_minutes));
+        $endTime = $endTime->format("Y-m-d H:i");
         return $now > $startTime && $now < $endTime;
     }
 
@@ -365,6 +372,10 @@ class SAPublicProfile
         }
         $ret['id'] = $profile->assigned_user_id;
         $ret['within_business'] = $this->checkWithinBusinessHours($profile);
+        $tz = new DateTimeZone($user->getPreference('timezone'));
+        $dateTime = new DateTime();
+        $dateTime->setTimeZone($tz);
+        $ret['tz_display'] = $dateTime->format( 'T' );
         return $ret;
     }
 
@@ -404,6 +415,7 @@ class SAPublicProfile
 EOF;
         }
         $ss->assign('colour_css',$colourCSS);
+        $ss->assign('request_user_id', $_REQUEST['user']);
         $ss->assign('top_html',$this->decodeHTMLSettings($sugar_config['publicprofile']['top_html']));
         $ss->assign('bottom_html',$this->decodeHTMLSettings($sugar_config['publicprofile']['bottom_html']));
     }
@@ -571,7 +583,6 @@ EOF;
                 $offset = $tz->getOffset($dateStart);
                 $dateStart->modify('+'.$offset.' second');
                 $offset = $tz->getOffset($dateEnd);
-                $offset = $offset;
                 $dateEnd->modify($offset.' second');
                 $row['date_start'] = $timedate->asDb($dateStart);
                 $row['date_end'] = $timedate->asDb($dateEnd);
@@ -613,7 +624,7 @@ EOF;
 
             $ret[$dateKey] = [];
             $time = clone $date;
-            $time->setTime($profile->meeting_hours_start_hours,$profile->meeting_hours_start_minute);
+            $time->setTime($profile->meeting_hours_start_hours,$profile->meeting_hours_start_minutes);
             while(!($time->format("H") >= $profile->meeting_hours_end_hours && $time->format("i") >= $profile->meeting_hours_end_minutes)){
                 $thisKey = $time->format("g:i A");
                 $ret[$dateKey][$thisKey] = ['free' => 1,'slot_info'=>$time->format("Y-m-d H:i:s")];
@@ -823,6 +834,7 @@ EOF;
     public function bookMeeting(){
         global $timedate, $sugar_config, $app_list_strings;
         $ss = new Sugar_Smarty();
+        $this->assignCommonVariables($ss);
         if(empty($_REQUEST['user'])){
             $ss->assign("error","no_user");
             echo $ss->fetch('custom/modules/Users/PublicProfile/SAPublicProfileError.tpl');

@@ -44,6 +44,7 @@
                 {else}
                     Unknown Error
                 {/if}
+                <a href="index.php?entryPoint=PublicProfileMeeting&user={$request_user_id}">Go Back</a>
             </div>
         </div>
     </div>
@@ -55,7 +56,7 @@
         {else}
             <div class="row">
                 <div class="col-3">
-                    <img src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
+                    <img alt="Site Logo" src="{$site_url}/custom/modules/Users/PublicProfile/images/logo.svg"/>
                 </div>
             </div>
         {/if}

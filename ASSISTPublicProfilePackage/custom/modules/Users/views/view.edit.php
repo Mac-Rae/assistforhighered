@@ -231,6 +231,14 @@ EOD
         $out = $efocus->et->displayEmailFrame('modules/Users/_baseEmail.tpl');
         echo $out;
         echo "<script>var composePackage = null;</script>";
+        echo <<<EOF
+<style>
+.yui-navset .yui-nav, .yui-navset .yui-navset-top .yui-nav{
+overflow-x: scroll;
+}
+</style>
+EOF;
+
 
         $this->ev->process($processSpecial, $processFormName);
 

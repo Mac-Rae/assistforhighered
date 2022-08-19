@@ -560,261 +560,147 @@
 <div class="user-tab-content">
     <div id="publicprofile" style="display:{$HIDE_FOR_GROUP_AND_PORTAL}">
         <div>
-            <span>{$MOD.LBL_ENABLE_PUBLIC_PROFILE}: <input name="public_profile_enable" type="hidden" value="0">
-                        <input id="public_profile_enable"
-                            type="checkbox"
-                            name="public_profile_enable" {if $public_profile_enable}checked="checked"{/if}
-                            value="1"></span><br>
-                            <input name="public_profile_use_vanity" type="hidden" value="0">
-            {if $allowPublicProfile}
-            <span>{$MOD.LBL_PUBLIC_PROFILE_USE_VANITY}: <input type="checkbox" id="public_profile_use_vanity" name="public_profile_use_vanity" {if $public_profile_use_vanity}checked="checked"{/if} value="1"/></span><br>
-            <span id="public_profile_vanity_url_container" style="display: none;">{$MOD.LBL_PUBLIC_PROFILE_VANITY_URL}: <input type="text"  id="public_profile_value_vanity_url" name="public_profile_value_vanity_url" value="{$public_profile_value_vanity_url}"/></span>
-            {else}
-                <input type="hidden"  id="public_profile_value_vanity_url" name="public_profile_value_vanity_url"/>
-            {/if}
-            <br>
-            <span>{$MOD.LBL_PUBLIC_PROFILE_URL}: <span id="public_profile_url_preview"><a target="_blank" rel="noopener noreferrer" href="{$public_profile_url}">{$public_profile_url}</a></span></span>
+            <div class="form-group">
+                <label for="public_profile_enable">
+    {$MOD.LBL_ENABLE_PUBLIC_PROFILE}
+                </label>
+                    <input name="public_profile_enable" type="hidden" value="0">
+                            <input id="public_profile_enable"
+                                type="checkbox"
+                                class="form-control"
+                                name="public_profile_enable" {if $public_profile_enable}checked="checked"{/if}
+                                value="1">
+            </div>
+            <div class="form-group">
+                                <input name="public_profile_use_vanity" type="hidden" value="0">
+                {if $allowPublicProfile}
+                <label for="public_profile_use_vanity">
+    {$MOD.LBL_PUBLIC_PROFILE_USE_VANITY}
+                </label>
+                    <input class="form-control" type="checkbox" id="public_profile_use_vanity" name="public_profile_use_vanity" {if $public_profile_use_vanity}checked="checked"{/if} value="1"/>
+            </div>
+            <div class="form-group">
+                <label id="public_profile_vanity_url_container" style="display: none;">{$MOD.LBL_PUBLIC_PROFILE_VANITY_URL}: <input type="text"  id="public_profile_value_vanity_url" name="public_profile_value_vanity_url" value="{$public_profile_value_vanity_url}"/></label>
+                {else}
+                    <input type="hidden"  id="public_profile_value_vanity_url" name="public_profile_value_vanity_url"/>
+                {/if}
+            </div>
+                <label>{$MOD.LBL_PUBLIC_PROFILE_URL}: <span id="public_profile_url_preview"><a target="_blank" rel="noopener noreferrer" href="{$public_profile_url}">{$public_profile_url}</a></span></label>
+            </div>
+
         </div>
 
-        <table class="edit view" border="0" cellpadding="0" cellspacing="0" width="50%">
-            <thead>
-                <tr>
-                    <th>{$MOD.LBL_PUBLIC_PROFILE_DISPLAY}</th>
-                    <th></th>
-                    <th></th>
-                    <th>{$MOD.LBL_PUBLIC_PROFILE_DISPLAY}</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input name="public_profile_show_photo" type="hidden" value="0">
-                        <input id="public_profile_show_photo"
-                            type="checkbox"
-                            name="public_profile_show_photo" {if $public_profile_show_photo}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_PHOTO}</span>
-                    </td>
-                    <td>
-                    {if $public_profile_photo_name}
-                        <a id="public_profile_photo_anchor" href="{$public_profile_photo_link}">{$public_profile_photo_name}</a>
-                        <input style="display: none;" type="file" id="public_profile_value_photo" name="public_profile_value_photo"/>
-                        <input type="hidden" name="public_profile_photo_remove_photo" id="public_profile_photo_remove_photo" value="0"/>
-                        <input
-                            type="button"
-                            class="button"
-                            id="remove_public_profile_photo_button" value="Remove"
-                            onclick="removePublicProfilePhoto();">
-                    {else}
-                        <input type="file" name="public_profile_value_photo"/>
-                    {/if}
-                    {literal}
-                    <script>
-                        function removePublicProfilePhoto(){
-                            $('#public_profile_photo_anchor').remove();
-                            $('#public_profile_value_photo').show();
-                            $('#remove_public_profile_photo_button').remove();
-                            $('#public_profile_photo_remove_photo').val(1);
-                        }
-                    </script>
-                    {/literal}
-                    </td>
 
-                    <td>
-                        <input name="public_profile_show_business_days" type="hidden" value="0">
-                        <input id="public_profile_show_business_days"
-                            type="checkbox"
-                            name="public_profile_show_business_days" {if $public_profile_show_business_days}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_DAYS}</span>
-                    </td>
-                    <td>
-                        <table>
-                            <tr>
-                            {foreach from=$days item=day}
-                                <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
-                            {/foreach}
-                            </tr>
-                            <tr>
-                            {foreach from=$days item=day}
-                            <td>
-                                <input type="hidden" name="public_profile_value_business_days_{$day}" value="0"/>
-                                <input type="checkbox" name="public_profile_value_business_days_{$day}" {if $public_profile_value_business_days[$day]}checked="checked"{/if} value="1"/>
-                            </td>
-                            {/foreach}
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td >
-                        <input name="public_profile_show_first_name" type="hidden" value="0">
+
+<fieldset style="max-width: 600px;">
+    <legend>{$MOD.LBL_PUBLIC_PROFILE_LEGEND_PERSONAL}</legend>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_first_name">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_FIRST_NAME}
+                    </label>
+                    <label for="public_profile_show_first_name">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                        <input class="form-control" name="public_profile_show_first_name" type="hidden" value="0">
                         <input id="public_profile_show_first_name"
-                            type="checkbox"
-                            name="public_profile_show_first_name" {if $public_profile_show_first_name}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_FIRST_NAME}</span></td>
-                    <td>
-                        <input name="public_profile_value_first_name" value="{$public_profile_value_first_name}"/>
-                    </td>
-
-                    <td>
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_HOURS_START}</span>
-                    </td>
-                    <td>
-                        <select name="public_profile_value_business_hours_start_hours">
-                            {$businessHoursStartHours}
-                        </select>
-                        :
-                        <select name="public_profile_value_business_hours_start_minutes">
-                            {$businessHoursStartMinutes}
-                        </select>
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td >
-                        <input name="public_profile_show_last_name" type="hidden" value="0">
+                                        type="checkbox"
+                                        name="public_profile_show_first_name" {if $public_profile_show_first_name}checked="checked"{/if}
+                                        value="1">)
+                    </label>
+                    <input class="form-control" name="public_profile_value_first_name" value="{$public_profile_value_first_name}"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_last_name">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_LAST_NAME}
+                    </label>
+                    <label for="public_profile_show_last_name">
+                    ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                    <input name="public_profile_show_last_name" type="hidden" value="0">
                         <input id="public_profile_show_last_name"
                             type="checkbox"
                             name="public_profile_show_last_name" {if $public_profile_show_last_name}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_LAST_NAME}</span></td>
-                    <td><input name="public_profile_value_last_name" value="{$public_profile_value_last_name}"/></td>
+                            value="1">)
+                    </label>
+                    <input class="form-control" name="public_profile_value_last_name" value="{$public_profile_value_last_name}"/>
+                </div>
+            </div>
+        </div>
 
-                    <td>
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_HOURS_END}</span>
-                    </td>
-                    <td>
-                        <select name="public_profile_value_business_hours_end_hours">
-                            {$businessHoursEndHours}
-                        </select>
-                        :
-                        <select name="public_profile_value_business_hours_end_minutes">
-                            {$businessHoursEndMinutes}
-                        </select>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td >
-                        <input name="public_profile_show_title" type="hidden" value="0">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_title">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_TITLE}
+                    </label>
+                    <label for="public_profile_show_title">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                       <input class="form-control" name="public_profile_show_title" type="hidden" value="0">
                         <input id="public_profile_show_title"
                             type="checkbox"
                             name="public_profile_show_title" {if $public_profile_show_title}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_TITLE}</span></td>
-                    <td><input name="public_profile_value_title" value="{$public_profile_value_title}"/></td>
-                    <td>
-                        <input name="public_profile_show_meeting_days" type="hidden" value="0">
-                        <input id="public_profile_show_meeting_days"
-                            type="checkbox"
-                            name="public_profile_show_meeting_days" {if $public_profile_show_meeting_days}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_MEETING_DAYS}</span>
-                    </td>
-                    <td>
-                        <table>
-                            <tr>
-                            {foreach from=$days item=day}
-                                <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
-                            {/foreach}
-                            </tr>
-                            <tr>
-                            {foreach from=$days item=day}
-                            <td>
-                                <input type="hidden" name="public_profile_value_meeting_days_{$day}" value="0"/>
-                                <input type="checkbox" name="public_profile_value_meeting_days_{$day}" {if $public_profile_value_meeting_days[$day]}checked="checked"{/if} value="1"/>
-                            </td>
-                            {/foreach}
-                            </tr>
-                        </table>
-
-                    </td>
-                </tr>
-                <tr class="public_profile_meeting_length_row">
-                    <td></td><td></td><td></td><td></td>
-                    <td>
-                    <span>{$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH}</span>
-                    </td>
-                    <td>
-                    <label>
-                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 15}checked='checked'{/if} value="15"/>
-                        15 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
-                    </label><br>
-                    <label>
-                        <input type="radio" name="public_profile_value_meeting_length" {if !$public_profile_value_meeting_length || $public_profile_value_meeting_length == 30}checked='checked'{/if}value="30"/>
-                        30 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
-                    </label><br>
-                    <label>
-                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 45}checked='checked'{/if} value="45"/>
-                        45 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
-                    </label><br>
-                    <label>
-                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 60}checked='checked'{/if} value="60"/>
-                        60 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
+                            value="1">)
                     </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td >
-                        <input name="public_profile_show_department" type="hidden" value="0">
+                    <input class="form-control" name="public_profile_value_title" value="{$public_profile_value_title}"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_department">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_DEPARTMENT}
+                    </label>
+                    <label for="public_profile_show_department">
+                    ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                    <input class="form-control" name="public_profile_show_department" type="hidden" value="0">
                         <input id="public_profile_show_department"
                             type="checkbox"
                             name="public_profile_show_department" {if $public_profile_show_department}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_DEPARTMENT}</span></td>
-                    <td><input name="public_profile_value_department" value="{$public_profile_value_department}"/></td>
-                    <td>
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_MEETING_HOURS_START}</span>
-                    </td>
-                    <td>
-                        <select name="public_profile_value_meeting_hours_start_hours">
-                            {$meetingHoursStartHours}
-                        </select>
-                        :
-                        <select name="public_profile_value_meeting_hours_start_minutes">
-                            {$meetingHoursStartMinutes}
-                        </select>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td >
-                        <input name="public_profile_show_institution" type="hidden" value="0">
-                        <input id="public_profile_show_institution"
+                            value="1">)
+                    </label>
+                    <input class="form-control" name="public_profile_value_department" value="{$public_profile_value_department}"/>
+                </div>
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_email_address">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_EMAIL}
+                    </label>
+                    <label for="public_profile_show_email_address">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                       <input name="public_profile_show_email_address" type="hidden" value="0">
+                        <input class="form-control" id="public_profile_show_email_address"
+                            type="checkbox"
+                            name="public_profile_show_email_address" {if $public_profile_show_email_address}checked="checked"{/if}
+                            value="1">)
+                    </label>
+                    <input class="form-control" type="email" name="public_profile_value_email_address" value="{$public_profile_value_email_address}"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_institution_name">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_INSTITUTION}
+                    </label>
+                    <label for="public_profile_show_institution">
+                    ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                    <input name="public_profile_show_institution" type="hidden" value="0">
+                        <input class="form-control" id="public_profile_show_institution"
                             type="checkbox"
                             name="public_profile_show_institution" {if $public_profile_show_institution}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_INSTITUTION}</span></td>
-                    <td>
-                        <input type="text" name="public_profile_value_institution_name" class="sqsEnabled yui-ac-input" tabindex="0" id="public_profile_value_institution_name" size="" value="{$public_profile_value_institution_name}" title="" autocomplete="off">
+                            value="1">)
+                    </label>
+                    <input class="form-control" type="text" name="public_profile_value_institution_name" class="sqsEnabled yui-ac-input" tabindex="0" id="public_profile_value_institution_name" size="" value="{$public_profile_value_institution_name}" title="" autocomplete="off">
                         <input type="hidden" name="public_profile_value_institution_id" id="public_profile_value_institution_id" value="{$public_profile_value_institution_id}">
                         <span class="id-ff multiple">
                             <button type="button" name="btn_public_profile_value_institution_name" id="btn_public_profile_value_institution_name"
@@ -849,67 +735,215 @@
                         );
                         {/literal}
                         </script>
-                    </td>
-                    <td>
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_MEETING_HOURS_END}</span>
-                    </td>
-                    <td>
-                    <select name="public_profile_value_meeting_hours_end_hours">
-                            {$meetingHoursEndHours}
-                        </select>
-                        :
-                        <select name="public_profile_value_meeting_hours_end_minutes">
-                            {$meetingHoursEndMinutes}
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td >
-                        <input name="public_profile_show_email_address" type="hidden" value="0">
-                        <input id="public_profile_show_email_address"
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_linkedin">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_LINKEDIN}
+                    </label>
+                    <label for="public_profile_show_linkedin">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                       <input name="public_profile_show_linkedin" type="hidden" value="0">
+                        <input class="form-control"
+                        id="public_profile_show_linkedin"
                             type="checkbox"
-                            name="public_profile_show_email_address" {if $public_profile_show_email_address}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_EMAIL}</span></td>
-                    <td><input type="email" name="public_profile_value_email_address" value="{$public_profile_value_email_address}"/></td>
-                    <td>
-                    </td>
-                    <td scope="row">
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-<tr>
-                    <td >
-                        <input name="public_profile_show_webex" type="hidden" value="0">
-                        <input id="public_profile_show_webex"
+                            name="public_profile_show_linkedin" {if $public_profile_show_linkedin}checked="checked"{/if}
+                            value="1">)
+                    </label>
+                    <input class="form-control" id="public_profile_value_linkedin" name="public_profile_value_linkedin" value="{$public_profile_value_linkedin}"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_twitter">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_TWITTER}
+                    </label>
+                    <label for="public_profile_show_twitter">
+                    ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                    <input name="public_profile_show_twitter" type="hidden" value="0">
+                        <input id="public_profile_show_twitter"
+                            type="checkbox"
+                            name="public_profile_show_twitter" {if $public_profile_show_twitter}checked="checked"{/if}
+                            value="1">)
+                    </label>
+                    <input class="form-control" id="public_profile_value_twitter" name="public_profile_value_twitter" value="{$public_profile_value_twitter}"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_webex">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_WEBEX}
+                    </label>
+                    <label for="public_profile_show_webex">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                       <input name="public_profile_show_webex" type="hidden" value="0">
+                        <input class="form-control" id="public_profile_show_webex"
                             type="checkbox"
                             name="public_profile_show_webex" {if $public_profile_show_webex}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_WEBEX}</span></td>
-                    <td><input name="public_profile_value_webex" value="{$public_profile_value_webex}"/></td>
-
-                    <td >
-                        <input name="public_profile_show_out_of_office" type="hidden" value="0">
-                        <input id="public_profile_show_out_of_office"
+                            value="1">)
+                    </label>
+                    <input class="form-control" name="public_profile_value_webex" value="{$public_profile_value_webex}"/>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="public_profile_value_photo">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_PHOTO}
+                    </label>
+                    <label for="public_profile_show_photo">
+                    ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                    <input name="public_profile_show_photo" type="hidden" value="0">
+                            <input id="public_profile_show_photo"
+                                type="checkbox"
+                                name="public_profile_show_photo" {if $public_profile_show_photo}checked="checked"{/if}
+                                value="1">)
+                                </label>
+                                <div>
+                    {if $public_profile_photo_name}
+                        <a id="public_profile_photo_anchor" href="{$public_profile_photo_link}">{$public_profile_photo_name}</a>
+                        <input style="display: none;" type="file" id="public_profile_value_photo" name="public_profile_value_photo"/>
+                        <input type="hidden" name="public_profile_photo_remove_photo" id="public_profile_photo_remove_photo" value="0"/>
+                        <input
+                            type="button"
+                            class="button"
+                            id="remove_public_profile_photo_button" value="Remove"
+                            onclick="removePublicProfilePhoto();">
+                    {else}
+                        <input class="form-control" type="file" name="public_profile_value_photo"/>
+                    {/if}
+                    {literal}
+                    <script>
+                        function removePublicProfilePhoto(){
+                            $('#public_profile_photo_anchor').remove();
+                            $('#public_profile_value_photo').show();
+                            $('#remove_public_profile_photo_button').remove();
+                            $('#public_profile_photo_remove_photo').val(1);
+                        }
+                    </script>
+                    {/literal}
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="public_profile_value_biography">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_BIO}
+                    </label>
+                    <label for="public_profile_show_biography">
+                        ({$MOD.LBL_PUBLIC_PROFILE_DISPLAY}
+                       <input name="public_profile_show_biography" type="hidden" value="0">
+                        <input class="form-control" id="public_profile_show_biography"
+                            type="checkbox"
+                            name="public_profile_show_biography" {if $public_profile_show_biography}checked="checked"{/if}
+                            value="1">)
+                    </label>
+                    <textarea class="form-control" style="width: 100%" cols="60" rows="8" name="public_profile_value_biography">{$public_profile_value_biography}</textarea>
+                </div>
+            </div>
+        </div>
+</fieldset>
+<fieldset style="max-width: 600px;">
+    <legend>{$MOD.LBL_PUBLIC_PROFILE_LEGEND_OFFICE}</legend>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="public_profile_show_business_days">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_DAYS}
+                </label>
+                <input name="public_profile_show_business_days" type="hidden" value="0">
+                <input class="form-control"  id="public_profile_show_business_days"
+                    type="checkbox"
+                    name="public_profile_show_business_days" {if $public_profile_show_business_days}checked="checked"{/if}
+                    value="1">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+             <table class="table table-bordered">
+                <tr>
+                {foreach from=$days item=day}
+                    <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
+                {/foreach}
+                </tr>
+                <tr>
+                {foreach from=$days item=day}
+                <td style="text-align: center;">
+                    <input type="hidden" name="public_profile_value_business_days_{$day}" value="0"/>
+                    <input type="checkbox" name="public_profile_value_business_days_{$day}" {if $public_profile_value_business_days[$day]}checked="checked"{/if} value="1"/>
+                </td>
+                {/foreach}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">
+                    {$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_HOURS_START}
+                </label>
+                <div>
+                <select name="public_profile_value_business_hours_start_hours">
+                        {$businessHoursStartHours}
+                    </select>
+                    :
+                    <select name="public_profile_value_business_hours_start_minutes">
+                        {$businessHoursStartMinutes}
+                    </select>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">
+                    {$MOD.LBL_PUBLIC_PROFILE_SHOW_BUSINESS_HOURS_END}
+                </label>
+                <div>
+                    <select name="public_profile_value_business_hours_end_hours">
+                            {$businessHoursEndHours}
+                        </select>
+                        :
+                        <select name="public_profile_value_business_hours_end_minutes">
+                            {$businessHoursEndMinutes}
+                        </select>
+                    </div>
+            </div>
+        </div>
+    </div>
+   <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="public_profile_show_out_of_office">
+                        {$MOD.LBL_PUBLIC_PROFILE_SHOW_OUT_OF_OFFICE}
+                </label>
+                <input name="public_profile_show_out_of_office" type="hidden" value="0">
+                        <input class="form-control" id="public_profile_show_out_of_office"
                             type="checkbox"
                             name="public_profile_show_out_of_office" {if $public_profile_show_out_of_office}checked="checked"{/if}
                             value="1">
-                    </td>
-                     <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_OUT_OF_OFFICE}</span>
-                    </td>
-                    <td>
-                        {literal}
-                        <div class="col-xs-12 col-sm-8 edit-view-field " type="date" field="public_profile_value_out_of_office_start">
-                        {/literal}{$MOD.LBL_PUBLIC_PROFILE_OOO_START}{literal}:<br>
-                            <span class="dateTime">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="public_profile_value_out_of_office_start">
+                    {$MOD.LBL_PUBLIC_PROFILE_OOO_START}
+                </label>
+                <div>
+                {literal}
+                <span class="dateTime">
                                 <input class="date_input"
                                 autocomplete="off"
                                 type="text"
@@ -943,11 +977,18 @@
                                 weekNumbers:false
                             });
                             </script>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-8 edit-view-field " type="date" field="public_profile_value_out_of_office_end">
-                            {/literal}{$MOD.LBL_PUBLIC_PROFILE_OOO_END}{literal}:<br>
-                            <span class="dateTime">
+                            {/literal}
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="public_profile_value_out_of_office_end">
+                    {$MOD.LBL_PUBLIC_PROFILE_OOO_END}
+                </label>
+                <div>
+                {literal}
+                    <span class="dateTime">
                                 <input class="date_input"
                                 autocomplete="off"
                                 type="text"
@@ -981,109 +1022,176 @@
                                 weekNumbers:false
                             });
                             </script>
-                        </div>
-                        {/literal}
-                    </td>
-                </tr>
-<tr>
-                    <td >
-                        <input name="public_profile_show_linkedin" type="hidden" value="0">
-                        <input id="public_profile_show_linkedin"
+                            {/literal}
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</fieldset>
+<fieldset style="max-width: 600px;">
+    <legend>{$MOD.LBL_PUBLIC_PROFILE_LEGEND_MEETING}</legend>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="public_profile_show_meeting_days">
+                        {$MOD.LBL_PUBLIC_PROFILE_ENABLE_MEETINGS}
+                </label>
+                <input name="public_profile_show_meeting_days" type="hidden" value="0">
+                        <input id="public_profile_show_meeting_days"
                             type="checkbox"
-                            name="public_profile_show_linkedin" {if $public_profile_show_linkedin}checked="checked"{/if}
+                            name="public_profile_show_meeting_days" {if $public_profile_show_meeting_days}checked="checked"{/if}
                             value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_LINKEDIN}</span></td>
-                    <td><input name="public_profile_value_linkedin" value="{$public_profile_value_linkedin}"/></td>
-                </tr>
-
-<tr>
-                    <td >
-                        <input name="public_profile_show_twitter" type="hidden" value="0">
-                        <input id="public_profile_show_twitter"
-                            type="checkbox"
-                            name="public_profile_show_twitter" {if $public_profile_show_twitter}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_TWITTER}</span></td>
-                    <td><input name="public_profile_value_twitter" value="{$public_profile_value_twitter}"/></td>
-                </tr>
-
-
-
-<tr>
-                    <td >
-                        <input name="public_profile_show_biography" type="hidden" value="0">
-                        <input id="public_profile_show_biography"
-                            type="checkbox"
-                            name="public_profile_show_biography" {if $public_profile_show_biography}checked="checked"{/if}
-                            value="1">
-                    </td>
-                    <td scope="row">
-                        <span>{$MOD.LBL_PUBLIC_PROFILE_SHOW_BIO}</span></td>
-                    <td colspan="3"><textarea style="width: 100%" cols="60" rows="8" name="public_profile_value_biography">{$public_profile_value_biography}</textarea></td>
-                </tr>
-               <tr style="border-bottom:1px solid black">
-    <td colspan="100%">Meeting Info</td>
-  </tr>
-    <tr>
-        <td>
-            <input name="public_profile_show_meeting_in_person" type="hidden" value="0">
-            <input id="public_profile_show_meeting_in_person"
+            </div>
+        </div>
+    </div>
+     <div class="row public_profile_meeting_row">
+        <div class="col-md-12">
+             <table class="table table-bordered">
+                 <tr>
+                            {foreach from=$days item=day}
+                                <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
+                            {/foreach}
+                            </tr>
+                            <tr>
+                            {foreach from=$days item=day}
+                            <td style="text-align: center;">
+                                <input type="hidden" name="public_profile_value_meeting_days_{$day}" value="0"/>
+                                <input type="checkbox" name="public_profile_value_meeting_days_{$day}" {if $public_profile_value_meeting_days[$day]}checked="checked"{/if} value="1"/>
+                            </td>
+                            {/foreach}
+                            </tr>
+                        </table>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">
+                    {$MOD.LBL_PUBLIC_PROFILE_SHOW_MEETING_HOURS_START}
+                </label>
+                <div>
+                <select name="public_profile_value_meeting_hours_start_hours">
+                            {$meetingHoursStartHours}
+                        </select>
+                        :
+                        <select name="public_profile_value_meeting_hours_start_minutes">
+                            {$meetingHoursStartMinutes}
+                        </select>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">
+                    {$MOD.LBL_PUBLIC_PROFILE_SHOW_MEETING_HOURS_END}
+                </label>
+                <div>
+                    <select name="public_profile_value_meeting_hours_end_hours">
+                            {$meetingHoursEndHours}
+                        </select>
+                        :
+                        <select name="public_profile_value_meeting_hours_end_minutes">
+                            {$meetingHoursEndMinutes}
+                        </select>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">
+                    {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH}
+                </label>
+                <div>
+               <label>
+                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 15}checked='checked'{/if} value="15"/>
+                        15 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
+                    </label><br>
+                    <label>
+                        <input type="radio" name="public_profile_value_meeting_length" {if !$public_profile_value_meeting_length || $public_profile_value_meeting_length == 30}checked='checked'{/if}value="30"/>
+                        30 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
+                    </label><br>
+                    <label>
+                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 45}checked='checked'{/if} value="45"/>
+                        45 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
+                    </label><br>
+                    <label>
+                        <input type="radio" name="public_profile_value_meeting_length" {if $public_profile_value_meeting_length == 60}checked='checked'{/if} value="60"/>
+                        60 {$MOD.LBL_PUBLIC_PROFILE_MEETING_LENGTH_MINS}
+                    </label>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="public_profile_show_meeting_in_person">
+                {$MOD.LBL_PUBLIC_PROFILE_ENABLE_IN_PERSON_MEETINGS}
+                </label>
+                <input name="public_profile_show_meeting_in_person" type="hidden" value="0">
+            <input class="form-control" id="public_profile_show_meeting_in_person"
                     type="checkbox"
                     name="public_profile_show_meeting_in_person" {if $public_profile_show_meeting_in_person}checked="checked"{/if}
                     value="1">
-        </td>
-        <td scope="row">
-            <span>{$MOD.LBL_PUBLIC_PROFILE_ENABLE_IN_PERSON_MEETINGS}</span>
-        </td>
-        <td>
-            {$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_IN_PERSON}
-        </td>
-        <td colspan="2">
-            <textarea name="public_profile_value_meeting_in_person">{$public_profile_value_meeting_in_person}</textarea>
-        </td>
-    </tr>
-    <tr>
-        <td >
-            <input name="public_profile_show_meeting_phone_call" type="hidden" value="0">
-            <input id="public_profile_show_meeting_phone_call"
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+            <label for="public_profile_value_meeting_in_person">{$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_IN_PERSON}</label>
+            <textarea class="form-control" name="public_profile_value_meeting_in_person">{$public_profile_value_meeting_in_person}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="public_profile_show_meeting_phone_call">
+                {$MOD.LBL_PUBLIC_PROFILE_ENABLE_PHONE_CALL_MEETINGS}
+                </label>
+                <input name="public_profile_show_meeting_phone_call" type="hidden" value="0">
+            <input class="form-control" id="public_profile_show_meeting_phone_call"
             type="checkbox"
             name="public_profile_show_meeting_phone_call" {if $public_profile_show_meeting_phone_call}checked="checked"{/if}
             value="1">
-        </td>
-        <td scope="row">
-            <span>{$MOD.LBL_PUBLIC_PROFILE_ENABLE_PHONE_CALL_MEETINGS}</span>
-        </td>
-        <td>
-            {$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_PHONE_CALL}
-        </td>
-        <td>
-            <input name="public_profile_value_meeting_phone_call" value="{$public_profile_value_meeting_phone_call}"/>
-        </td>
-    </tr>
-    <tr>
-        <td >
-            <input name="public_profile_show_meeting_virtual" type="hidden" value="0">
-            <input id="public_profile_show_meeting_virtual"
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+            <label for="public_profile_value_meeting_phone_call">{$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_PHONE_CALL}</label>
+            <input class="form-control" name="public_profile_value_meeting_phone_call" value="{$public_profile_value_meeting_phone_call}"/>
+            </div>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-5">
+            <div class="form-group">
+                <label for="public_profile_show_meeting_virtual">
+                {$MOD.LBL_PUBLIC_PROFILE_ENABLE_VIRTUAL_MEETINGS}
+                </label>
+                <input name="public_profile_show_meeting_virtual" type="hidden" value="0">
+            <input class="form-control" id="public_profile_show_meeting_virtual"
                 type="checkbox"
                 name="public_profile_show_meeting_virtual" {if $public_profile_show_meeting_virtual}checked="checked"{/if}
                 value="1">
-        </td>
-        <td scope="row">
-            <span>{$MOD.LBL_PUBLIC_PROFILE_ENABLE_VIRTUAL_MEETINGS}</span>
-        </td>
-        <td>
-            {$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_VIRTUAL}
-        </td>
-        <td>
-            <input name="public_profile_value_meeting_virtual" value="{$public_profile_value_meeting_virtual}"/>
-        </td>
-    </tr>
-            </tbody>
-        </table>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+            <label for="public_profile_value_meeting_virtual">{$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_VIRTUAL}</label>
+            <input class="form-control" name="public_profile_value_meeting_virtual" value="{$public_profile_value_meeting_virtual}"/>
+            </div>
+        </div>
+    </div>
+</fieldset>
     </div>
 </div>
 {/if}
@@ -1212,14 +1320,58 @@ $(document).ready(function(){
     addToValidateCallback("EditView","public_profile_value_business_hours_end_hours","enum",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
     addToValidateCallback("EditView","public_profile_value_business_hours_start_minutes","enum",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
     addToValidateCallback("EditView","public_profile_value_business_hours_start_minutes","enum",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
+    function validatePublicProfileOOOField(form, field){
+        var end = field.replace("start","end");
+        var format = calFormat.replace(/%/g,"")
+        format = format.replace("m","mm")
+        format = format.replace("d","dd")
+        format = format.replace("Y","yy")
+        var startDate = $.datepicker.parseDate(format , $('#'+field).val());
+        var endDate = $.datepicker.parseDate(format , $('#'+end).val());
+        if(startDate > endDate){
+            return false;
+        }
+        return true;
+    }
+
+    addToValidateCallback("EditView","public_profile_value_out_of_office_start","date",false, 'Start date can\'t be after the end date',validatePublicProfileOOOField);
 
     addToValidateCallback("EditView","public_profile_value_meeting_in_person","varchar",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
     addToValidateCallback("EditView","public_profile_value_meeting_phone_call","varchar",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
     addToValidateCallback("EditView","public_profile_value_meeting_virtual","varchar",false, 'Can\'t be displayed and empty',validatePublicProfileFields);
 
+    function validatePublicProfileMeetingHours(form, field){
+        var businessHoursStartHours = $("[name=public_profile_value_business_hours_start_hours]").val();
+        var businessHoursStartMinutes = $("[name=public_profile_value_business_hours_start_minutes]").val();
+        var businessHoursEndHours = $("[name=public_profile_value_business_hours_end_hours]").val();
+        var businessHoursEndMinutes = $("[name=public_profile_value_business_hours_end_minutes]").val();
+        var meetingHoursStartHours = $("[name=public_profile_value_meeting_hours_start_hours]").val();
+        var meetingHoursStartMinutes = $("[name=public_profile_value_meeting_hours_start_minutes]").val();
+        var meetingHoursEndHours = $("[name=public_profile_value_meeting_hours_end_hours]").val();
+        var meetingHoursEndMinutes = $("[name=public_profile_value_meeting_hours_end_minutes]").val();
+        var businessStart = parseInt(businessHoursStartHours) + (businessHoursStartMinutes/60);
+        var businessEnd = parseInt(businessHoursEndHours) + (businessHoursEndMinutes/60);
+        var meetingStart = parseInt(meetingHoursStartHours) + (meetingHoursStartMinutes/60);
+        var meetingEnd = parseInt(meetingHoursEndHours) + (meetingHoursEndMinutes/60);
+        if(businessEnd > businessStart){
+            return meetingStart >= businessStart && meetingEnd <= businessEnd;
+        }else{
+            return (meetingStart >= businessStart || meetingStart <= businessEnd) && (meetingEnd >= businessStart || meetingEnd <= businessEnd);
+        }
+        return false;
+    }
+    addToValidateCallback("EditView","public_profile_value_meeting_hours_start_hours","varchar",false, 'Meeting hours must be within business hours',validatePublicProfileMeetingHours);
+
+    function saPublicProfileIsValidURL(form, field){
+        var url = $('#'+field).val();
+        if(!url){
+            return true;
+        }
+        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(url);
+    }
 
     function validatePublicProfileVanityText(form,field){
-        if($('#public_profile_use_vanity').is('checked')){
+        if($('#public_profile_use_vanity').is(':checked')){
             return /^[a-zA-Z]+$/.test($('#'+field).val());
         }
         return true;
@@ -1245,15 +1397,21 @@ $(document).ready(function(){
         return ret.responseJSON;
     }
     {/literal}{if $allowPublicProfile}{literal}
-    addToValidateCallback("EditView","public_profile_value_vanity_url","vanity_url",false, 'Vanity URL can only contain letters',validatePublicProfileVanityText);
-    addToValidateCallback("EditView","public_profile_value_vanity_url","vanity_url",false, 'Vanity URL Taken',validatePublicProfileVanityUnique);
+    addToValidateCallback("EditView","public_profile_value_vanity_url","varchar",false, 'Vanity URL can only contain letters and numbers',validatePublicProfileVanityText);
+    addToValidateCallback("EditView","public_profile_value_vanity_url","varchar",false, 'Vanity URL Taken',validatePublicProfileVanityUnique);
+    addToValidate("EditView","public_profile_value_email_address","email",false,"Please enter a valid email address");
+
+    addToValidateCallback("EditView","public_profile_value_linkedin","url",false,"Please enter a valid URL",saPublicProfileIsValidURL);
+    addToValidateCallback("EditView","public_profile_value_twitter","url",false,"Please enter a valid URL",saPublicProfileIsValidURL);
+    addToValidateCallback("EditView","public_profile_value_meeting_virtual","url",false,"Please enter a valid URL",saPublicProfileIsValidURL);
+
     {/literal}{/if}{literal}
     var meeting_days_checkbox = $('#public_profile_show_meeting_days');
     meeting_days_checkbox.change(function(){
         if(meeting_days_checkbox.is(":checked")){
-            $('.public_profile_meeting_length_row').show();
+            $('.public_profile_meeting_row').show();
         }else{
-            $('.public_profile_meeting_length_row').hide();
+            $('.public_profile_meeting_row').hide();
         }
     });
     meeting_days_checkbox.change();
