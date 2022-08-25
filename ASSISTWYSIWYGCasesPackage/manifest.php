@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST WYSIWYG and Case Management',
     'published_date' => '2021-03-19 00:00:00',
     'type' => 'module',
-    'version' => '37',
+    'version' => '39',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -135,8 +135,16 @@ $installdefs = [
             'to' => 'custom/Extension/modules/Contacts/Ext/Layoutdefs/ASSISTCaseManagement.php',
             ],
         [
+            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/Language/en_us.ASSISTPollMonitoredInboxes.php',
+            'to' => 'custom/Extension/modules/Schedulers/Ext/Language/en_us.ASSISTPollMonitoredInboxes.php',
+            ],
+        [
             'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTBulkCasesJob.php',
             'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTBulkCasesJob.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTPollMonitoredInboxes.php',
+            'to' => 'custom/Extension/modules/Schedulers/Ext/ScheduledTasks/ASSISTPollMonitoredInboxes.php',
             ],
         [
             'from' => '<basepath>/custom/include/Services/ASSISTBulkCases/ASSISTExecuteBulkCases.php',
