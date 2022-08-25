@@ -80,6 +80,94 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="schedule_dialog_body">{if !$DISABLE_SMS_SEND}
+                                <table border="0" cellpadding="0" cellspacing="0" class="dateTime">
+                                    <tr valign="middle">
+                                        <td nowrap class="datafield" style="">
+                                            <input type="hidden" id="userTimeFormat" value="{$TIME_FORMAT}">
+                                            <input autocomplete="off" type="text" id="{$fields.sa_sms_send_date.name}_date" value="{$fields.sa_sms_send_date.value}" xxx="{$fields[$fields.sa_sms_send_date.name].value}" size="11" maxlength="10" title='' tabindex="0" onblur="combo_{$fields.sa_sms_send_date.name}.update(); parseDate(this, '{$CALENDAR_DATEFORMAT}');" onchange="combo_{$fields.sa_sms_send_date.name}.update();parseDate(this, '{$CALENDAR_DATEFORMAT}'); "    >
+                                            {capture assign="other_attributes"}alt="{$APP.LBL_ENTER_DATE}" style="position:relative; top:6px" border="0" id="{$fields.sa_sms_send_date.name}_trigger"{/capture}
+                                            <button type="button" id="{$fields.sa_sms_send_date.name}_trigger" class="btn btn-danger" onclick="return false;" title="{$APP.LBL_ENTER_DATE}"><span class="suitepicon suitepicon-module-calendar" alt="{$APP.LBL_ENTER_DATE}"></span></button>
+
+                                            {literal}
+                                            <script type="text/javascript">
+                                                setInterval(function(){
+                                                    $('input[name="sa_sms_send_date"]').val($('#sa_sms_send_date_date').val());
+                                                    $('input[name="sa_sms_send_date_time"]').val($('#sa_sms_send_date_hours').val() + $('#userTimeFormat').val()[3] + $('#sa_sms_send_date_minutes').val());
+                                                    $('select[name="meridiem"]').val($('#sa_sms_send_date_meridiem').val());
+                                                    if(parseInt($('#sa_sms_send_date_hours').val())>12) {
+                                                        $('#sa_sms_send_date_meridiem').val('PM');
+                                                    }
+                                                },100);
+                                            </script>
+                                            {/literal}
+                                            <span id="{$fields.sa_sms_send_date.name}_time_section"></span>
+                                            <script type="text/javascript">
+                                                function set_{$fields.sa_sms_send_date.name}_values(form) {ldelim}
+                                                if(form.{$fields.sa_sms_send_date.name}_flag.checked)  {ldelim}
+                                                form.{$fields.sa_sms_send_date.name}_flag.value=1;
+                                                form.{$fields.sa_sms_send_date.name}.value="";
+                                                form.{$fields.sa_sms_send_date.name}.readOnly=true;
+                                                {rdelim} else  {ldelim}
+                                                form.{$fields.sa_sms_send_date.name}_flag.value=0;
+                                                form.{$fields.sa_sms_send_date.name}.readOnly=false;
+                                                {rdelim}
+                                                {rdelim}
+                                            </script>
+                                        </td>
+                                    </tr>
+                                    <tr valign="middle">
+                                        <td nowrap>
+                                            <span class="dateFormat">{$USER_DATEFORMAT}</span>
+                                            <span class="dateFormat">{$TIME_FORMAT}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <input type="hidden" class="DateTimeCombo" id="{$fields.sa_sms_send_date.name}" name="{$fields.sa_sms_send_date.name}" value="{$fields[$fields.sa_sms_send_date.name].value}">
+                                <input type="hidden" name="{$fields.sa_sms_send_date.name}_time" value="">
+                                <script type="text/javascript" src='{sugar_getjspath file="include/SugarFields/Fields/Datetimecombo/Datetimecombo.js"}'></script>
+                                <script type="text/javascript">
+                                    var combo_{$fields.sa_sms_send_date.name} = new Datetimecombo("{$fields[$fields.sa_sms_send_date.name].value}", "{$fields.sa_sms_send_date.name}", "{$TIME_FORMAT}", "0", false, false, true);
+                                    //Render the remaining widget fields
+                                    combo_{$fields.sa_sms_send_date.name}.timeseparator = $('#userTimeFormat').val()[3];
+                                    text = combo_{$fields.sa_sms_send_date.name}.html('');
+                                    document.getElementById('{$fields.sa_sms_send_date.name}_time_section').innerHTML = text;
+
+                                    //Call eval on the update function to handle updates to calendar picker object
+                                    eval(combo_{$fields.sa_sms_send_date.name}.jsscript(''));
+
+                                    //bug 47718: this causes too many addToValidates to be called, resulting in the error messages being displayed multiple times
+                                    //    removing it here to mirror the Datetime SugarField, where the validation is not added at this level
+                                    //addToValidate('{$form_name}',"{$fields.sa_sms_send_date.name}_date",'date',false,"{$fields.sa_sms_send_date.name}");
+                                    addToValidateBinaryDependency('{$form_name}',"{$fields.sa_sms_send_date.name}_hours", 'alpha', false, "{$APP.ERR_MISSING_REQUIRED_FIELDS} {$APP.LBL_HOURS}" ,"{$fields.sa_sms_send_date.name}_date");
+                                    addToValidateBinaryDependency('{$form_name}', "{$fields.sa_sms_send_date.name}_minutes", 'alpha', false, "{$APP.ERR_MISSING_REQUIRED_FIELDS} {$APP.LBL_MINUTES}" ,"{$fields.sa_sms_send_date.name}_date");
+                                    addToValidateBinaryDependency('{$form_name}', "{$fields.sa_sms_send_date.name}_meridiem", 'alpha', false, "{$APP.ERR_MISSING_REQUIRED_FIELDS} {$APP.LBL_MERIDIEM}","{$fields.sa_sms_send_date.name}_date");
+
+                                    YAHOO.util.Event.onDOMReady(function()
+                                    {ldelim}
+
+                                    Calendar.setup ({ldelim}
+                                    onClose : update_{$fields.sa_sms_send_date.name},
+                                    inputField : "{$fields.sa_sms_send_date.name}_date",
+                                        form : "{$form_name}",
+                                        ifFormat : "{$CALENDAR_DATEFORMAT}",
+                                        daFormat : "{$CALENDAR_DATEFORMAT}",
+                                        button : "{$fields.sa_sms_send_date.name}_trigger",
+                                        singleClick : true,
+                                        step : 1,
+                                        weekNumbers: false,
+                                        startWeekday: {$CALENDAR_FDOW|default:'0'},
+                                    comboObject: combo_{$fields.sa_sms_send_date.name},
+                                    form: '{$form_name}'
+                                    {rdelim});
+
+                                    //Call update for first time to round hours and minute values
+                                    combo_{$fields.sa_sms_send_date.name}.update(false);
+
+                                    {rdelim});
+                                </script>
+                                {/if}
+                            </div>
                         </div>
                     </div>
 
@@ -99,6 +187,8 @@
             if(!confirm('{/literal}{$MOD.LBL_SA_SMS_EXECUTE_CONFIRM}{literal}')){
                 return false;
             }
+            //TODO: Pass through date
+            //TODO: Validate date
             var form = $('#wizform');
             form.append($('<input type="hidden" name="entryPoint" value="SA_SMSSchedule">'));
             form.find("[name=action]").remove();

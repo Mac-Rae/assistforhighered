@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST SMS Plugin',
     'published_date' => '2022-05-02 11:56:35',
     'type' => 'module',
-    'version' => '25',
+    'version' => '28',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -65,6 +65,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/Extension/modules/Campaigns/Ext/Language/en_us.SA_SMS.php',
             'to' => 'custom/Extension/modules/Campaigns/Ext/Language/en_us.SA_SMS.php',
+            ],
+        [
+            'from' => '<basepath>/custom/Extension/modules/Campaigns/Ext/LogicHooks/SA_SMS.php',
+            'to' => 'custom/Extension/modules/Campaigns/Ext/LogicHooks/SA_SMS.php',
             ],
         [
             'from' => '<basepath>/custom/Extension/modules/Campaigns/Ext/Vardefs/SA_SMS.php',

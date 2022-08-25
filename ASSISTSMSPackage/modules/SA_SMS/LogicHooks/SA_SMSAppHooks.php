@@ -13,6 +13,16 @@ class SA_SMSAppHooks{
             $record = BeanFactory::getBean($bean->parent_type,$bean->parent_id);
             $bean->contact_name = $record->get_summary_text();
         }
+    }
 
+    public function updateCampaignDate(&$focus){
+        global $timedate;
+        if($focus->campaign_type != 'SA_SMS'){
+            return;
+        }
+        if(!empty($focus->sa_sms_send_date)){
+            return;
+        }
+        $focus->sa_sms_send_date = $timedate->nowDb();
     }
 }

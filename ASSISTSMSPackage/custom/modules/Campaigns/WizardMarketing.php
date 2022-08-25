@@ -790,6 +790,12 @@ if (!empty($_REQUEST['func'])) {
     echo '<input type="hidden" id="func" value="'.$_REQUEST['func'].'">';
 }
 if($campaign_focus->campaign_type == 'SA_SMS'){
+    $ss->assign('fields', array(
+        'sa_sms_send_date' => array(
+            'name' => 'sa_sms_send_date',
+            'value' => $campaign_focus->sa_sms_send_date,
+        )
+    ));
     $ss->assign("DISABLE_SMS_SEND", $pl_lists==0 || !$campaign_focus->sa_sms_template);
     $ss->assign("SA_SMS_TEMPLATE", $campaign_focus->sa_sms_template);
     $ss->display('custom/modules/Campaigns/SA_SMSOverview.html');

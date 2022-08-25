@@ -1,6 +1,6 @@
 <?php
 require_once 'include/SugarQueue/SugarJobQueue.php';
-global $current_user;
+global $current_user, $timedate;
 
 if(empty($_REQUEST['campaign_id']) && empty($_REQUEST['record'])){
     SugarApplication::appendErrorMessage(translate('LBL_SA_SMS_SCHEDULE_NO_CAMPAIGN_ID', 'Campaigns'));
@@ -32,6 +32,18 @@ $scheduledJob->name = "SMS Campaign Send Job For Campaign {$campaign->id}";
 $scheduledJob->assigned_user_id = $current_user->id;
 $scheduledJob->data = $campaign->id;
 $scheduledJob->target = "class::SA_SMSScheduledJob";
+try{
+    $tz = new DateTimeZone($current_user->getPreference('timezone'));
+}catch(Exception $ex){
+    $tz = new DateTimeZone("UTC");
+}
+$sendDate = $_REQUEST['sa_sms_send_date'] . " " . $_REQUEST['sa_sms_send_date_time'];
+$tmp = $timedate->get_date_time_format();
+$scheduleDate = DateTime::createFromFormat($timedate->get_date_time_format(), $sendDate,$tz);
+if(!$scheduleDate){
+    $scheduleDate = DateTime::createFromFormat($timedate->get_db_date_time_format(), $sendDate,$tz);
+}
+$scheduledJob->execute_time = $timedate->asDb($scheduleDate);
 
 $queue = new SugarJobQueue();
 $queue->submitJob($scheduledJob);
