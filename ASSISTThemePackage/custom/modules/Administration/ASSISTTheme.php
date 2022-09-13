@@ -282,6 +282,48 @@ function getColours()
             'value' => $sugar_config['assisttheme']['$assist-selected-option'],
             'default' => '#0c2340',
         ],
+        [
+            'name' => 'early_alert_hr_color',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_HR'],
+            'value' => $sugar_config['assisttheme']['early_alert_hr_color'],
+            'default' => '#534d64',
+        ],
+        [
+            'name' => 'early_alert_title',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_TITLE'],
+            'value' => $sugar_config['assisttheme']['early_alert_title'],
+            'default' => '#534d64',
+        ],
+        [
+            'name' => 'early_alert_description',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_DESCRIPTION'],
+            'value' => $sugar_config['assisttheme']['early_alert_description'],
+            'default' => '#534d64',
+        ],
+        [
+            'name' => 'early_alert_button',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_BUTTON'],
+            'value' => $sugar_config['assisttheme']['early_alert_button'],
+            'default' => '#f5f5f5',
+        ],
+        [
+            'name' => 'early_alert_button_bg',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_BUTTON_BG'],
+            'value' => $sugar_config['assisttheme']['early_alert_button_bg'],
+            'default' => '#f08377',
+        ],
+        [
+            'name' => 'early_alert_link',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_LINK'],
+            'value' => $sugar_config['assisttheme']['early_alert_link'],
+            'default' => '#f08377',
+        ],
+        [
+            'name' => 'early_alert_link_hover',
+            'label' => $mod_strings['LBL_ASSISTTHEME_EARLY_ALERT_LINK_HOVER'],
+            'value' => $sugar_config['assisttheme']['early_alert_link_hover'],
+            'default' => '#f08377',
+        ],
     ];
     foreach ($colours as $k => $colour) {
         if (empty($colour['value'])) {

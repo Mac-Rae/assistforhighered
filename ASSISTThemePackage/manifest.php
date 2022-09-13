@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST SuiteCRM Theme',
     'published_date' => '2021-01-26 09:20:21',
     'type' => 'module',
-    'version' => '32',
+    'version' => '33',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
