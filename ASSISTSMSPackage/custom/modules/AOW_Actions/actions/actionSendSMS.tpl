@@ -11,10 +11,12 @@
     </tr>
     <tr>
         <td scope="row" valign="top">
-            <label>{$MOD.LBL_SASMS_BODY}:<span class="required">*</span></label>
+            <label>{$MOD.LBL_SASMS_TEMPLATE}:<span class="required">*</span></label>
         </td>
         <td>
-            <textarea cols=100 rows="5" name="aow_actions_param[{$line}][sms_body]">{$smsBody}</textarea>
+            <select cols=100 rows="5" name="aow_actions_param[{$line}][sms_template]">
+                {$smsTemplateOptions}
+            </select>
         </td>
     </tr>
 </table>

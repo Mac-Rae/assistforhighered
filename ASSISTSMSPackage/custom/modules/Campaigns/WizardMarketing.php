@@ -796,8 +796,8 @@ if($campaign_focus->campaign_type == 'SA_SMS'){
             'value' => $campaign_focus->sa_sms_send_date,
         )
     ));
-    $ss->assign("DISABLE_SMS_SEND", $pl_lists==0 || !$campaign_focus->sa_sms_template);
-    $ss->assign("SA_SMS_TEMPLATE", $campaign_focus->sa_sms_template);
+    $ss->assign("DISABLE_SMS_SEND", $pl_lists==0 || !$campaign_focus->sa_sms_contents);
+    $ss->assign("SA_SMS_TEMPLATE", $campaign_focus->sa_sms_contents);
     $ss->display('custom/modules/Campaigns/SA_SMSOverview.html');
 }else if($campaign_focus->campaign_type == 'BulkCase'){
     $ss->display('custom/modules/Campaigns/ASSISTBulkCaseOverview.html');

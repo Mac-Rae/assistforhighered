@@ -38,10 +38,14 @@ try{
     $tz = new DateTimeZone("UTC");
 }
 $sendDate = $_REQUEST['sa_sms_send_date'] . " " . $_REQUEST['sa_sms_send_date_time'];
-$tmp = $timedate->get_date_time_format();
-$scheduleDate = DateTime::createFromFormat($timedate->get_date_time_format(), $sendDate,$tz);
-if(!$scheduleDate){
-    $scheduleDate = DateTime::createFromFormat($timedate->get_db_date_time_format(), $sendDate,$tz);
+if(empty($_REQUEST['sa_sms_send_date'])){
+    $scheduleDate = $timedate->getNow();
+}else{
+    $tmp = $timedate->get_date_time_format();
+    $scheduleDate = DateTime::createFromFormat($timedate->get_date_time_format(), $sendDate,$tz);
+    if(!$scheduleDate){
+        $scheduleDate = DateTime::createFromFormat($timedate->get_db_date_time_format(), $sendDate,$tz);
+    }
 }
 $scheduledJob->execute_time = $timedate->asDb($scheduleDate);
 

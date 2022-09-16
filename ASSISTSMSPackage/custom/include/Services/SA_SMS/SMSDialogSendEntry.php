@@ -51,7 +51,7 @@ if(!$bean->ACLAccess('DetailView')){
     );
     return;
 }
-if(empty($bean->sms_opt_in_c) || $bean->sms_opt_in_c != 'Y'){
+if(empty($bean->sa_sms_opt_in) || $bean->sa_sms_opt_in != 'Y'){
     echo json_encode(
         [
             'result' => translate('LBL_SMS_DIALOG_NO_OPT_IN', 'SA_SMS')
@@ -94,6 +94,14 @@ if(!$client){
     );
     return;
 }
+if(!$client::isNumberValid($phoneNumber)){
+    echo json_encode(
+        [
+            'result' => translate('LBL_SMS_SEND_ERROR_INVALID_NUMBER', 'SA_SMS')
+        ]
+    );
+    return;
+}
 $scheduledJob = new SchedulersJob();
 
 $scheduledJob->name = "SMS Single Send Job";
@@ -118,7 +126,7 @@ $smsBean->status = 'crm_scheduled';
 
 
 $scheduledJob->target = "class::SA_SMSSingleJob";
-if(empty($_REQUEST['scheduleSMS'] || empty($_REQUEST['schedule_date']))){
+if(empty($_REQUEST['scheduleSMS']) || empty($_REQUEST['schedule_date'])){
     $scheduledJob->execute_time = $timedate->nowDb();
     $smsBean->is_scheduled = false;
 }else{

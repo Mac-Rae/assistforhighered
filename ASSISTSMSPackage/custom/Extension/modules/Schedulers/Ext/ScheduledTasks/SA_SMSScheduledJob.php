@@ -13,7 +13,11 @@ class SA_SMSSingleJob implements RunnableSchedulerJob{
         if(!$client){
             return false;
         }
-        $res = $client->sendSMS($smsBean->to_number,$smsBean->description);
+        $beans = [
+            $smsBean->parent_type => $smsBean->parent_id
+        ];
+        $messageContents = SA_SMSClient::parseBody($smsBean->description, $beans);
+        $res = $client->sendSMS($smsBean->to_number,$messageContents);
         $smsBean->is_scheduled = false;
         $smsBean->date_sent = $timedate->nowDb();
         if($res){
@@ -79,17 +83,21 @@ class SA_SMSScheduledJob implements RunnableSchedulerJob
             $campaign_log->save();
             return false;
         }
-        if($person->sms_opt_in_c != 'Y'){
+        if($person->sa_sms_opt_in != 'Y'){
             $campaign_log->activity_type = 'removed';
             $campaign_log->save();
             return false;
         }
-
+        $beans = [
+            $person->module_name => $person->id,
+            'Campaigns' => $campaign->id,
+        ];
+        $messageContents = SA_SMSClient::parseBody($campaign->sa_sms_contents, $beans);
         try{
-            $res = $this->client->sendSMS($person->phone_mobile, $campaign->sa_sms_template);
+            $res = $this->client->sendSMS($person->phone_mobile, $messageContents);
             $smsBean = BeanFactory::newBean('SA_SMS');
             $smsBean->name = "From: ".$this->client->getFrom()." To: ".$person->phone_mobile;
-            $smsBean->description = $campaign->sa_sms_template;
+            $smsBean->description = $campaign->sa_sms_contents;
             $smsBean->from_number = $this->client->getFrom();
             $smsBean->to_number = $person->phone_mobile;
             $smsBean->sms_type = 'crm_out';
@@ -134,7 +142,7 @@ class SA_SMSScheduledJob implements RunnableSchedulerJob
 
     function processCampaign(Campaign $campaign)
     {
-        if(!$campaign->sa_sms_template){
+        if(!$campaign->sa_sms_contents){
             return false;
         }
         foreach ($campaign->get_linked_beans('prospectlists') as $targetList) {

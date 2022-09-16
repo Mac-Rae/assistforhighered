@@ -20,3 +20,9 @@ $dictionary['Lead']['relationships']['leads_sa_sms'] = [
     'relationship_role_column' => 'parent_type',
     'relationship_role_column_value' => 'Leads'
 ];
+$dictionary['Lead']['fields']['sa_sms_opt_in'] = [
+    'name' => 'sa_sms_opt_in',
+    'vname' => 'LBL_SA_SMS_OPT_IN',
+    'type' => 'enum',
+    'options' => 'sa_sms_opt_in_options',
+];

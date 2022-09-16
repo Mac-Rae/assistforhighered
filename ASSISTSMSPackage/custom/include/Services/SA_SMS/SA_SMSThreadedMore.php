@@ -67,10 +67,10 @@ $smarty->assign('sms_rows',$smsRows);
 $smsModStrings = return_module_language('','SA_SMS');
 $smarty->assign('SMS_MOD',$smsModStrings);
 echo $smarty->fetch("modules/SA_SMS/UI/tpls/threaded_sms.tpl");
-if(!$hasMore){
+if(!$hasMore && $mode != 'new' && $mode != 'newscheduled'){
     echo <<<EOF
 <script>
-$('#SMSThreadedLoadMore').remove();
+$('#SMSThreadedLoadMore').replaceWith("Start of conversation");
 </script>
 EOF;
 

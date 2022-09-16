@@ -16,6 +16,9 @@ try {
     $client = SA_SMSClient::getClientFromConfig();
     $service = new PollHistoricSMSService();
     $sms = $client->getSMS($messageId);
+    if(empty($sms['date_sent'])){
+        $sms['date_sent'] = $timedate->nowDb();
+    }
     if($sms){
         $smsBean = $service->processSingleSMS($sms,$client);
         $alert = BeanFactory::newBean('Alerts');

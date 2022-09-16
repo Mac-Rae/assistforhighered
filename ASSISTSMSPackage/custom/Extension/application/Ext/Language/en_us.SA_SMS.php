@@ -12,3 +12,11 @@ $app_list_strings['sa_sms_sms_type_enum'] = [
 ];
 
 $app_list_strings['campaign_type_dom']['SA_SMS'] = "SMS";
+$app_list_strings['moduleList']['SA_SMSTemplate'] = 'SMS Templates';
+$app_list_strings['moduleListSingular']['SA_SMSTemplate'] = 'SMS Template';
+
+$app_list_strings['sa_sms_opt_in_options'] = [
+    '' => '',
+    'N' => 'N',
+    'Y' => 'Y',
+];

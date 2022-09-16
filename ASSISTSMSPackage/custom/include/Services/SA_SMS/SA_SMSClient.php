@@ -1,5 +1,7 @@
 <?php
 require_once 'custom/include/Services/SA_SMS/Clients/SA_SMSTwilioClient.php';
+require_once 'modules/AOP_Case_Updates/util.php';
+require_once 'custom/lib/SA_SMS/loadLibPhoneNumber.php';
 abstract class SA_SMSClient{
 
     public static function getClient($provider, $providerParams){
@@ -48,7 +50,7 @@ abstract class SA_SMSClient{
         $searchModules = ['Contacts','Leads'];
         foreach($searchModules as $module){
             $bean = BeanFactory::getBean($module);
-            $bean = $bean->retrieve_by_string_fields(['phone_mobile' => $number]);
+            $bean = $bean->retrieve_by_string_fields(['phone_mobile_normalised' => $number]);
             if(!empty($bean->id)){
                 return $bean;
             }
@@ -57,8 +59,17 @@ abstract class SA_SMSClient{
     }
 
     public static function isNumberValid($number){
-        $res = preg_match('/^\+[0-9]{10,11}$/', $number);
-        return $res;
+        $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        try {
+            $phoneOb = $phoneUtil->parse($number, "USA");
+        } catch (\libphonenumber\NumberParseException $e) {
+            return false;
+        }
+        return $phoneUtil->isValidNumber($phoneOb);
+    }
+
+    public static function parseBody($smsContents, $beanArr){
+        return aop_parse_template($smsContents, $beanArr);
     }
 
 }

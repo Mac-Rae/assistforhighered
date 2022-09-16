@@ -13,4 +13,16 @@ function pre_install()
         $scheduler->catch_up = 0;
         $scheduler->save();
     }
+    $administration = BeanFactory::newBean('Administration');
+    $administration->retrieveSettings('MySettings');
+    $tabs = base64_decode($administration->settings['MySettings_tab']);
+    $tabs = unserialize($tabs);
+    if(!in_array("SA_SMS",$tabs)){
+        $tabs[] = "SA_SMS";
+    }
+    if(!in_array("SA_SMSTemplate",$tabs)){
+        $tabs[] = "SA_SMSTemplate";
+    }
+    $serialized = base64_encode(serialize($tabs));
+    $administration->saveSetting('MySettings', 'tab', $serialized);
 }

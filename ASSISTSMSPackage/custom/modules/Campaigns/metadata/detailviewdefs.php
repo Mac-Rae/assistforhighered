@@ -138,7 +138,7 @@ array(
             'customCode' => '{if $fields.campaign_type.value == "BulkCases"}<input title="{$MOD.LBL_ASSIST_BULK_CREATE_CASES_EXECUTE}" class="button" onclick="if(!confirm(\'{$MOD.LBL_ASSIST_BULK_CREATE_CASES_EXECUTE_CONFIRM}\')){ldelim}return false;{rdelim};createBulkCases();" type="button" name="bulk_cases_button" id="bulk_cases_button" value="{$MOD.LBL_ASSIST_BULK_CREATE_CASES_EXECUTE}">{/if}',
           ),
           7 => array(
-            'customCode' => '{if $fields.campaign_type.value == "SA_SMS"}<input title="{$MOD.LBL_SA_SMS_EXECUTE}" class="button" onclick="if(!confirm(\'{$MOD.LBL_SA_SMS_EXECUTE_CONFIRM}\')){ldelim}return false;{rdelim};scheduleSMS();" type="button" name="sa_sms_button" id="sa_sms_button" value="{$MOD.LBL_SA_SMS_EXECUTE}">{/if}',
+            'customCode' => '{if $fields.campaign_type.value == "SA_SMS"}<input title="{$MOD.LBL_SA_SMS_EXECUTE_NOW}" class="button" onclick="if(!confirm(\'{$MOD.LBL_SA_SMS_EXECUTE_CONFIRM}\')){ldelim}return false;{rdelim};scheduleSMS();" type="button" name="sa_sms_button" id="sa_sms_button" value="{$MOD.LBL_SA_SMS_EXECUTE_NOW}">{/if}',
           ),
           8 =>
           array(

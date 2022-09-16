@@ -1,37 +1,4 @@
-<style>
-    {literal}
-    #SMSThreadedLoadMore{
-        cursor: pointer;
-    }
-    #threaded_sa_sms_span{
-        width: 100%;
-    }
-    .sa_sms_threaded{
-        background:#bbe6a5;
-        color:#534d64;
-        padding:10px;
-        margin:10px;
-        border:1px solid transparent;
-        border-radius:4px;
-        margin-right: 50px;
-    }
-    .sa_sms_threaded.crm_out {
-        background: #e6d5a5;
-        color: #534d64;
-        padding: 10px;
-        margin: 10px;
-        border: 1px solid transparent;
-        border-radius: 4px;
-        margin-left: 50px;
-    }
-    .sa_sms_threaded.crm_out.scheduled{
-        background: #aec6cf;
-    }
-    .sms_body_textarea{
-        width: 100%;
-    }
-    {/literal}
-</style>
+
 <div id="sms_threaded_div">
     <strong>{$THREADED_TITLE}</strong>
     {if $hasMore}
@@ -116,19 +83,7 @@
 </div>
 <script>
     {literal}
-    function checkForNewSMS(){
-        var data = {};
-        var last_sms = $('#current_sms_threaded .sa_sms_threaded:last');
-        var from = last_sms.data('smsid');
-        $.get("index.php?entryPoint=SA_SMSThreadedMore&to_pdf=1&mode=new&from="+from+"&module={/literal}{$recordType}{literal}&record={/literal}{$recordId}{literal}",data,function(res){
-            last_sms.after(res);
-        });
-        var last_sms_scheduled = $('#scheduled_sms_threaded .sa_sms_threaded:last');
-        var from_scheduled = last_sms_scheduled.data('smsid');
-        $.get("index.php?entryPoint=SA_SMSThreadedMore&to_pdf=1&mode=newscheduled&from="+from_scheduled+"&module={/literal}{$recordType}{literal}&record={/literal}{$recordId}{literal}",data,function(res){
-            last_sms_scheduled.after(res);
-        });
-    }
+
     $(document).ready(function(){
         var schedule = $('#scheduleSMS');
         schedule.change(function(){
@@ -169,16 +124,10 @@
                         return;
                     }
                     $('#sms_threaded_body').val('');
-                    checkForNewSMS();
                 },
                 'JSON'
             );
         });
-        function scheduleSMSChecks(){
-            checkForNewSMS();
-            setTimeout(scheduleSMSChecks,10000);
-        }
-        scheduleSMSChecks();
     });
     {/literal}
 </script>

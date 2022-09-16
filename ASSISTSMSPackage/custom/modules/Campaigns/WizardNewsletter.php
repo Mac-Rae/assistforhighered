@@ -186,7 +186,7 @@ $ss->assign("CAMP_RECORD", $focus->id);
 $ss->assign("CAMP_IMPRESSIONS", $focus->impressions);
 
 if($campaign_type == 'SA_SMS'){
-    $ss->assign("SA_SMS_TEMPLATE", $focus->sa_sms_template);
+    $ss->assign("SA_SMS_TEMPLATE", $focus->sa_sms_contents);
 }else if($campaign_type == 'BulkCase'){
     $caseBean = BeanFactory::getBean('Cases');
     $ss->assign("ASSIST_CASE_NAME", $focus->assist_case_name);

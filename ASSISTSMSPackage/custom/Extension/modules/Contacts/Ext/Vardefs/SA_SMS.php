@@ -38,3 +38,9 @@ $dictionary['Contact']['fields']['threaded_sa_sms'] =
                 'include' => 'modules/SA_SMS/UI/SA_SMSThreaded.php',
             ),
     ];
+$dictionary['Contact']['fields']['sa_sms_opt_in'] = [
+    'name' => 'sa_sms_opt_in',
+    'vname' => 'LBL_SA_SMS_OPT_IN',
+    'type' => 'enum',
+    'options' => 'sa_sms_opt_in_options',
+];

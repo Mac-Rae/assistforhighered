@@ -58,7 +58,8 @@ class actionSendSMS extends actionBase{
             $this->getToOptions($bean),
             $currentTo
         ));
-        $ss->assign('smsBody',$params['sms_body']);
+        $templates = get_bean_select_array(true, 'SA_SMSTemplate', 'name', '', 'name');
+        $ss->assign('smsTemplateOptions',get_select_options_with_id($templates, $params['sms_template']));
         $ss->assign('MOD',$mod_strings);
         $ss->assign('line',$line);
         $html = $ss->fetch('custom/modules/AOW_Actions/actions/actionSendSMS.tpl');
@@ -112,9 +113,13 @@ class actionSendSMS extends actionBase{
         $client = SA_SMSClient::getClientFromConfig();
         $people = $this->getPeopleFromParams($bean, $params);
         $sentAnSMS = false;
+        $template = BeanFactory::getBean('SA_SMSTemplate', $params['sms_template']);
+        if(empty($template->id)){
+            return false;
+        }
         try {
             foreach ($people as $person) {
-                if (empty($person->sms_opt_in_c) || $person->sms_opt_in_c != 'Y') {
+                if (empty($person->sa_sms_opt_in) || $person->sa_sms_opt_in != 'Y') {
                     continue;
                 }
                 if (empty($person->phone_mobile)) {
@@ -123,11 +128,16 @@ class actionSendSMS extends actionBase{
                 if(!$client->isNumberValid($person->phone_mobile)){
                     continue;
                 }
-                $res = $client->sendSMS($person->phone_mobile, $params['sms_body']);
+                $beans = [
+                    $person->module_name => $person->id,
+                ];
+
+                $messageContents = SA_SMSClient::parseBody($template->description, $beans);
+                $res = $client->sendSMS($person->phone_mobile, $messageContents);
                 $sentAnSMS = true;
                 $smsBean = BeanFactory::newBean('SA_SMS');
                 $smsBean->name = "From: ".$client->getFrom()." To: ".$person->phone_mobile;
-                $smsBean->description = $params['sms_body'];
+                $smsBean->description = $messageContents;
                 $smsBean->from_number = $client->getFrom();
                 $smsBean->to_number = $person->phone_mobile;
                 $smsBean->sms_type = 'crm_out';

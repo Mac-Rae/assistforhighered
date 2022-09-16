@@ -23,7 +23,6 @@ function threaded_process($smsRecords){
     return [$smsRows, $hasMore];
 }
 function display_threaded_sms(SugarBean $bean,$field){
-    //TODO: Check for detail view, editview, new record
     $ss = new Sugar_Smarty();
     $begin = 0;
     $end = 11;
@@ -43,7 +42,7 @@ function display_threaded_sms(SugarBean $bean,$field){
 
 
 
-    $showSendForm = !empty($bean->sms_opt_in_c) && $bean->sms_opt_in_c == 'Y' && !empty($bean->phone_mobile);
+    $showSendForm = !empty($bean->sa_sms_opt_in) && $bean->sa_sms_opt_in == 'Y' && !empty($bean->phone_mobile);
     $ss->assign('showSendForm',$showSendForm);
     $ss->assign('sms_rows',$smsRows);
     $ss->assign('scheduled_sms_rows',$scheduledRows);

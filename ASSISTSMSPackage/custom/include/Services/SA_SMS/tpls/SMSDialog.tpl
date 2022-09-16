@@ -1,9 +1,63 @@
+<style>
+    {literal}
+    #SMSThreadedLoadMore{
+        cursor: pointer;
+    }
+    #sms_threaded_div{
+        overflow-y: scroll;
+        max-height: 300px;
+        scro;
+    }
+    #threaded_sa_sms_span{
+        width: 100%;
+    }
+    .sa_sms_threaded{
+        background:#bbe6a5;
+        color:#534d64;
+        padding:10px;
+        margin:10px;
+        border:1px solid transparent;
+        border-radius:4px;
+        margin-right: 50px;
+    }
+    .sa_sms_threaded.crm_out {
+        background: #e6d5a5;
+        color: #534d64;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        margin-left: 50px;
+    }
+    .sa_sms_threaded.crm_out.scheduled{
+        background: #aec6cf;
+    }
+    .sms_body_textarea{
+        width: 100%;
+    }
+    {/literal}
+</style>
+
+<div id="sms_modal">
+    <strong>{$THREADED_TITLE}</strong>
+
+<div id="sms_threaded_div">
+    {if $hasMore}
+        <a id="SMSThreadedLoadMore">{$SMS_MOD.LBL_LOAD_MORE_LINK}</a>
+    {/if}
+    <div id="current_sms_threaded">
+        {include file="modules/SA_SMS/UI/tpls/threaded_sms.tpl" sms_rows=$sms_rows}
+    </div>
+    <div id="scheduled_sms_threaded">
+        {include file="modules/SA_SMS/UI/tpls/threaded_sms.tpl" sms_rows=$scheduled_sms_rows}
+    </div>
+</div>
+
 <form id="sa_sms_dialog" action="index.php">
     <input type="hidden" name="entryPoint" value="SA_SMSDialog_Send">
     <input type="hidden" name="sugar_body_only" value="1">
     <div class="form-group">
-        <label for="">{$SMS_MOD.LBL_SMS_DIALOG_TO}:</label>
-        <span><strong>{$record.name} - {$phoneNumber}</strong></span>
+        <span id="sms_threaded_status_display"></span>
         <input type="hidden" name="phone_number" value="{$phoneNumber}"/>
         <input type="hidden" name="record_type" value="{$record.type}"/>
         <input type="hidden" name="record" value="{$record.id}"/>
@@ -38,7 +92,7 @@
             {literal}
             <script src="cache/include/javascript/sugar_grp_jsolait.js"></script>
             <script type="text/javascript">
-                var combo_schedule_date = new Datetimecombo("{/literal}{$smarty.now|date_format:"%Y-%m-%d %I:%M %p"}{literal}", "schedule_date", "11:00 pm", "0", '', false, true);
+                var combo_schedule_date = new Datetimecombo("{/literal}{$nowUser}{literal}", "schedule_date", "11:00 pm", "0", '', false, true);
                 //Render the remaining widget fields
                 text = combo_schedule_date.html('SugarWidgetScheduler.update_time();');
                 document.getElementById('schedule_date_time_section').innerHTML = text;
@@ -81,18 +135,56 @@
 </form>
 {literal}
 <script>
-    $(document).ready(function(){
-        var schedule = $('#scheduleSMS');
-        schedule.change(function(){
-            if(schedule.is(":checked")){
-                $('.schedule_options').show();
+    function checkForNewSMS(){
+        var data = {};
+        var last_sms = $('#sms_modal #current_sms_threaded .sa_sms_threaded:last');
+        var from = last_sms.data('smsid');
+        if(typeof from === 'undefined'){
+            from = '';
+        }
+        $.get("index.php?entryPoint=SA_SMSThreadedMore&to_pdf=1&mode=new&from="+from+"&module={/literal}{$recordType}{literal}&record={/literal}{$recordId}{literal}",data,function(res){
+            if(last_sms.length == 0){
+                $('#sms_modal #current_sms_threaded').append(res);
             }else{
-                $('.schedule_options').hide();
+                last_sms.after(res);
             }
         });
-        $('#sendSMSButton').click(function(e){
+        var last_sms_scheduled = $('#sms_modal #scheduled_sms_threaded .sa_sms_threaded:last');
+        var from_scheduled = last_sms_scheduled.data('smsid');
+        if(typeof from_scheduled === 'undefined'){
+            from_scheduled = '';
+        }
+        $.get("index.php?entryPoint=SA_SMSThreadedMore&to_pdf=1&mode=newscheduled&from="+from_scheduled+"&module={/literal}{$recordType}{literal}&record={/literal}{$recordId}{literal}",data,function(res){
+            if(last_sms_scheduled.length == 0){
+                $('#sms_modal #scheduled_sms_threaded').append(res);
+            }else{
+                last_sms_scheduled.after(res);
+            }
+
+        });
+    }
+    function scheduleSMSChecks(){
+        if(!$('#sms_modal').length){
+            return;
+        }
+        if($('#sms_modal').is(":hidden")){
+            return;
+        }
+        checkForNewSMS();
+        setTimeout(scheduleSMSChecks,10000);
+    }
+    $('#sms_modal').ready(function(){
+        var schedule = $('#sms_modal #scheduleSMS');
+        schedule.change(function(){
+            if(schedule.is(":checked")){
+                $('#sms_modal  .schedule_options').show();
+            }else{
+                $('#sms_modal  .schedule_options').hide();
+            }
+        });
+        $('#sms_modal  #sendSMSButton').click(function(e){
             e.preventDefault();
-            if(!$('#sms_body').val()){
+            if(!$('#sms_modal #sms_body').val()){
                 alert('{/literal}{$SMS_MOD.LBL_SMS_DIALOG_NO_BODY}{literal}');
                 return false;
             }
@@ -107,15 +199,33 @@
                 data: form.serialize(),
                 success: function(data)
                 {
-                    alert(data.result);
+                    var status_display = $('#sms_modal #sms_threaded_status_display');
+                    status_display.hide();
+                    status_display.text(data.result);
+                    status_display.toggle("highlight");
+                    if(!data.sms){
+                        return;
+                    }
+                    $('#sms_modal #sms_body').val('');
                 },
                 dataType : 'json',
             });
-            sms_mb.hide();
-            sms_mb.destruct();
-            sms_mb.remove();
             return false;
         });
+        $('#SMSThreadedLoadMore').click(function(){
+            var data = {};
+            var from = $('.sa_sms_threaded:first').data('smsid');
+            $.get("index.php?entryPoint=SA_SMSThreadedMore&to_pdf=1&from="+from+"&module={/literal}{$recordType}{literal}&record={/literal}{$recordId}{literal}",data,function(res){
+                $('#current_sms_threaded').prepend(res);
+            });
+        });
+        setTimeout(scheduleSMSChecks,10000);
+        SUGAR.util.doWhen("$('#sms_modal #sms_threaded_div').is(':visible')",function(){
+            var threadedDiv = $("#sms_modal #sms_threaded_div");
+            threadedDiv.scrollTop(threadedDiv[0].scrollHeight);
+        });
     });
+
 </script>
 {/literal}
+</div>

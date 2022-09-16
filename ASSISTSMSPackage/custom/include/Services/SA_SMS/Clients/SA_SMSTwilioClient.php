@@ -18,6 +18,9 @@ class SA_SMSTwilioClient extends SA_SMSClient {
     }
 
     public function sendSMS($to, $body, $from=""){
+        if(!self::isNumberValid($to)){
+            throw new InvalidArgumentException("Invalid Phone Number");
+        }
         $res = $this->client->messages->create(
             $to,
             [
@@ -49,6 +52,9 @@ class SA_SMSTwilioClient extends SA_SMSClient {
         return $this->from;
     }
     public function convertDate($date){
+        if(empty($date)){
+            return '';
+        }
         return $date->format("Y-m-d H:i:s");
     }
     public function convertDirection($direction){
