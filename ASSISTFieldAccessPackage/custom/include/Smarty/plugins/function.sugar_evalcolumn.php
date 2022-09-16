@@ -139,11 +139,16 @@ function smarty_function_sugar_evalcolumn($params, &$smarty)
         if($matches){
             $checkExps = [];
             foreach($matches[1] as $field) {
+                if(empty($field)){
+                    continue;
+                }
                 $checkExps[] = '$fields.'.$field.'.assist_field_hidden';
             }
-            $pre = '{if '.implode(" or ",$checkExps).' }{include file=\'custom/include/SugarFields/Redacted.tpl\' vardef=\''.$field.'\'}{else}';
-            $suff = '{/if}';
-            $code = $pre . $code . $suff;
+            if(!empty($checkExps)){
+                $pre = '{if '.implode(" or ",$checkExps).' }{include file=\'custom/include/SugarFields/Redacted.tpl\' vardef=\''.$field.'\'}{else}';
+                $suff = '{/if}';
+                $code = $pre . $code . $suff;
+            }
         }
     	return $code;
     }

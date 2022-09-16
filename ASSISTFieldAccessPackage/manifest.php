@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST Field Level Access',
     'published_date' => '2021-03-26 08:18:56',
     'type' => 'module',
-    'version' => '36',
+    'version' => '38',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [
@@ -105,6 +105,10 @@ $installdefs = [
         [
             'from' => '<basepath>/custom/include/Services/ASSISTIsReportRestricted.php',
             'to' => 'custom/include/Services/ASSISTIsReportRestricted.php',
+            ],
+        [
+            'from' => '<basepath>/custom/include/Smarty/plugins/function.sa_sms_enable.php',
+            'to' => 'custom/include/Smarty/plugins/function.sa_sms_enable.php',
             ],
         [
             'from' => '<basepath>/custom/include/Smarty/plugins/function.sugar_evalcolumn.php',

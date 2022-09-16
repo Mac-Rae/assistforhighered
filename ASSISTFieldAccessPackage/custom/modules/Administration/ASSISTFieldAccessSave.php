@@ -34,6 +34,9 @@ require_once 'custom/include/Services/ASSISTFieldRestriction.php';
 \$searchFields = ASSISTFieldRestriction::processSearchFields(\$searchFields);
 
 EOF;
+    if(substr(trim($contents), -2) === "?>"){
+        $newContents = "<?php ".$newContents;
+    }
     sugar_file_put_contents($fileName,$newContents,FILE_APPEND);
 }
 
@@ -51,6 +54,9 @@ require_once 'custom/include/Services/ASSISTFieldRestriction.php';
 \$searchdefs = ASSISTFieldRestriction::processSearchDefs(\$searchdefs);
 
 EOF;
+    if(substr(trim($contents), -2) === "?>"){
+        $newContents = "<?php ".$newContents;
+    }
     sugar_file_put_contents($fileName,$newContents,FILE_APPEND);
 }
 
