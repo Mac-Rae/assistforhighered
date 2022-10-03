@@ -32,3 +32,12 @@ $dictionary['Case']['fields']['parent_id'] =
         'reportable' => false,
         'comment' => 'The ID of the parent object identified by parent_type',
     );
+$dictionary['Case']['fields']['create_call'] =
+    array (
+        'name' => 'create_call',
+        'vname' => 'LBL_CREATE_CALL',
+        'type' => 'bool',
+        'required' => false,
+        'source' => 'non-db',
+        'studio' => ['editview' => true],
+    );

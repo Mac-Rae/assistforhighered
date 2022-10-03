@@ -21,7 +21,7 @@ $manifest = [
     'name' => 'ASSIST WYSIWYG and Case Management',
     'published_date' => '2021-03-19 00:00:00',
     'type' => 'module',
-    'version' => '39',
+    'version' => '42',
     'remove_tables' => 'prompt',
     ];
 $installdefs = [

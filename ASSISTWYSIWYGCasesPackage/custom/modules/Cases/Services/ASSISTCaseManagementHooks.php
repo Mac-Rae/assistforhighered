@@ -1,5 +1,23 @@
 <?php
 class ASSISTCaseManagementHooks{
+
+    public function createCall($bean){
+        global $timedate;
+        if(empty($bean->create_call)){
+            return;
+        }
+        $call = BeanFactory::newBean('Calls');
+        $call->name = $bean->name;
+        $call->parent_id = $bean->id;
+        $call->parent_type = $bean->module_dir;
+        $call->assigned_user_id = $bean->assigned_user_id;
+        $call->date_start = $timedate->nowDb();
+        $call->save();
+        if($bean->parent_type == 'Contacts'){
+            $call->load_relationship('contacts');
+            $call->contacts->add($bean->parent_id);
+        }
+    }
     public function saveRelatedKBArticles($bean){
         if(empty($_REQUEST['assist_related_kb_id'])){
             return;

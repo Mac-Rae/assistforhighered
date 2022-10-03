@@ -1408,6 +1408,7 @@
       file_picker_types: 'image',
       automatic_uploads: true,
       images_upload_url: 'index.php?entryPoint=tinymceimagepost',
+      convert_urls: false,
     }
   };
 }(jQuery));

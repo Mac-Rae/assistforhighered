@@ -11,3 +11,9 @@ $hook_array['after_save'][] = Array(
     'custom/include/Services/WYSIWYG/WYSIWYGLogicHooks.php',
     'WYSIWYGLogicHooks',
     'storeWYSIWYGImages');
+$hook_array['after_save'][] = Array(
+    1,
+    'Create Call',
+    'custom/modules/Cases/Services/ASSISTCaseManagementHooks.php',
+    'ASSISTCaseManagementHooks',
+    'createCall');

@@ -116,6 +116,7 @@
                 automatic_uploads: true,
                 fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
                 images_upload_url: 'index.php?entryPoint=tinymceimagepost',
+                convert_urls: false,
             {rdelim},
         ));</script>
 
