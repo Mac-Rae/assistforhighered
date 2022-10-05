@@ -711,8 +711,13 @@ EOF;
 
         $meetingOptions = $app_list_strings['sa_publicprofile_meeting_types'];
         $enabledMeetingOptions = [];
+        $meetingDay = strtolower($date->format("l"));
         foreach($meetingOptions as $meetingOption => $label){
             if(empty($profile->{'show_meeting_'.$meetingOption})){
+                continue;
+            }
+            $fieldKey = "meeting_".$meetingOption."_days";
+            if(!in_array($meetingDay, unencodeMultienum($profile->$fieldKey))){
                 continue;
             }
             $enabledMeetingOptions[$meetingOption] = $label;

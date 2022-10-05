@@ -716,6 +716,19 @@ $dictionary['SA_PublicProfile'] = array(
             'duplicate_merge' => 'true',
             'inline_edit' => true
         ),
+        'meeting_in_person_days' => array(
+            'name' => 'meeting_in_person_days',
+            'vname' => 'LBL_MEETING_IN_PERSON_DAYS',
+            'type' => 'multienum',
+            'options' => 'sa_publicprofile_business_days_dom',
+            'required' => false,
+            'audited' => true,
+            'reportable' => true,
+            'importable' => true,
+            'unified_search' => true,
+            'inline_edit' => true,
+            'isMultiSelect' => true
+        ),
         'meeting_phone_call' => array(
             'name' => 'meeting_phone_call',
             'vname' => 'LBL_MEETING_PHONE_CALL',
@@ -728,6 +741,19 @@ $dictionary['SA_PublicProfile'] = array(
             'duplicate_merge' => 'true',
             'inline_edit' => true
         ),
+        'meeting_phone_call_days' => array(
+            'name' => 'meeting_phone_call_days',
+            'vname' => 'LBL_MEETING_PHONE_CALL_DAYS',
+            'type' => 'multienum',
+            'options' => 'sa_publicprofile_business_days_dom',
+            'required' => false,
+            'audited' => true,
+            'reportable' => true,
+            'importable' => true,
+            'unified_search' => true,
+            'inline_edit' => true,
+            'isMultiSelect' => true
+        ),
         'meeting_virtual' => array(
             'name' => 'meeting_virtual',
             'vname' => 'LBL_MEETING_VIRTUAL',
@@ -739,6 +765,19 @@ $dictionary['SA_PublicProfile'] = array(
             'unified_search' => false,
             'duplicate_merge' => 'true',
             'inline_edit' => true
+        ),
+        'meeting_virtual_days' => array(
+            'name' => 'meeting_virtual_days',
+            'vname' => 'LBL_MEETING_VIRTUAL_DAYS',
+            'type' => 'multienum',
+            'options' => 'sa_publicprofile_business_days_dom',
+            'required' => false,
+            'audited' => true,
+            'reportable' => true,
+            'importable' => true,
+            'unified_search' => true,
+            'inline_edit' => true,
+            'isMultiSelect' => true
         ),
 
     ),

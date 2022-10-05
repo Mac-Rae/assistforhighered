@@ -1148,6 +1148,25 @@
         </div>
     </div>
     <div class="row public_profile_meeting_row">
+        <div class="col-md-12">
+             <table class="table table-bordered">
+                <tr>
+                {foreach from=$days item=day}
+                    <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
+                {/foreach}
+                </tr>
+                <tr>
+                {foreach from=$days item=day}
+                <td style="text-align: center;">
+                    <input type="hidden" name="public_profile_value_meeting_in_person_days_{$day}" value="0"/>
+                    <input type="checkbox" name="public_profile_value_meeting_in_person_days_{$day}" {if $public_profile_value_meeting_in_person_days[$day]}checked="checked"{/if} value="1"/>
+                </td>
+                {/foreach}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
         <div class="col-md-5">
             <div class="form-group">
                 <label for="public_profile_show_meeting_phone_call">
@@ -1170,6 +1189,25 @@
         </div>
     </div>
     <div class="row public_profile_meeting_row">
+        <div class="col-md-12">
+             <table class="table table-bordered">
+                <tr>
+                {foreach from=$days item=day}
+                    <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
+                {/foreach}
+                </tr>
+                <tr>
+                {foreach from=$days item=day}
+                <td style="text-align: center;">
+                    <input type="hidden" name="public_profile_value_meeting_phone_call_days_{$day}" value="0"/>
+                    <input type="checkbox" name="public_profile_value_meeting_phone_call_days_{$day}" {if $public_profile_value_meeting_phone_call_days[$day]}checked="checked"{/if} value="1"/>
+                </td>
+                {/foreach}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
         <div class="col-md-5">
             <div class="form-group">
                 <label for="public_profile_show_meeting_virtual">
@@ -1189,6 +1227,25 @@
             <label for="public_profile_value_meeting_virtual">{$MOD.LBL_PUBLIC_PROFILE_VALUE_MEETING_VIRTUAL}</label>
             <input class="form-control" name="public_profile_value_meeting_virtual" value="{$public_profile_value_meeting_virtual}"/>
             </div>
+        </div>
+    </div>
+    <div class="row public_profile_meeting_row">
+        <div class="col-md-12">
+             <table class="table table-bordered">
+                <tr>
+                {foreach from=$days item=day}
+                    <th style="text-align: center;">{$day|ucwords|substr:0:3}</th>
+                {/foreach}
+                </tr>
+                <tr>
+                {foreach from=$days item=day}
+                <td style="text-align: center;">
+                    <input type="hidden" name="public_profile_value_meeting_virtual_days_{$day}" value="0"/>
+                    <input type="checkbox" name="public_profile_value_meeting_virtual_days_{$day}" {if $public_profile_value_meeting_virtual_days[$day]}checked="checked"{/if} value="1"/>
+                </td>
+                {/foreach}
+                </tr>
+            </table>
         </div>
     </div>
 </fieldset>

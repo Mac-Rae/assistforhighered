@@ -33,6 +33,10 @@ class SAPublicProfileHooks{
         $profile->assigned_user_id = $user->id;
         $meetingDays = [];
         $businessDays = [];
+        $phoneDays = [];
+        $virtualDays = [];
+        $inPersonDays = [];
+
         foreach($_REQUEST as $key => $val){
             if(substr($key,0,strlen("public_profile_")) != 'public_profile_'){
                 continue;
@@ -47,6 +51,18 @@ class SAPublicProfileHooks{
             if($val && substr($field,0,strlen("meeting_days")) == 'meeting_days'){
                 $meetingDays[] = $this->parseDayFromString($field);
             }
+            if($val && substr($field,0,strlen("meeting_days")) == 'meeting_days'){
+                $meetingDays[] = $this->parseDayFromString($field);
+            }
+            if($val && substr($field,0,strlen("meeting_virtual_days")) == 'meeting_virtual_days'){
+                $virtualDays[] = $this->parseDayFromString($field);
+            }
+            if($val && substr($field,0,strlen("meeting_phone_call_days")) == 'meeting_phone_call_days'){
+                $phoneDays[] = $this->parseDayFromString($field);
+            }
+            if($val && substr($field,0,strlen("meeting_in_person_days")) == 'meeting_in_person_days'){
+                $inPersonDays[] = $this->parseDayFromString($field);
+            }
             if($field == "live_chat"){
                 $val = preg_replace("/[^A-Za-z0-9]/", '', $val);
             }
@@ -55,8 +71,11 @@ class SAPublicProfileHooks{
             }
             $profile->$field = $val;
         }
-            $profile->meeting_days = encodeMultienumValue($meetingDays);
-            $profile->business_days = encodeMultienumValue($businessDays);
+        $profile->meeting_days = encodeMultienumValue($meetingDays);
+        $profile->business_days = encodeMultienumValue($businessDays);
+        $profile->meeting_phone_call_days = encodeMultienumValue($phoneDays);
+        $profile->meeting_virtual_days = encodeMultienumValue($virtualDays);
+        $profile->meeting_in_person_days = encodeMultienumValue($inPersonDays);
         if(!empty($_REQUEST['public_profile_photo_remove_photo'])){
             $profile->photo_name = '';
             $profile->photo_mime = '';

@@ -129,13 +129,25 @@ class SA_PublicProfile extends Basic
                 'showable' => true,
                 'value' => true,
             ),
+            'meeting_in_person_days' => array(
+                'showable' => false,
+                'type' => 'days',
+            ),
             'meeting_phone_call' => array(
                 'showable' => true,
                 'value' => true,
             ),
+            'meeting_phone_call_days' => array(
+                'showable' => false,
+                'type' => 'days',
+            ),
             'meeting_virtual' => array(
                 'showable' => true,
                 'value' => true,
+            ),
+            'meeting_virtual_days' => array(
+                'showable' => false,
+                'type' => 'days',
             ),
         ];
         foreach($fields as $name => $field){
