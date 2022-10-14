@@ -190,6 +190,7 @@
                         }
                     );
                 });
+                    typeField.change();
                     if(d){
                         newLine.find('#cfd_type\\['+index+'\\]').val(d['type']);
 

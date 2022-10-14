@@ -7,7 +7,7 @@ if (!is_admin($current_user)) {
 if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
     $cfg = new Configurator();
     $cfg->allow_undefined[] = 'customizefielddisplay';
-    $cfg->config['customizefielddisplay'] = array();
+    unset($cfg->config['customizefielddisplay']);
     foreach($_REQUEST['cfd_name'] as $key => $name){
         $rule = array(
             'index' => $key,
@@ -36,6 +36,7 @@ if (isset($_REQUEST['do']) && $_REQUEST['do'] === 'save') {
         }
         $cfg->config['customizefielddisplay'][] = $rule;
     }
+    $cfg->addKeyToIgnoreOverride("customizefielddisplay",$cfg->config['customizefielddisplay']);
     $cfg->handleOverride();
     $cfg->clearCache();
     SugarApplication::redirect('index.php?module=Administration&action=index');
